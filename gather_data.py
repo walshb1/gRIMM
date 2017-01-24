@@ -19,7 +19,10 @@ use_guessed_social=True #else keeps nans
 use_avg_pe=True #otherwise 0 when no data
 use_newest_wdi_findex_aspire=False  #too late to include new data just before report release
 drop_unused_data=True #if true removes from df and cat_info theintermediate variables
+
+# looks like this is the for switching from country to local level--on advice, I am going to ignore this & create a version of the code that works only for PHL
 economy="country" #province, deparmtent
+
 event_level = [economy, "hazard", "rp"]	#levels of index at which one event happens
 default_rp = "default_rp" #return period to use when no rp is provided (mind that this works with protection)
 income_cats   = pd.Index(["poor","nonpoor"],name="income_cat")	#categories of households
@@ -47,6 +50,8 @@ any_to_wb=pd.read_csv(inputs+"/any_name_to_wb_name.csv",index_col="any",squeeze=
 iso3_to_wb=pd.read_csv(inputs+"/iso3_to_wb_name.csv").set_index("iso3").squeeze()	#iso3 to wb country name table
 iso2_iso3=pd.read_csv(inputs+"/names_to_iso.csv", usecols=["iso2","iso3"]).drop_duplicates().set_index("iso2").squeeze() #iso2 to iso3 table 
 
+f_phl_prov = pd.ExcelFile(inputs+"/PSA_compiled.xlsx")
+list_phl_prov = pd.read_excel(f_phl_prov,sheetname="data", parse_cols="A", skiprows=2).dropna().squeeze()
 
 #Read data
 ##Macro data
