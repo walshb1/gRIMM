@@ -50,8 +50,10 @@ any_to_wb=pd.read_csv(inputs+"/any_name_to_wb_name.csv",index_col="any",squeeze=
 iso3_to_wb=pd.read_csv(inputs+"/iso3_to_wb_name.csv").set_index("iso3").squeeze()	#iso3 to wb country name table
 iso2_iso3=pd.read_csv(inputs+"/names_to_iso.csv", usecols=["iso2","iso3"]).drop_duplicates().set_index("iso2").squeeze() #iso2 to iso3 table 
 
-f_phl_prov = pd.ExcelFile(inputs+"/PSA_compiled.xlsx")
-list_phl_prov = pd.read_excel(f_phl_prov,sheetname="data", parse_cols="A", skiprows=2).dropna().squeeze()
+# Philippines section
+df_phl = pd.read_excel(inputs+"/PSA_compiled.xlsx",sheetname="data", skiprows=1, index_col=0)#.dropna().squeeze()
+df_phl[["cp","cr","gdp_pc_pp"]]/=1e3
+print(df_phl.head(5))
 
 #Read data
 ##Macro data
