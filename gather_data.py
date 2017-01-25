@@ -10,8 +10,9 @@ import os, time
 import warnings
 warnings.filterwarnings("always",category=UserWarning)  
 
-
 #Options and parameters
+do_reporting = False
+
 protection_from_flopros=True #FLOPROS is an evolving global database of flood protection standards. It will be used in Protection.
 no_protection=True #Used in Protection. 
 use_GLOFRIS_flood=False  #else uses GAR (True does not work i think)
@@ -51,40 +52,59 @@ iso3_to_wb=pd.read_csv(inputs+"/iso3_to_wb_name.csv").set_index("iso3").squeeze(
 iso2_iso3=pd.read_csv(inputs+"/names_to_iso.csv", usecols=["iso2","iso3"]).drop_duplicates().set_index("iso2").squeeze() #iso2 to iso3 table 
 
 # Philippines section
-df_phl = pd.read_excel(inputs+"/PSA_compiled.xlsx",sheetname="data", skiprows=1, index_col=0)#.dropna().squeeze()
+df_phl = pd.read_excel(inputs+"/PHL_PSA_compiled.xlsx",sheetname="data", skiprows=1, index_col=0)#.dropna().squeeze()
+df_phl.index.name = "Province"
 df_phl[["cp","cr","gdp_pc_pp"]]/=1e3
-print(df_phl.head(5))
 
 #Read data
 ##Macro data
 ###Economic data from the world bank
 the_file=inputs+"wb_data_backup.csv"
 nb_weeks=(time.time()-os.stat(the_file).st_mtime )/(3600*24*7)	#calculate the nb of weeks since the last modified time
-if nb_weeks>20: 
+if nb_weeks>20 and do_reporting: 
     warnings.warn("World bank data are "+str(int(nb_weeks))+" weeks old. You may want to download them again.")
 df=pd.read_csv(the_file).set_index(economy)
+
 df["urbanization_rate"]=pd.read_csv(inputs+"/wb_data.csv").set_index(economy)["urbanization_rate"]
-df=df.drop(["plgp","unemp","bashs","ophe", "axhealth"],axis=1)	## Drops here the data not used, to avoid it counting as missing data. What are included are:gdp_pc_pp, pop, share1, axfin_p, axfin_r, social_p, social_r, urbanization_rat.
+df=df.drop(["plgp","unemp","bashs","ophe", "axhealth"],axis=1)	## Drops here the data not used, to avoid it counting as missing data. What are included are:gdp_pc_pp, pop, share1, axfin_p, axfin_r, social_p, social_r, urbanization_rate.
 
 ###Define parameters
 df["pov_head"]=poverty_head #poverty head
 ph=df.pov_head
+
 df["T_rebuild_K"] = reconstruction_time #Reconstruction time
 df["pi"] = reduction_vul	# how much early warning reduces vulnerability
 df["income_elast"] = inc_elast	#income elasticity
 df["rho"] = discount_rate	#discount rate
 df["shareable"]=asset_loss_covered  #target of asset losses to be covered by scale up
-df["max_increased_spending"] = max_support # 5% of GDP in post-disaster support maximum, if everything is ready  
+df["max_increased_spending"] = max_support # 5% of GDP in post-disaster support maximum, if everything is ready 
 
+# Pick up columns from df:
+df_phl["urbanization_rate"] = df["urbanization_rate"]["Philippines"]
+df_phl["share1"] = df["share1"]["Philippines"]
+df_phl["axfin_p"] = df["axfin_p"]["Philippines"]
+df_phl["axfin_r"] = df["axfin_r"]["Philippines"]
+df_phl["T_rebuild_K"] = reconstruction_time #Reconstruction time
+df_phl["pi"] = reduction_vul	# how much early warning reduces vulnerability
+df_phl["income_elast"] = inc_elast	#income elasticity
+df_phl["rho"] = discount_rate	#discount rate
+df_phl["shareable"]=asset_loss_covered  #target of asset losses to be covered by scale up
+df_phl["max_increased_spending"] = max_support # 5% of GDP in post-disaster support maximum, if everything is ready  
+
+# at this point, df_phl has ["cp","cr","shewp","shewr"], more than df
+
+# Not relevant for PHL
 ###Social transfer Data from EUsilc (European Union Survey of Income and Living Conditions) and other countries.
 silc=pd.read_csv(inputs+"/social_ratios.csv") #XXX: there is data from ASPIRE in social_ratios. Use fillna instead to update df.
 silc=silc.set_index(silc.cc.replace({"EL":"GR","UK":"GB"}).replace(iso2_iso3).replace(iso3_to_wb)) #Change indexes with wold bank names. UK and greece have differnt codes in Europe than ISO2. The first replace is to change EL to GR, and change UK to GB. The second one is to change iso2 to iso3, and the third one is to change iso3 to the wb
 df.ix[silc.index,["social_p","social_r"]]  = silc[["social_p","social_r"]] #Update social transfer from EUsilc.
 where=(isnull(df.social_r)&~isnull(df.social_p))|(isnull(df.social_p)&~isnull(df.social_r)) #shows the country where social_p and social_r are not both NaN.
-print("social_p and social_r are not both NaN for " + "; ".join(df.loc[where].index))
+if(do_reporting): 
+    print("social_p and social_r are not both NaN for " + "; ".join(df.loc[where].index))
 df.loc[isnull(df.social_r),['social_p','social_r']]=np.nan
 df.loc[isnull(df.social_p),['social_p','social_r']]=np.nan
 
+# We have "social_p" and "social_r" for PHL
 ###Guess social transfer
 guessed_social=pd.read_csv(inputs+"/df_social_transfers_statistics.csv", index_col=0)[["social_p_est","social_r_est"]]
 guessed_social.columns=["social_p", "social_r"]
@@ -95,6 +115,7 @@ if use_guessed_social:
 #2015 hfa
 hfa15=pd.read_csv(inputs+"/HFA_all_2013_2015.csv")
 hfa15=hfa15.set_index(replace_with_warning(hfa15["Country name"],any_to_wb))
+
 # READ THE LAST HFA DATA
 hfa_newest=pd.read_csv(inputs+"/HFA_all_2011_2013.csv")
 hfa_newest=hfa_newest.set_index(replace_with_warning(hfa_newest["Country name"],any_to_wb))
@@ -110,13 +131,18 @@ hfa["finance_pre"]=(1+hfa["P5-C3"])/6 #betwenn 0 and 1	!!!!!!!!!!!!!!!!!!!REMARK
 df[["shew","prepare_scaleup","finance_pre"]]=hfa[["shew","prepare_scaleup","finance_pre"]]
 df[["shew","prepare_scaleup","finance_pre"]]=df[["shew","prepare_scaleup","finance_pre"]].fillna(0)	#assumes no reporting is bad situation (caution! do the fillna after inputing to df to get the largest set of index)
 
+# Adapt the last block for PHL:
+df_phl["finance_pre"] = df["finance_pre"]["Philippines"]
+df_phl["prepare_scaleup"] = df["prepare_scaleup"]["Philippines"]
+#df_phl["shew"] = df["shew"]["Philippines"]
+
 ###Income group
 #df["income_group"]=pd.read_csv(inputs+"/income_groups.csv",header=4,index_col=2)["Income group"].dropna()
 
 ###Country Ratings
 the_credit_rating_file=inputs+"/cred_rat.csv"
 nb_weeks=(time.time()-os.stat(the_credit_rating_file).st_mtime )/(3600*24*7)
-if nb_weeks>3: 
+if nb_weeks>3 and do_reporting:
     warnings.warn("Credit ratings are "+str(int(nb_weeks))+" weeks old. Get new ones at http://www.tradingeconomics.com/country-list/rating")
 ratings_raw=pd.read_csv(the_credit_rating_file,dtype="str").dropna(how="all") #drop rows where only all columns are NaN.
 ratings_raw=ratings_raw.rename(columns={"Unnamed: 0": "country_in_ratings"})[["country_in_ratings","S&P","Moody's","Fitch"]]	#Rename "Unnamed: 0" to "country_in_ratings" and pick only columns with country_in_ratings, S&P, Moody's and Fitch.
@@ -133,22 +159,28 @@ ratings["Moody's"].replace(rat_disc["moodys"].values,rat_disc["moodys_score"].va
 ratings["Fitch"].replace(rat_disc["fitch"].values,rat_disc["fitch_score"].values,inplace=True)
 ratings["rating"]=ratings.mean(axis=1)/100 #axis=1 is the average across columns, axis=0 is to average across rows. .mean ignores NaN
 df["rating"] = ratings["rating"]
-print("some bad rating occurs for" + "; ".join(df.loc[isnull(df.rating)].index))
+if(do_reporting):
+    print("some bad rating occurs for" + "; ".join(df.loc[isnull(df.rating)].index))
 df["rating"].fillna(0,inplace=True)  #assumes no rating is bad rating
 
 ###Ratings + HFA
 df["borrow_abi"]=(df["rating"]+df["finance_pre"])/2 # Ability and willingness to improve transfers after the disaster
 
+df_phl["rating"] = df["rating"]["Philippines"]
+df_phl["borrow_abi"] = df["borrow_abi"]["Philippines"]
+
 ##Capital data
-k_data=pd.read_csv(inputs+"/capital_data.csv", usecols=["code","cgdpo","ck"]).replace({"ROM":"ROU","ZAR":"COD"}).rename(columns={"cgdpo":"prod_from_k","ck":"k"})#Zair is congo
+k_data=pd.read_csv(inputs+"/capital_data.csv", usecols=["code","cgdpo","ck"]).replace({"ROM":"ROU","ZAR":"COD"}).rename(columns={"cgdpo":"prod_from_k","ck":"k"})#Zaire is congo
 iso_country = pd.read_csv(inputs+"/iso3_to_wb_name.csv", index_col="iso3")	#matches names in the dataset with world bank country names
 k_data.set_index("code",inplace=True)
 k_data["country"]=iso_country["country"]
 cond = k_data["country"].isnull()
-if cond.sum()>0:
+if cond.sum()>0 and do_reporting:
      warnings.warn("this countries appear to be missing from iso3_to_wb_name.csv: "+" , ".join(k_data.index[cond].values))
 k_data=k_data.reset_index().set_index("country")
 df["avg_prod_k"]=k_data["prod_from_k"]/k_data["k"]	#\mu in the technical paper -- average productivity of capital
+
+df_phl["avg_prod_k"] = df["avg_prod_k"]["Philippines"]
 
 ##Hazards data
 ###Vulnerability from Pager data
@@ -183,8 +215,11 @@ v = v_unshaved.copy()
 
 ###apply \delta_K = f_a * V, and use destroyed capital from GAR data, and fa_threshold to recalculate vulnerability
 frac_value_destroyed_gar = pd.read_csv(inputs+"/frac_value_destroyed_gar_completed.csv", index_col=["country", "hazard", "rp"], squeeze=True);#\delta_K, Generated by pre_process\ GAR.ipynb
-fa_guessed_gar = (frac_value_destroyed_gar/broadcast_simple(v_unshaved,frac_value_destroyed_gar.index)).dropna()	#fa is the fraction of asset affected. broadcast_simple, substitute the value in frac_value_destroyed_gar by values in v_unshaved. Here it assumes that vulnerability for all types of disasters are the same. fa_guessed_gar = exposure/vulnerability
+fa_guessed_gar = (frac_value_destroyed_gar/broadcast_simple(v_unshaved,frac_value_destroyed_gar.index)).dropna()	
+#fa is the fraction of asset affected. broadcast_simple, substitute the value in frac_value_destroyed_gar by values in v_unshaved. 
+# - Here it assumes that vulnerability for all types of disasters are the same. fa_guessed_gar = exposure/vulnerability
 fa_guessed_gar.name  = "fa"
+
 excess=fa_guessed_gar[fa_guessed_gar>fa_threshold].max(level="country")
 for c in excess.index:
     r = (excess/fa_threshold)[c]
@@ -193,8 +228,12 @@ for c in excess.index:
     vp.ix[c] *= r
     vr.ix[c] *= r
     v.ix[c] *=r
+
 vp = vp.clip(upper=.99)
 vr = vr.clip(upper=.99)
+
+fa_guessed_gar_phl = fa_guessed_gar["Philippines"]
+df_v_phl = pd.DataFrame([vp["Philippines"],vr["Philippines"],v["Philippines"]],index=["vp","vr","v"],columns=['Philippines']).T
 
 ###Exposure bias from PEB
 data = pd.read_excel(inputs+"/PEB_flood_povmaps.xlsx")[["iso","peb"]].dropna()	#Exposure bias from WB povmaps study
@@ -207,6 +246,8 @@ if use_avg_pe:
 else:
     df["pe"].fillna(0)
 pe = df.pop("pe")
+
+df_phl["pe"] = pe["Philippines"]
 
 ###incorporates exposure bias, but only for (riverine) flood and surge, and gets an updated fa for income_cats
 fa_hazard_cat = broadcast_simple(fa_guessed_gar,index=income_cats) #fraction of assets affected per hazard and income categories
@@ -234,8 +275,11 @@ else: #assumed a function of the income group
 if no_protection:
     p=hazard_ratios.reset_index("rp").rp.min()
     df.protection=p
-    print("PROTECTION IS ",p)
-    
+    if(do_reporting):
+        print("PROTECTION IS ",p)
+
+df_phl["protection"] = df["protection"]["Philippines"]    
+
 ##Data by income categories
 cat_info =pd.DataFrame()
 cat_info["n"]  = concat_categories(ph,(1-ph),index= income_cats)	#number
@@ -249,6 +293,7 @@ cat_info = cat_info.dropna()
 ##Taxes, redistribution, capital
 df["tau_tax"],cat_info["gamma_SP"] = social_to_tx_and_gsp(economy,cat_info)	#computes tau tax and gamma_sp from socail_poor and social_nonpoor. CHECKED!
 cat_info["k"] = (1-cat_info["social"])*cat_info["c"]/((1-df["tau_tax"])*df["avg_prod_k"]) #here k in cat_info has poor and non poor, while that from capital_data.csv has only k, regardless of poor or nonpoor
+df_phl["tau_tax"] = df["tau_tax"]["Philippines"]
 
 #Exposure
 cat_info["fa"] =hazard_ratios.fa.mean(level=["country","income_cat"])
@@ -260,8 +305,6 @@ cat_info["v"] = concat_categories(vp,vr, index=income_cats)
 cat_info["shew"] = hazard_ratios.shew.drop("eathrquake", level="hazard").mean(level=["country","income_cat"])
 
 
-
-
 if drop_unused_data:
     cat_info= cat_info.drop(["social"],axis=1, errors="ignore").dropna()
     df_in = df.drop(["social_p", "social_r","share1","pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"],axis=1, errors="ignore").dropna()
@@ -269,12 +312,18 @@ else :
     df_in = df.dropna()
 df_in = df_in.drop([ "shew","v"],axis=1, errors="ignore").dropna()
 
-#Save all data
-fa_guessed_gar.to_csv(intermediate+"/fa_guessed_from_GAR_and_PAGER_shaved.csv",encoding="utf-8", header=True)
-pd.DataFrame([vp,vr,v], index=["vp","vr","v"]).T.to_csv(intermediate+"/v_pr_fromPAGER_shaved_GAR.csv",encoding="utf-8", header=True)	
-df_in.to_csv(intermediate+"/macro.csv",encoding="utf-8", header=True)
+df_phl_in = df_phl.dropna()
+
+#Save all data	
 cat_info.to_csv(intermediate+"/cat_info.csv",encoding="utf-8", header=True)
 hazard_ratios.to_csv(intermediate+"/hazard_ratios.csv",encoding="utf-8", header=True)
 
+# PHL: save all data
+df_v_phl.to_csv(intermediate+"/PHL_v_pr_fromPAGER_shaved_GAR.csv",encoding="utf-8", header=True)
+fa_guessed_gar_phl.to_csv(intermediate+"/PHL_fa_guessed_from_GAR_and_PAGER_shaved.csv",encoding="utf-8", header=True)
+df_phl_in.to_csv(intermediate+"/PHL_macro.csv",encoding="utf-8", header=True)
 
-
+#Save all data
+pd.DataFrame([vp,vr,v], index=["vp","vr","v"]).T.to_csv(intermediate+"/v_pr_fromPAGER_shaved_GAR.csv",encoding="utf-8", header=True)
+fa_guessed_gar.to_csv(intermediate+"/fa_guessed_from_GAR_and_PAGER_shaved.csv",encoding="utf-8", header=True)
+df_in.to_csv(intermediate+"/macro.csv",encoding="utf-8", header=True)
