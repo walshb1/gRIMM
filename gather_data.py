@@ -18,7 +18,7 @@ use_GLOFRIS_flood            = False #else uses GAR (True does not work i think)
 use_guessed_social           = True  #else keeps nans
 use_avg_pe                   = True  #otherwise 0 when no data
 use_newest_wdi_findex_aspire = False  #too late to include new data just before report release
-drop_unused_data             = True #if true removes from df and cat_info the intermediate variables
+drop_unused_data             = False #if true removes from df and cat_info the intermediate variables
 economy                      = "country" #province, department
 # looks like this is the for switching from country to local level--on advice, I am going to ignore this & create a version of the code that works only for PHL
 
@@ -87,7 +87,6 @@ df["max_increased_spending"] = max_support # 5% of GDP in post-disaster support 
 
 # Pick up columns from df:
 df_phl["urbanization_rate"] = df["urbanization_rate"]["Philippines"]
-df_phl["share1"] = df["share1"]["Philippines"]
 df_phl["axfin_p"] = df["axfin_p"]["Philippines"]
 df_phl["axfin_r"] = df["axfin_r"]["Philippines"]
 df_phl["T_rebuild_K"] = reconstruction_time #Reconstruction time
@@ -96,6 +95,10 @@ df_phl["income_elast"] = inc_elast	#income elasticity
 df_phl["rho"] = discount_rate	#discount rate
 df_phl["shareable"]=asset_loss_covered  #target of asset losses to be covered by scale up
 df_phl["max_increased_spending"] = max_support # 5% of GDP in post-disaster support maximum, if everything is ready  
+
+# df_phl["share1"] = df["share1"]["Philippines"]
+df_phl["share1"] = df_phl['cp']/(df_phl['pov_head']*df_phl['cp']+(1-df_phl['pov_head'])*df_phl['cr'])
+print(df_phl["share1"])
 # at this point, df_phl has ["cp","cr","shewp","shewr"], more than df
 
 # Not relevant for PHL
@@ -391,8 +394,8 @@ else :
     df_in = df.dropna()
     df_in_phl = df_phl.dropna()
 
-df_in = df_in.drop(["shew","v"],axis=1, errors="ignore").dropna()
-df_in_phl = df_in_phl.drop(["shew","v"],axis=1, errors="ignore").dropna()
+#df_in = df_in.drop(["shew","v"],axis=1, errors="ignore").dropna()
+#df_in_phl = df_in_phl.drop(["shew","v"],axis=1, errors="ignore").dropna()
 
 # PHL: save all data
 hazard_ratios_phl.to_csv(intermediate+"/PHL_hazard_ratios.csv",encoding="utf-8", header=True)

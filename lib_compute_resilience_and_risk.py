@@ -480,7 +480,7 @@ def calc_risk_and_resilience_from_k_w(df, is_local_welfare=True):
     
     ############
     #SOCIO-ECONOMIC CAPACITY)
-    df["resilience"] =dWref/(df["delta_W"] )
+    df["resilience"] =dWref/(df["delta_W"])
 
     ############
     #RISK TO ASSETS
