@@ -298,10 +298,6 @@ fa_hazard_cat_phl.update(fa_with_pe_phl)
 hazard_ratios = pd.DataFrame(fa_hazard_cat)
 hazard_ratios_phl = pd.DataFrame(fa_hazard_cat_phl)
 
-#print(hazard_ratios_phl)
-#print(df_phl.shewp)
-#print(hazard_ratios_phl.index)
-
 hazard_ratios["shew"]=broadcast_simple(df.shew, index=hazard_ratios.index)
 hazard_ratios_phl["shew"]=broadcast_simple(df_phl.shew, index=hazard_ratios_phl.index)
 
