@@ -45,6 +45,7 @@ reduction_vul       = 0.20
 # - Define directories
 model        = os.getcwd() #get current directory
 inputs       = model+'/inputs/' #get inputs data directory
+PHLinputs    = model+'/inputs/PHL' #get inputs data directory
 intermediate = model+'/intermediate/' #get outputs data directory
 if not os.path.exists(intermediate): #if the depository directory doesn't exist, create one
     os.makedirs(intermediate)
@@ -54,10 +55,9 @@ any_to_wb  = pd.read_csv(inputs+"/any_name_to_wb_name.csv",index_col="any",squee
 iso3_to_wb = pd.read_csv(inputs+"/iso3_to_wb_name.csv").set_index("iso3").squeeze()	#iso3 to wb country name table
 iso2_iso3  = pd.read_csv(inputs+"/names_to_iso.csv", usecols=["iso2","iso3"]).drop_duplicates().set_index("iso2").squeeze() #iso2 to iso3 table 
 
-# - Philippines section
-df_phl = pd.read_excel(inputs+"/PHL_PSA_compiled.xlsx",sheetname="data", skiprows=1, index_col=0)#.dropna().squeeze()
-df_phl.index.name = "province"
-df_phl[["cp","cr","gdp_pc_pp"]]/=1e3
+######################################
+# ---> Global section
+#
 
 #Read data
 ##Macro data
@@ -76,7 +76,6 @@ df=df.drop(["plgp","unemp","bashs","ophe", "axhealth"],axis=1)
 ###Define parameters
 df["pov_head"]=poverty_head #poverty head
 ph=df.pov_head
-ph_phl = df_phl.pov_head
 
 df["T_rebuild_K"] = reconstruction_time #Reconstruction time
 df["pi"] = reduction_vul	# how much early warning reduces vulnerability
@@ -85,23 +84,6 @@ df["rho"] = discount_rate	#discount rate
 df["shareable"]=asset_loss_covered  #target of asset losses to be covered by scale up
 df["max_increased_spending"] = max_support # 5% of GDP in post-disaster support maximum, if everything is ready 
 
-# Pick up columns from df:
-df_phl["urbanization_rate"] = df["urbanization_rate"]["Philippines"]
-df_phl["axfin_p"] = df["axfin_p"]["Philippines"]
-df_phl["axfin_r"] = df["axfin_r"]["Philippines"]
-df_phl["T_rebuild_K"] = reconstruction_time #Reconstruction time
-df_phl["pi"] = reduction_vul	# how much early warning reduces vulnerability
-df_phl["income_elast"] = inc_elast	#income elasticity
-df_phl["rho"] = discount_rate	#discount rate
-df_phl["shareable"]=asset_loss_covered  #target of asset losses to be covered by scale up
-df_phl["max_increased_spending"] = max_support # 5% of GDP in post-disaster support maximum, if everything is ready  
-
-# df_phl["share1"] = df["share1"]["Philippines"]
-df_phl["share1"] = df_phl['cp']/(df_phl['pov_head']*df_phl['cp']+(1-df_phl['pov_head'])*df_phl['cr'])
-print(df_phl["share1"])
-# at this point, df_phl has ["cp","cr","shewp","shewr"], more than df
-
-# Not relevant for PHL
 ###Social transfer Data from EUsilc (European Union Survey of Income and Living Conditions) and other countries.
 silc=pd.read_csv(inputs+"/social_ratios.csv") #XXX: there is data from ASPIRE in social_ratios. Use fillna instead to update df.
 silc=silc.set_index(silc.cc.replace({"EL":"GR","UK":"GB"}).replace(iso2_iso3).replace(iso3_to_wb)) #Change indexes with wold bank names. UK and greece have differnt codes in Europe than ISO2. The first replace is to change EL to GR, and change UK to GB. The second one is to change iso2 to iso3, and the third one is to change iso3 to the wb
@@ -112,7 +94,6 @@ if(do_reporting):
 df.loc[isnull(df.social_r),['social_p','social_r']]=np.nan
 df.loc[isnull(df.social_p),['social_p','social_r']]=np.nan
 
-# We have "social_p" and "social_r" for PHL
 ###Guess social transfer
 guessed_social=pd.read_csv(inputs+"/df_social_transfers_statistics.csv", index_col=0)[["social_p_est","social_r_est"]]
 guessed_social.columns=["social_p", "social_r"]
@@ -138,14 +119,6 @@ hfa["prepare_scaleup"]=(hfa["P4-C2"]+hfa["P5-C2"]+hfa["P4-C5"])/3/5 # q_s in the
 hfa["finance_pre"]=(1+hfa["P5-C3"])/6 #betwenn 0 and 1	!!!!!!!!!!!!!!!!!!!REMARK: INCONSISTENT WITH THE TECHNICAL PAPER. Q_f=1/2(ratings+P5C3/5)
 df[["shew","prepare_scaleup","finance_pre"]]=hfa[["shew","prepare_scaleup","finance_pre"]]
 df[["shew","prepare_scaleup","finance_pre"]]=df[["shew","prepare_scaleup","finance_pre"]].fillna(0)	#assumes no reporting is bad situation (caution! do the fillna after inputing to df to get the largest set of index)
-
-# Adapt the last block for PHL:
-df_phl["finance_pre"] = df["finance_pre"]["Philippines"]
-df_phl["prepare_scaleup"] = df["prepare_scaleup"]["Philippines"]
-df_phl["shew"] = df["shew"]["Philippines"]
-
-###Income group
-#df["income_group"]=pd.read_csv(inputs+"/income_groups.csv",header=4,index_col=2)["Income group"].dropna()
 
 ###Country Ratings
 the_credit_rating_file=inputs+"/cred_rat.csv"
@@ -176,9 +149,6 @@ df["rating"].fillna(0,inplace=True)  #assumes no rating is bad rating
 ###Ratings + HFA
 df["borrow_abi"]=(df["rating"]+df["finance_pre"])/2 # Ability and willingness to improve transfers after the disaster
 
-df_phl["rating"] = df["rating"]["Philippines"]
-df_phl["borrow_abi"] = df["borrow_abi"]["Philippines"]
-
 ##Capital data
 k_data=pd.read_csv(inputs+"/capital_data.csv",usecols=["code","cgdpo","ck"]).replace({"ROM":"ROU","ZAR":"COD"}).rename(columns={"cgdpo":"prod_from_k","ck":"k"})#Zaire=Congo
 iso_country = pd.read_csv(inputs+"/iso3_to_wb_name.csv", index_col="iso3")	#matches names in the dataset with world bank country names
@@ -190,8 +160,6 @@ if cond.sum()>0 and do_reporting:
 k_data=k_data.reset_index().set_index("country")
 df["avg_prod_k"]=k_data["prod_from_k"]/k_data["k"] #\mu in the technical paper -- average productivity of capital
 
-df_phl["avg_prod_k"] = df["avg_prod_k"]["Philippines"]
-
 ##Hazards data
 ###Vulnerability from Pager data
 pager_description_to_aggregate_category = pd.read_csv(inputs+"/pager_description_to_aggregate_category.csv", index_col="pager_description", squeeze=True)
@@ -200,27 +168,22 @@ pager_desc_to_code = pd.read_excel(PAGER_XL,sheetname="Release_Notes", parse_col
 pager_desc_to_code.Description = pager_desc_to_code.Description.str.strip(". ")	#removes spaces and dots from PAGER description
 pager_desc_to_code.Description = pager_desc_to_code.Description.str.replace("  "," ")	#replace double spaces with single spaces
 pager_desc_to_code = pager_desc_to_code.set_index("PAGER-STR")
-pager_code_to_aggcat = replace_with_warning( pager_desc_to_code.Description, pager_description_to_aggregate_category, joiner="\n") #results in a table with PAGER-STR index and associated category (fragile, median etc.)
+pager_code_to_aggcat = replace_with_warning( pager_desc_to_code.Description, pager_description_to_aggregate_category, joiner="\n") 
+#results in a table with PAGER-STR index and associated category (fragile, median etc.)
 
 ###total share of each category of building per country
 rural_share= .5*get_share_from_sheet(PAGER_XL,pager_code_to_aggcat,iso3_to_wb,sheetname='Rural_Non_Res')+.5*get_share_from_sheet(PAGER_XL,pager_code_to_aggcat,iso3_to_wb,sheetname='Rural_Res')
 urban_sare = .5*get_share_from_sheet(PAGER_XL,pager_code_to_aggcat,iso3_to_wb,sheetname='Urban_Non_Res')+.5*get_share_from_sheet(PAGER_XL,pager_code_to_aggcat,iso3_to_wb,sheetname='Urban_Res')
 share = (rural_share.stack()*(1-df.urbanization_rate) + urban_sare.stack()*df.urbanization_rate).unstack().dropna()	#the sum(axis=1) of rural_share is equal to 1, so rural_share needs to be weighted by the 1-urbanization_rate, same for urban_share
 share=  share[share.index.isin(iso3_to_wb)] #the share of building inventory for fragile, median and robust
-share_phl = pd.DataFrame([share.loc['Philippines']], index=df_phl.index, columns=["fragile","median","robust"])
 
 ###matching vulnerability of buildings and people's income and calculate poor's, rich's and country's vulnerability
 agg_cat_to_v = pd.read_csv(inputs+"/aggregate_category_to_vulnerability.csv", sep=";", index_col="aggregate_category", squeeze=True)
 ##REMARK: NEED TO BE CHANGED....Stephane I've talked to @adrien_vogt_schilb and don't want you to go over our whole conversation. Here is the thing: in your model, you assume that the bottom 20% of population gets the 20% of buildings of less quality. I don't think it's a fair jusfitication, because normally poor people live in buildings of less quality but in a more crowded way,i.e., it could be the bottom 40% of population get the 10% of buildings of less quality. I think we need to correct this matter. @adrien_vogt_schilb also agreed on that, if he didn't change his opinion. How to do that? I think once we incorporate household data, we can allocate buildings on the decile of households, rather than population. I think it's a more relaistic assumption. 
 
 p=(share.cumsum(axis=1).add(-df["pov_head"],axis=0)).clip(lower=0)
-p_phl = pd.DataFrame([share.cumsum(axis=1).loc['Philippines']], index=df_phl.index, columns=["fragile","median","robust"]).add(-df_phl["pov_head"],axis=0).clip(lower=0)
-
 poor=(share-p).clip(lower=0)
-poor_phl = (share_phl-p_phl).clip(lower=0)
-
 rich=share-poor
-rich_phl = share_phl - poor_phl
 
 vp_unshaved=((poor*agg_cat_to_v).sum(axis=1, skipna=False)/df["pov_head"] )
 vr_unshaved=(rich*agg_cat_to_v).sum(axis=1, skipna=False)/(1-df["pov_head"])
@@ -231,15 +194,6 @@ vp = vp_unshaved.copy()
 vr = vr_unshaved.copy()
 v = v_unshaved.copy()
 
-vp_unshaved_phl = (poor_phl*agg_cat_to_v).sum(axis=1, skipna=False)/(df_phl["pov_head"])
-vr_unshaved_phl = (rich_phl*agg_cat_to_v).sum(axis=1, skipna=False)/(1-df_phl["pov_head"])
-v_unshaved_phl  =  vp_unshaved_phl*df_phl.share1 + vr_unshaved_phl*(1-df_phl.share1)
-v_unshaved_phl.name="v"
-v_unshaved_phl.index.name = "province"
-vp_phl = vp_unshaved_phl.copy()
-vr_phl = vr_unshaved_phl.copy()
-v_phl = v_unshaved_phl.copy()
-
 ###apply \delta_K = f_a * V, and use destroyed capital from GAR data, and fa_threshold to recalculate vulnerability
 # =Generated by pre_process\ GAR.ipynb
 frac_value_destroyed_gar = pd.read_csv(inputs+"/frac_value_destroyed_gar_completed.csv", index_col=["country", "hazard", "rp"], squeeze=True);#\delta_K, 
@@ -248,11 +202,6 @@ fa_guessed_gar = (frac_value_destroyed_gar/broadcast_simple(v_unshaved,frac_valu
 #fa is the fraction of asset affected. broadcast_simple, substitute the value in frac_value_destroyed_gar by values in v_unshaved. 
 # - Here it assumes that vulnerability for all types of disasters are the same. fa_guessed_gar = exposure/vulnerability
 fa_guessed_gar.name  = "fa"
-
-# Try to do the same for PHL:
-frac_value_destroyed_gar_phl = pd.read_csv(inputs+"/PHL_frac_value_destroyed_gar_completed.csv", index_col=["province", "hazard", "rp"], squeeze=True).dropna()#\delta_K,
-fa_guessed_gar_phl = (frac_value_destroyed_gar_phl/broadcast_simple(v_unshaved_phl,frac_value_destroyed_gar_phl.index)).dropna()
-fa_guessed_gar_phl.name  = "fa"
 
 excess=fa_guessed_gar[fa_guessed_gar>fa_threshold].max(level="country")
 for c in excess.index:
@@ -266,14 +215,13 @@ for c in excess.index:
 vp = vp.clip(upper=.99)
 vr = vr.clip(upper=.99)
 
-df_v_phl = pd.DataFrame([vp["Philippines"],vr["Philippines"],v["Philippines"]],index=["vp","vr","v"],columns=['Philippines']).T
-df_v_phl.index.name = "country"
-
 ###Exposure bias from PEB
 data = pd.read_excel(inputs+"/PEB_flood_povmaps.xlsx")[["iso","peb"]].dropna()	#Exposure bias from WB povmaps study
 df["pe"] = data.set_index(data.iso.replace(iso3_to_wb)).peb-1
+
 PEB_wb_deltares_older = pd.read_csv(inputs+"/PEB_wb_deltares.csv",skiprows=[0,1,2],usecols=["Country","Nation-wide"])	#Exposure bias from older WB DELTARES study
 PEB_wb_deltares_older["country"] = replace_with_warning(PEB_wb_deltares_older["Country"],any_to_wb) #Replace with warning is used for columns, for index set_index is needed.
+
 df["pe"]=df["pe"].fillna(PEB_wb_deltares_older.set_index("country").drop(["Country"],axis=1).squeeze()) #Completes with bias from previous study when pov maps not available. squeeze is needed or else it's impossible to fillna with a dataframe
 if use_avg_pe:
     df["pe"]=df["pe"].fillna(wavg(df["pe"],df["pop"])) #use averaged pe from global data for countries that don't have PE.
@@ -281,34 +229,18 @@ else:
     df["pe"].fillna(0)
 pe = df.pop("pe")
 
-df_phl["pe"] = pe["Philippines"]
-pe_phl = df_phl.pop("pe")
-
 ###incorporates exposure bias, but only for (riverine) flood and surge, and gets an updated fa for income_cats
 fa_hazard_cat = broadcast_simple(fa_guessed_gar,index=income_cats) #fraction of assets affected per hazard and income categories
-fa_hazard_cat_phl = broadcast_simple(fa_guessed_gar_phl,index=income_cats)
-
-fa_with_pe = concat_categories(fa_guessed_gar*(1+pe),fa_guessed_gar*(1-df.pov_head*(1+pe))/(1-df.pov_head), index=income_cats)	#fa_guessed_gar*(1+pe) gives f_p^a and fa_guessed_gar*(1-df.pov_head*(1+pe))/(1-df.pov_head) gives f_r^a. TESTED
-fa_with_pe_phl = concat_categories(fa_guessed_gar_phl*(1+pe_phl),fa_guessed_gar_phl*(1-df_phl.pov_head*(1+pe_phl))/(1-df_phl.pov_head), index=income_cats)
-
+fa_with_pe = concat_categories(fa_guessed_gar*(1+pe),fa_guessed_gar*(1-df.pov_head*(1+pe))/(1-df.pov_head), index=income_cats)	
+# ^ fa_guessed_gar*(1+pe) gives f_p^a and fa_guessed_gar*(1-df.pov_head*(1+pe))/(1-df.pov_head) gives f_r^a. TESTED
 fa_with_pe = pd.DataFrame(fa_with_pe).query("hazard in ['flood','surge']").squeeze() #selects just flood and surge
-fa_with_pe_phl = pd.DataFrame(fa_with_pe_phl).query("hazard in ['flood','surge']").squeeze() #selects just flood and surge
-
 fa_hazard_cat.update(fa_with_pe) #updates fa_guessed_gar where necessary
-fa_hazard_cat_phl.update(fa_with_pe_phl)
 
 ###gathers hazard ratios
 hazard_ratios = pd.DataFrame(fa_hazard_cat)
-hazard_ratios_phl = pd.DataFrame(fa_hazard_cat_phl)
 
 hazard_ratios["shew"]=broadcast_simple(df.shew, index=hazard_ratios.index)
-hazard_ratios_phl["shew"]=broadcast_simple(df_phl.shew, index=hazard_ratios_phl.index)
-
-hazard_ratios_phl["shewp"]=broadcast_simple(df_phl.shewp, index=hazard_ratios_phl.index)
-hazard_ratios_phl["shewr"]=broadcast_simple(df_phl.shewr, index=hazard_ratios_phl.index)
-
 hazard_ratios["shew"]=hazard_ratios.shew.unstack("hazard").assign(earthquake=0).stack("hazard").reset_index().set_index(event_level+[ "income_cat"]) #shew at 0 for earthquake
-hazard_ratios_phl["shew"]=hazard_ratios_phl.shew.unstack("hazard").assign(earthquake=0).stack("hazard").reset_index().set_index(["province", "hazard", "rp", "income_cat"])
 
 if not no_protection:
     #protection at 0 for earthquake and wind
@@ -335,66 +267,173 @@ if no_protection:
     if(do_reporting):
         print("PROTECTION IS ",p)
 
-df_phl["protection"] = df["protection"]["Philippines"]    
-
-#pick up here
-
 ##Data by income categories
 cat_info =pd.DataFrame()
-cat_info_phl = pd.DataFrame()
+cat_info["n"]  = concat_categories(ph,(1-ph),index= income_cats) #number
 
-cat_info["n"]  = concat_categories(ph,(1-ph),index= income_cats)	#number
-cat_info_phl["n"]  = concat_categories(ph_phl,(1-ph_phl),index= income_cats)
-
-cp= df["share1"]/ph*df["gdp_pc_pp"] #consumption levels, by definition.
-cp_phl = df_phl["share1"]/ph_phl*df_phl["gdp_pc_pp"] #consumption levels, by definition.
-
+cp= df["share1"]/df['pov_head']*df["gdp_pc_pp"] #consumption levels, by definition.
 cr = (1-df["share1"])/(1-ph)*df["gdp_pc_pp"]
-cr_phl = (1-df_phl["share1"])/(1-ph_phl)*df_phl["gdp_pc_pp"]
 
 cat_info["c"]       = concat_categories(cp,cr,index= income_cats)
-cat_info_phl["c"] = concat_categories(cp_phl,cr_phl,index= income_cats)
-
 cat_info["social"]  = concat_categories(df.social_p,df.social_r,index= income_cats)	#diversification
-cat_info_phl["social"]  = concat_categories(df_phl.social_p,df_phl.social_r,index= income_cats)	#diversification
-
 cat_info["axfin"] = concat_categories(df.axfin_p,df.axfin_r,index= income_cats)	#access to finance
-cat_info_phl["axfin"] = concat_categories(df_phl.axfin_p,df_phl.axfin_r,index= income_cats)	#access to finance
 
 cat_info = cat_info.dropna()
-cat_info_phl = cat_info_phl.dropna()
 
 ##Taxes, redistribution, capital
 df["tau_tax"],cat_info["gamma_SP"] = social_to_tx_and_gsp(economy,cat_info)	#computes tau tax and gamma_sp from socail_poor and social_nonpoor. CHECKED!
-df_phl["tau_tax"],cat_info_phl["gamma_SP"] = social_to_tx_and_gsp('province',cat_info_phl)
 
 #here k in cat_info has poor and non poor, while that from capital_data.csv has only k, regardless of poor or nonpoor
 cat_info["k"] = (1-cat_info["social"])*cat_info["c"]/((1-df["tau_tax"])*df["avg_prod_k"]) 
-cat_info_phl["k"] = (1-cat_info_phl["social"])*cat_info_phl["c"]/((1-df_phl["tau_tax"])*df_phl["avg_prod_k"]) 
 
 #Exposure
 cat_info["fa"] =hazard_ratios.fa.mean(level=["country","income_cat"])
-cat_info_phl["fa"] =hazard_ratios_phl.fa.mean(level=["province","income_cat"])
 
 #Vulnerability
 cat_info["v"] = concat_categories(vp,vr, index=income_cats)
-cat_info_phl["v"] = concat_categories(vp_phl,vr_phl, index=income_cats)
 
 #access to early warnings
 cat_info["shew"] = hazard_ratios.shew.drop("earthquake", level="hazard").mean(level=["country","income_cat"])
-cat_info_phl["shew"] = hazard_ratios_phl.shew.drop("earthquake", level="hazard").mean(level=["province","income_cat"])
 
 if drop_unused_data:
     cat_info = cat_info.drop(["social"],axis=1, errors="ignore").dropna()
-    cat_info_phl = cat_info_phl.drop(["social"],axis=1, errors="ignore").dropna()
-
     df_in = df.drop(["social_p", "social_r","share1","pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"],axis=1, errors="ignore").dropna()
-    df_in_phl = df_phl.drop(["social_p", "social_r","share1","pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"],axis=1, errors="ignore").dropna()
 else :
     df_in = df.dropna()
-    df_in_phl = df_phl.dropna()
 
 #df_in = df_in.drop(["shew","v"],axis=1, errors="ignore").dropna()
+
+#Save all data
+hazard_ratios.to_csv(intermediate+"/hazard_ratios.csv",encoding="utf-8", header=True)
+cat_info.to_csv(intermediate+"/cat_info.csv",encoding="utf-8", header=True)
+pd.DataFrame([vp,vr,v], index=["vp","vr","v"]).T.to_csv(intermediate+"/v_pr_fromPAGER_shaved_GAR.csv",encoding="utf-8", header=True)
+fa_guessed_gar.to_csv(intermediate+"/fa_guessed_from_GAR_and_PAGER_shaved.csv",encoding="utf-8", header=True)
+df_in.to_csv(intermediate+"/macro.csv",encoding="utf-8", header=True)
+
+######################################
+# ---> Philippines section
+#
+df_phl = pd.read_excel(PHLinputs+"/PHL_PSA_compiled.xlsx",sheetname="data", skiprows=1, index_col=0)#.dropna().squeeze()
+df_phl.index.name = "province"
+df_phl[["cp","cr","gdp_pc_pp"]]/=1e3
+
+# Pick up columns from df_wb:
+df_wb = pd.read_csv(the_file).set_index(economy)
+df_phl["axfin_p"] = df_wb["axfin_p"]["Philippines"]
+df_phl["axfin_r"] = df_wb["axfin_r"]["Philippines"]
+
+df_phl["urbanization_rate"]=pd.read_csv(inputs+"/wb_data.csv").set_index(economy)["urbanization_rate"]["Philippines"]
+
+df_phl["pi"]                     = reduction_vul       # how much early warning reduces vulnerability
+df_phl["rho"]                    = discount_rate       # discount rate
+df_phl["shareable"]              = asset_loss_covered  # target of asset losses to be covered by scale up
+df_phl["T_rebuild_K"]            = reconstruction_time # Reconstruction time
+df_phl["income_elast"]           = inc_elast	       # income elasticity
+df_phl["max_increased_spending"] = max_support         # 5% of GDP in post-disaster support maximum, if everything is ready  
+
+df_phl["share1"] = df_phl['cp']/(df_phl['pov_head']*df_phl['cp']+(1-df_phl['pov_head'])*df_phl['cr'])
+# at this point, df_phl also has ["cp","cr","shewp","shewr"], more than df
+
+# Haven't dissociated these 6 from the previous, but this is important because of "shew"
+df_phl["finance_pre"]     = df["finance_pre"]["Philippines"]
+df_phl["prepare_scaleup"] = df["prepare_scaleup"]["Philippines"]
+df_phl["shew"]            = df["shew"]["Philippines"]
+df_phl["rating"]          = df["rating"]["Philippines"]
+df_phl["borrow_abi"]      = df["borrow_abi"]["Philippines"]
+df_phl["avg_prod_k"]      = df["avg_prod_k"]["Philippines"]
+
+# share_phl also references above
+share_phl = pd.DataFrame([share.loc['Philippines']], index=df_phl.index, columns=["fragile","median","robust"])
+p_phl = pd.DataFrame(share_phl.cumsum(axis=1), index=df_phl.index, columns=["fragile","median","robust"]).add(-df_phl["pov_head"],axis=0).clip(lower=0)
+
+poor_phl = (share_phl-p_phl).clip(lower=0)
+rich_phl = share_phl - poor_phl
+
+vp_unshaved_phl = (poor_phl*agg_cat_to_v).sum(axis=1, skipna=False)/(df_phl["pov_head"])
+vr_unshaved_phl = (rich_phl*agg_cat_to_v).sum(axis=1, skipna=False)/(1-df_phl["pov_head"])
+v_unshaved_phl  =  vp_unshaved_phl*df_phl.share1 + vr_unshaved_phl*(1-df_phl["share1"])
+v_unshaved_phl.name="v"
+v_unshaved_phl.index.name = "province"
+
+vp_phl = vp_unshaved_phl.copy()
+vr_phl = vr_unshaved_phl.copy()
+v_phl = v_unshaved_phl.copy()
+
+vp_phl.name = "vp"
+vr_phl.name = "vr"
+v_phl.name = "v"
+
+#fa is the fraction of asset affected. broadcast_simple, substitute the value in frac_value_destroyed_gar by values in v_unshaved. 
+# - Here it assumes that vulnerability for all types of disasters are the same. fa_guessed_gar = exposure/vulnerability
+frac_value_destroyed_gar_phl = pd.read_csv(PHLinputs+"/PHL_frac_value_destroyed_gar_completed.csv", index_col=["province", "hazard", "rp"], squeeze=True).dropna()#\delta_K,
+fa_guessed_gar_phl = (frac_value_destroyed_gar_phl/broadcast_simple(v_unshaved_phl,frac_value_destroyed_gar_phl.index)).dropna()
+fa_guessed_gar_phl.name  = "fa"
+
+df_v_phl = vp_phl.to_frame(name="vp")
+df_v_phl["vr"] = vr_phl
+df_v_phl["v"] = v_phl
+df_v_phl.index.name = "province"
+
+df_phl["pe"] = pe["Philippines"]
+pe_phl = df_phl.pop("pe")
+
+###incorporates exposure bias, but only for (riverine) flood and surge, and gets an updated fa for income_cats
+fa_hazard_cat_phl = broadcast_simple(fa_guessed_gar_phl,index=income_cats)
+fa_with_pe_phl = concat_categories(fa_guessed_gar_phl*(1+pe_phl),fa_guessed_gar_phl*(1-df_phl.pov_head*(1+pe_phl))/(1-df_phl.pov_head), index=income_cats)
+# ^ fa_guessed_gar*(1+pe) gives f_p^a and fa_guessed_gar*(1-df.pov_head*(1+pe))/(1-df.pov_head) gives f_r^a. TESTED
+
+fa_with_pe_phl = pd.DataFrame(fa_with_pe_phl).query("hazard in ['flood','surge']").squeeze() #selects just flood and surge
+fa_hazard_cat_phl.update(fa_with_pe_phl) #updates fa_guessed_gar where necessary
+
+###gathers hazard ratios
+hazard_ratios_phl = pd.DataFrame(fa_hazard_cat_phl)
+
+hazard_ratios_phl["shew"]=broadcast_simple(df_phl.shew, index=hazard_ratios_phl.index)
+hazard_ratios_phl["shew"]=hazard_ratios_phl.shew.unstack("hazard").assign(earthquake=0).stack("hazard").reset_index().set_index(["province", "hazard", "rp", "income_cat"]) #shew at 0 for earthquake
+
+hazard_ratios_phl["shewp"]=broadcast_simple(df_phl.shewp, index=hazard_ratios_phl.index)
+hazard_ratios_phl["shewr"]=broadcast_simple(df_phl.shewr, index=hazard_ratios_phl.index)
+
+# Either pick up single value at country level (20.0)
+#df_phl["protection"] = df["protection"]["Philippines"]    
+# or use input file from PHL-RIMM (Adrien)
+df_phl["protection"] = pd.read_csv(PHLinputs+"/PHL_protection.csv", index_col="province", squeeze=True).clip(lower=minrp)
+df_phl["protection"] = df_phl["protection"].fillna(df["protection"]["Philippines"])# if no provincial data, use national number (20.0)
+
+##Data by income categories
+cat_info_phl = pd.DataFrame()
+cat_info_phl["n"]  = concat_categories(df_phl["pov_head"],(1-df_phl["pov_head"]),index= income_cats) #number
+
+cp_phl = df_phl["cp"] 
+cr_phl = df_phl["cr"]
+
+cat_info_phl["c"] = concat_categories(cp_phl,cr_phl,index= income_cats)
+cat_info_phl["social"]  = concat_categories(df_phl.social_p,df_phl.social_r,index= income_cats)	#diversification
+cat_info_phl["axfin"] = concat_categories(df_phl.axfin_p,df_phl.axfin_r,index= income_cats)	#access to finance
+
+cat_info_phl = cat_info_phl.dropna()
+
+##Taxes, redistribution, capital
+df_phl["tau_tax"],cat_info_phl["gamma_SP"] = social_to_tx_and_gsp('province',cat_info_phl)
+
+#here k in cat_info has poor and non poor, while that from capital_data.csv has only k, regardless of poor or nonpoor
+cat_info_phl["k"] = (1-cat_info_phl["social"])*cat_info_phl["c"]/((1-df_phl["tau_tax"])*df_phl["avg_prod_k"]) 
+
+#Exposure
+cat_info_phl["fa"] =hazard_ratios_phl.fa.mean(level=["province","income_cat"])
+
+#Vulnerability
+cat_info_phl["v"] = concat_categories(vp_phl,vr_phl, index=income_cats)
+
+#access to early warnings
+cat_info_phl["shew"] = hazard_ratios_phl.shew.drop("earthquake", level="hazard").mean(level=["province","income_cat"])
+
+if drop_unused_data:
+    cat_info_phl = cat_info_phl.drop(["social"],axis=1, errors="ignore").dropna()
+    df_in_phl = df_phl.drop(["social_p", "social_r","share1","pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"],axis=1, errors="ignore").dropna()
+else :
+    df_in_phl = df_phl.dropna()
+
 #df_in_phl = df_in_phl.drop(["shew","v"],axis=1, errors="ignore").dropna()
 
 # PHL: save all data
@@ -404,10 +443,3 @@ hazard_ratios_phl.to_csv(intermediate+"/PHL_hazard_ratios.csv",encoding="utf-8",
 df_v_phl.to_csv(intermediate+"/PHL_v_pr_fromPAGER_shaved_GAR.csv",encoding="utf-8", header=True)
 fa_guessed_gar_phl.to_csv(intermediate+"/PHL_fa_guessed_from_GAR_and_PAGER_shaved.csv",encoding="utf-8", header=True)
 df_in_phl.to_csv(intermediate+"/PHL_macro.csv",encoding="utf-8", header=True)
-
-#Save all data
-hazard_ratios.to_csv(intermediate+"/hazard_ratios.csv",encoding="utf-8", header=True)
-cat_info.to_csv(intermediate+"/cat_info.csv",encoding="utf-8", header=True)
-pd.DataFrame([vp,vr,v], index=["vp","vr","v"]).T.to_csv(intermediate+"/v_pr_fromPAGER_shaved_GAR.csv",encoding="utf-8", header=True)
-fa_guessed_gar.to_csv(intermediate+"/fa_guessed_from_GAR_and_PAGER_shaved.csv",encoding="utf-8", header=True)
-df_in.to_csv(intermediate+"/macro.csv",encoding="utf-8", header=True)
