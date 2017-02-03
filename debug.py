@@ -74,8 +74,6 @@ plot_dim = {'delta_W':[0,0.0002],
             'risk':[0.1,0.2],
             'fa':[0.08,0.12]}
 
-print(getcol(df,head['axfin_p']))
-
 for ipair in plot_pairs:
     plt.cla()
     plt.scatter(getcol(df,head[ipair[0]]),getcol(df,head[ipair[1]]), s= 30, color=brew.get_map('Greys', 'sequential', 9).mpl_colors[7],alpha=0.75,zorder=10)
