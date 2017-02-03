@@ -5,6 +5,7 @@ import matplotlib.patches as pts
 from matplotlib import rc
 from matplotlib import colors
 from textwrap import wrap
+import os
 rc('text', usetex=False)
 
 #Aesthetics
@@ -26,6 +27,11 @@ head = {}
 df = []
 
 # read in output file
+cdir   = os.getcwd()          # current directory
+dbdir  = cdir+'/debug_plots/' # plots go here
+if not os.path.exists(dbdir): 
+    os.makedirs(dbdir)
+
 with open('output/PHL_results_tax_no.csv') as f:
     reader = csv.reader(f)
 
@@ -81,4 +87,4 @@ for ipair in plot_pairs:
     if ipair[1] in plot_dim: plt.ylim(plot_dim[ipair[1]][0],plot_dim[ipair[1]][1])
 
     annotate("PHL provincial data", xy=(0.9,0.97),xycoords='axes fraction',fontsize=8,weight='bold',va="top", ha="center")
-    plt.savefig('debug_plots/'+ipair[0]+'_VS_'+ipair[1]+'.pdf',bbox_inches='tight',format='pdf')
+    plt.savefig(dbdir+ipair[0]+'_VS_'+ipair[1]+'.pdf',bbox_inches='tight',format='pdf')
