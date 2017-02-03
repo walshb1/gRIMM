@@ -97,7 +97,7 @@ def compute_dK(macro_event, cats_event,event_level,affected_cats):
     cats_event_ia = cats_event_ia.reset_index(["income_cat", "affected_cat"]).sort_index()
     
     #actual vulnerability
-    cats_event_ia["v_shew"]=cats_event_ia["v"]*(1-macro_event["pi"]*cats_event_ia["shew"]) 
+    cats_event_ia["v_shew"]=cats_event_ia["v"]*(1-macro_event["pi"]*cats_event_ia["shew"])
     
     #capital losses and total capital losses
     cats_event_ia["dk"]  = cats_event_ia[["k","v_shew"]].prod(axis=1, skipna=False) #capital potentially be damaged 

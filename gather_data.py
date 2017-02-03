@@ -14,13 +14,12 @@ warnings.filterwarnings("always",category=UserWarning)
 do_reporting                 = False # True = verbose
 protection_from_flopros      = True  #FLOPROS is an evolving global database of flood protection standards. It will be used in Protection.
 no_protection                = True  #Used in Protection. 
-use_GLOFRIS_flood            = False #else uses GAR (True does not work i think)
 use_guessed_social           = True  #else keeps nans
 use_avg_pe                   = True  #otherwise 0 when no data
 use_newest_wdi_findex_aspire = False  #too late to include new data just before report release
 drop_unused_data             = False #if true removes from df and cat_info the intermediate variables
 economy                      = "country" #province, department
-# looks like this is the for switching from country to local level--on advice, I am going to ignore this & create a version of the code that works only for PHL
+# looks like this is the for switching from country to local level--instead, create a version of the code that works only for PHL
 
 event_level = [economy, "hazard", "rp"]	#levels of index at which one event happens
 default_rp = "default_rp" #return period to use when no rp is provided (mind that this works with protection)
@@ -29,7 +28,8 @@ affected_cats = pd.Index(["a", "na"]            ,name="affected_cat")	#categorie
 helped_cats   = pd.Index(["helped","not_helped"],name="helped_cat")
 
 hazard_idx    = ['earthquake','flood','surge','tsunami','wind']
-rp_idx        = ['20.0','50.0','100.0','250.0','500.0','1000.0','1500.0','2000.0']
+rp_idx1       = ['20.0','50.0','100.0','250.0','500.0','1000.0','1500.0','2000.0']
+rp_idx2       = pd.Index([10,25,30,50,100,200,250,500,1000],name='rp')
 #hazard_idx    = pd.Index(['earthquake','flood','surge','tsunami','wind'], name='hazards')
 #rp_idx        = pd.Index(['20.0','50.0','100.0','250.0','500.0','1000.0','1500.0','2000.0'], name='rp')
 
@@ -281,7 +281,8 @@ cat_info["axfin"] = concat_categories(df.axfin_p,df.axfin_r,index= income_cats)	
 cat_info = cat_info.dropna()
 
 ##Taxes, redistribution, capital
-df["tau_tax"],cat_info["gamma_SP"] = social_to_tx_and_gsp(economy,cat_info)	#computes tau tax and gamma_sp from socail_poor and social_nonpoor. CHECKED!
+df["tau_tax"],cat_info["gamma_SP"] = social_to_tx_and_gsp(economy,cat_info)	
+#computes tau tax and gamma_sp from socail_poor and social_nonpoor. CHECKED!
 
 #here k in cat_info has poor and non poor, while that from capital_data.csv has only k, regardless of poor or nonpoor
 cat_info["k"] = (1-cat_info["social"])*cat_info["c"]/((1-df["tau_tax"])*df["avg_prod_k"]) 
@@ -334,7 +335,7 @@ df_phl["max_increased_spending"] = max_support         # 5% of GDP in post-disas
 df_phl["share1"] = df_phl['cp']/(df_phl['pov_head']*df_phl['cp']+(1-df_phl['pov_head'])*df_phl['cr'])
 # at this point, df_phl also has ["cp","cr","shewp","shewr"], more than df
 
-# Haven't dissociated these 6 from the previous, but this is important because of "shew"
+# Haven't dissociated these 6 from the previous, but this is particularly important because of "shew"
 df_phl["finance_pre"]     = df["finance_pre"]["Philippines"]
 df_phl["prepare_scaleup"] = df["prepare_scaleup"]["Philippines"]
 df_phl["shew"]            = df["shew"]["Philippines"]
@@ -352,7 +353,7 @@ rich_phl = share_phl - poor_phl
 vp_unshaved_phl = (poor_phl*agg_cat_to_v).sum(axis=1, skipna=False)/(df_phl["pov_head"])
 vr_unshaved_phl = (rich_phl*agg_cat_to_v).sum(axis=1, skipna=False)/(1-df_phl["pov_head"])
 v_unshaved_phl  =  vp_unshaved_phl*df_phl.share1 + vr_unshaved_phl*(1-df_phl["share1"])
-v_unshaved_phl.name="v"
+v_unshaved_phl.name= "v"
 v_unshaved_phl.index.name = "province"
 
 vp_phl = vp_unshaved_phl.copy()
@@ -366,7 +367,89 @@ v_phl.name = "v"
 #fa is the fraction of asset affected. broadcast_simple, substitute the value in frac_value_destroyed_gar by values in v_unshaved. 
 # - Here it assumes that vulnerability for all types of disasters are the same. fa_guessed_gar = exposure/vulnerability
 frac_value_destroyed_gar_phl = pd.read_csv(PHLinputs+"/PHL_frac_value_destroyed_gar_completed.csv", index_col=["province", "hazard", "rp"], squeeze=True).dropna()#\delta_K,
-fa_guessed_gar_phl = (frac_value_destroyed_gar_phl/broadcast_simple(v_unshaved_phl,frac_value_destroyed_gar_phl.index)).dropna()
+
+df_phl.index.name = "province"
+
+AIR_value_destroyed_phl_file = pd.read_excel(PHLinputs+"/Risk_Profile_Master_With_Population.xlsx",sheetname="Loss_Results",
+                                             index_cols=["province","Perspective","Sector","EP10","EP25","EP30","EP50","EP100","EP200","EP250","EP500","EP1000"]).squeeze()
+
+AIR_prov_lookup = pd.read_excel(PHLinputs+"/Risk_Profile_Master_With_Population.xlsx",sheetname="Lookup_Tables",usecols=['province_code','province'],index_col='province_code')
+AIR_prov_lookup = AIR_prov_lookup['province'].to_dict()
+
+AIR_peril_lookup = pd.read_excel(PHLinputs+"/Risk_Profile_Master_With_Population.xlsx",sheetname="Lookup_Tables",usecols=['perilsetcode','peril'],index_col='perilsetcode')
+AIR_peril_lookup = AIR_peril_lookup['peril'].dropna().to_dict()
+
+AIR_value_destroyed_phl = pd.DataFrame(columns=['hazard','rp','loss'])
+
+EQ_norm = -1
+WND_norm = -1
+for index, row in AIR_value_destroyed_phl_file.iterrows():
+    if (row['Sector'] == 0
+        and row['Perspective'] == 'Agg'
+        and AIR_peril_lookup[row['perilsetcode']] != 'AP'):
+
+        province_val = AIR_prov_lookup[row['province']]
+        peril_val = AIR_peril_lookup[row['perilsetcode']].replace('EQ','earthquake').replace('HUSSPF','tsunami').replace('HU','wind').replace('SS','surge').replace('PF','flood')
+
+        if province_val == 'All Provinces':
+            print(province_val, [peril_val, 1000, row['EP1000']])
+            if peril_val == 'earthquake':  EQ_norm = 8.689917e-03/row['EP50']
+            if peril_val ==       'wind': WND_norm = 3.236697e-02/row['EP50']
+            continue
+
+for index, row in AIR_value_destroyed_phl_file.iterrows():
+    if (row['Sector'] == 0
+        and row['Perspective'] == 'Agg'
+        and AIR_peril_lookup[row['perilsetcode']] != 'AP'
+        and AIR_prov_lookup[row['province']] != 'All Provinces'):
+
+        province_val = AIR_prov_lookup[row['province']]
+        peril_val = AIR_peril_lookup[row['perilsetcode']].replace('EQ','earthquake').replace('HUSSPF','tsunami').replace('HU','wind').replace('SS','surge').replace('PF','flood')
+
+        if(peril_val == 'earthquake'):
+            aSer = pd.DataFrame.from_items([(province_val, [peril_val,  10,  row['EP10']*EQ_norm]), 
+                                            (province_val, [peril_val,  25,  row['EP25']*EQ_norm]),
+                                            (province_val, [peril_val,  30,  row['EP30']*EQ_norm]),
+                                            (province_val, [peril_val,  50,  row['EP50']*EQ_norm]),
+                                            (province_val, [peril_val, 100, row['EP100']*EQ_norm]),
+                                            (province_val, [peril_val, 200, row['EP200']*EQ_norm]),
+                                            (province_val, [peril_val, 250, row['EP200']*EQ_norm]),
+                                            (province_val, [peril_val, 500, row['EP200']*EQ_norm]),
+                                            (province_val, [peril_val,1000,row['EP1000']*EQ_norm])],orient='index', columns=['hazard', 'rp','loss'])
+
+        if(peril_val == 'wind'):
+            aSer = pd.DataFrame.from_items([(province_val, [peril_val,  10,  row['EP10']*WND_norm]), 
+                                            (province_val, [peril_val,  25,  row['EP25']*WND_norm]),
+                                            (province_val, [peril_val,  30,  row['EP30']*WND_norm]),
+                                            (province_val, [peril_val,  50,  row['EP50']*WND_norm]),
+                                            (province_val, [peril_val, 100, row['EP100']*WND_norm]),
+                                            (province_val, [peril_val, 200, row['EP200']*WND_norm]),
+                                            (province_val, [peril_val, 250, row['EP200']*WND_norm]),
+                                            (province_val, [peril_val, 500, row['EP200']*WND_norm]),
+                                            (province_val, [peril_val,1000,row['EP1000']*WND_norm])],orient='index', columns=['hazard', 'rp','loss'])   
+
+        else:
+            aSer = pd.DataFrame.from_items([(province_val, [peril_val,  10,0]), 
+                                            (province_val, [peril_val,  25,0]),
+                                            (province_val, [peril_val,  30,0]),
+                                            (province_val, [peril_val,  50,0]),
+                                            (province_val, [peril_val, 100,0]),
+                                            (province_val, [peril_val, 200,0]),
+                                            (province_val, [peril_val, 250,0]),
+                                            (province_val, [peril_val, 500,0]),
+                                            (province_val, [peril_val,1000,0])],orient='index', columns=['hazard', 'rp','loss'])
+
+        AIR_value_destroyed_phl = AIR_value_destroyed_phl.append(aSer)
+
+AIR_value_destroyed_phl.index.name = "province"
+AIR_value_destroyed_phl = AIR_value_destroyed_phl.reset_index().set_index(["province", "hazard", "rp"]).squeeze()
+AIR_value_destroyed_phl.index.name = ['province','hazard','rp']
+AIR_value_destroyed_phl.name = 'loss'
+AIR_value_destroyed_phl = AIR_value_destroyed_phl.sort_index()
+
+#fa_guessed_gar_phl = (AIR_value_destroyed_phl/broadcast_simple(v_unshaved_phl,AIR_value_destroyed_phl.index)).dropna()
+fa_guessed_gar_phl = (frac_value_destroyed_gar_phl/broadcast_simple((v_unshaved_phl),frac_value_destroyed_gar_phl.index)).dropna()
+
 fa_guessed_gar_phl.name  = "fa"
 
 df_v_phl = vp_phl.to_frame(name="vp")
@@ -379,6 +462,7 @@ pe_phl = df_phl.pop("pe")
 
 ###incorporates exposure bias, but only for (riverine) flood and surge, and gets an updated fa for income_cats
 fa_hazard_cat_phl = broadcast_simple(fa_guessed_gar_phl,index=income_cats)
+
 fa_with_pe_phl = concat_categories(fa_guessed_gar_phl*(1+pe_phl),fa_guessed_gar_phl*(1-df_phl.pov_head*(1+pe_phl))/(1-df_phl.pov_head), index=income_cats)
 # ^ fa_guessed_gar*(1+pe) gives f_p^a and fa_guessed_gar*(1-df.pov_head*(1+pe))/(1-df.pov_head) gives f_r^a. TESTED
 
@@ -388,17 +472,23 @@ fa_hazard_cat_phl.update(fa_with_pe_phl) #updates fa_guessed_gar where necessary
 ###gathers hazard ratios
 hazard_ratios_phl = pd.DataFrame(fa_hazard_cat_phl)
 
+# This sets early warning access to 60% for all provinces 
 hazard_ratios_phl["shew"]=broadcast_simple(df_phl.shew, index=hazard_ratios_phl.index)
-hazard_ratios_phl["shew"]=hazard_ratios_phl.shew.unstack("hazard").assign(earthquake=0).stack("hazard").reset_index().set_index(["province", "hazard", "rp", "income_cat"]) #shew at 0 for earthquake
 
-hazard_ratios_phl["shewp"]=broadcast_simple(df_phl.shewp, index=hazard_ratios_phl.index)
-hazard_ratios_phl["shewr"]=broadcast_simple(df_phl.shewr, index=hazard_ratios_phl.index)
+# This block sets early warning access to province- and income-specific values
+hazard_ratios_phl = hazard_ratios_phl.reset_index().set_index('province')
+hazard_ratios_phl.ix[hazard_ratios_phl.income_cat == "poor","shew"] = df_phl.shewp
+hazard_ratios_phl.ix[hazard_ratios_phl.income_cat == "nonpoor","shew"] = df_phl.shewr
+hazard_ratios_phl = hazard_ratios_phl.reset_index().set_index(['province','hazard','rp','income_cat'])
 
-# Either pick up single value at country level (20.0)
-#df_phl["protection"] = df["protection"]["Philippines"]    
+# No early warning for earthquakes
+hazard_ratios_phl["shew"]=hazard_ratios_phl.shew.unstack("hazard").assign(earthquake=0).stack("hazard").reset_index().set_index(["province", "hazard", "rp", "income_cat"])
+
+# Either pick up single value at country level (20.0 is from gRIMM, JC uses 1.0)
+df_phl["protection"] = 1#df["protection"]["Philippines"]    
 # or use input file from PHL-RIMM (Adrien)
-df_phl["protection"] = pd.read_csv(PHLinputs+"/PHL_protection.csv", index_col="province", squeeze=True).clip(lower=minrp)
-df_phl["protection"] = df_phl["protection"].fillna(df["protection"]["Philippines"])# if no provincial data, use national number (20.0)
+#df_phl["protection"] = pd.read_csv(PHLinputs+"/PHL_protection.csv", index_col="province", squeeze=True).clip(lower=minrp)
+#df_phl["protection"] = df_phl["protection"].fillna(df["protection"]["Philippines"])# if no provincial data, use national number (20.0)
 
 ##Data by income categories
 cat_info_phl = pd.DataFrame()
@@ -408,10 +498,12 @@ cp_phl = df_phl["cp"]
 cr_phl = df_phl["cr"]
 
 cat_info_phl["c"] = concat_categories(cp_phl,cr_phl,index= income_cats)
-cat_info_phl["social"]  = concat_categories(df_phl.social_p,df_phl.social_r,index= income_cats)	#diversification
-cat_info_phl["axfin"] = concat_categories(df_phl.axfin_p,df_phl.axfin_r,index= income_cats)	#access to finance
+cat_info_phl["social"] = concat_categories(df_phl.social_p, df_phl.social_r, index=income_cats) #diversification
+cat_info_phl["axfin"] = concat_categories(df_phl.axfin_p, df_phl.axfin_r, index=income_cats) #access to finance
 
 cat_info_phl = cat_info_phl.dropna()
+
+print(cat_info_phl.head(70))
 
 ##Taxes, redistribution, capital
 df_phl["tau_tax"],cat_info_phl["gamma_SP"] = social_to_tx_and_gsp('province',cat_info_phl)
@@ -434,7 +526,7 @@ if drop_unused_data:
 else :
     df_in_phl = df_phl.dropna()
 
-#df_in_phl = df_in_phl.drop(["shew","v"],axis=1, errors="ignore").dropna()
+df_in_phl = df_in_phl.drop(["shew","v"],axis=1, errors="ignore").dropna()
 
 # PHL: save all data
 hazard_ratios_phl.to_csv(intermediate+"/PHL_hazard_ratios.csv",encoding="utf-8", header=True)

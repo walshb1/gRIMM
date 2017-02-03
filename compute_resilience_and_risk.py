@@ -41,13 +41,19 @@ hazard_ratios = pd.read_csv("intermediate/"+optionRUNPHL+"hazard_ratios.csv", in
 #country_per_rg = groups["Region"].reset_index().dropna().set_index("Region").squeeze()
 
 #compute
-macro_event, cats_event, hazard_ratios_event, macro = process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,verbose_replace=True) #verbose_replace=True by default, replace common columns in macro_event and cats_event with those in hazard_ratios_event
-macro_event, cats_event_ia = compute_dK(macro_event, cats_event,event_level,affected_cats) #calculate the actual vulnerability, the potential damange to capital, and consumption
-macro_event, cats_event_iah = calculate_response(macro_event,cats_event_ia,event_level,helped_cats,optionFee=optionFee,optionT=optionT, optionPDS=optionPDS, optionB=optionB,loss_measure="dk",fraction_inside=1, share_insured=.25)
-#optionFee: tax or insurance_premium  optionFee="insurance_premium",optionT="perfect", optionPDS="prop", optionB="unlimited",optionFee="tax",optionT="data", optionPDS="unif_poor", optionB="data",
-#optionT(targeting errors):perfect, prop_nonpoor_lms, data, x33, incl, excl.
-#optionB:one_per_affected, one_per_helped, one, unlimited, data, unif_poor, max01, max05
-#optionPDS: unif_poor, no, "prop", "prop_nonpoor"
+macro_event, cats_event, hazard_ratios_event, macro = process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,verbose_replace=True) 
+#verbose_replace=True by default, replace common columns in macro_event and cats_event with those in hazard_ratios_event
+
+macro_event, cats_event_ia = compute_dK(macro_event, cats_event,event_level,affected_cats) 
+#calculate the actual vulnerability, the potential damange to capital, and consumption
+
+macro_event, cats_event_iah = calculate_response(macro_event,cats_event_ia,event_level,helped_cats,
+                                                 optionFee=optionFee, # optionFee="insurance_premium" (ALT: tax)
+                                                 optionT=optionT, # optionT (targeting errors) = "perfect" (ALT: prop_nonpoor_lms, data, x33, incl, excl.)
+                                                 optionPDS=optionPDS, # optionPDS: unif_poor, no, "prop", "prop_nonpoor"
+                                                 optionB=optionB, # optionB:one_per_affected, one_per_helped, one, unlimited, data, unif_poor, max01, max05
+                                                 loss_measure="dk",fraction_inside=1, share_insured=.25)
+
 macro_event.to_csv('output/'+optionRUNPHL+'macro_'+optionFee+'_'+optionPDS+'.csv',encoding="utf-8", header=True)
 cats_event_iah.to_csv('output/'+optionRUNPHL+'cats_event_iah_'+optionFee+'_'+optionPDS+'.csv',encoding="utf-8", header=True)   
 
