@@ -370,84 +370,59 @@ frac_value_destroyed_gar_phl = pd.read_csv(PHLinputs+"/PHL_frac_value_destroyed_
 
 df_phl.index.name = "province"
 
-AIR_value_destroyed_phl_file = pd.read_excel(PHLinputs+"/Risk_Profile_Master_With_Population.xlsx",sheetname="Loss_Results",
-                                             index_cols=["province","Perspective","Sector","EP10","EP25","EP30","EP50","EP100","EP200","EP250","EP500","EP1000"]).squeeze()
-
+# AIR dataset province code to province name
 AIR_prov_lookup = pd.read_excel(PHLinputs+"/Risk_Profile_Master_With_Population.xlsx",sheetname="Lookup_Tables",usecols=['province_code','province'],index_col='province_code')
 AIR_prov_lookup = AIR_prov_lookup['province'].to_dict()
 
-AIR_peril_lookup = pd.read_excel(PHLinputs+"/Risk_Profile_Master_With_Population.xlsx",sheetname="Lookup_Tables",usecols=['perilsetcode','peril'],index_col='perilsetcode')
-AIR_peril_lookup = AIR_peril_lookup['peril'].dropna().to_dict()
+# AIR dataset peril code to peril name
+AIR_peril_lookup_1 = pd.read_excel(PHLinputs+"/Risk_Profile_Master_With_Population.xlsx",sheetname="Lookup_Tables",usecols=['perilsetcode','peril'],index_col='perilsetcode')
+AIR_peril_lookup_1 = AIR_peril_lookup_1['peril'].dropna().to_dict()
+AIR_peril_lookup_2 = {'EQ':'earthquake', 'HUSSPF':'tsunami', 'HU':'wind', 'SS':'surge', 'PF':'flood'}
 
-AIR_value_destroyed_phl = pd.DataFrame(columns=['hazard','rp','loss'])
+# AIR dataset
+AIR_value_destroyed = pd.read_excel(PHLinputs+"/Risk_Profile_Master_With_Population.xlsx",sheetname="Loss_Results",
+                                             usecols=['perilsetcode',"province","Perspective","Sector","EP10","EP25","EP30","EP50","EP100","EP200","EP250","EP500","EP1000"]).squeeze()
+AIR_value_destroyed.columns=['hazard','province','Perspective','Sector',10,25,30,50,100,200,250,500,1000]
 
-EQ_norm = -1
-WND_norm = -1
-for index, row in AIR_value_destroyed_phl_file.iterrows():
-    if (row['Sector'] == 0
-        and row['Perspective'] == 'Agg'
-        and AIR_peril_lookup[row['perilsetcode']] != 'AP'):
+# Change province code to province name
+#AIR_value_destroyed = AIR_value_destroyed.reset_index().set_index(['hazard','Perspective','Sector'])
+AIR_value_destroyed["province"].replace(AIR_prov_lookup,inplace=True)
 
-        province_val = AIR_prov_lookup[row['province']]
-        peril_val = AIR_peril_lookup[row['perilsetcode']].replace('EQ','earthquake').replace('HUSSPF','tsunami').replace('HU','wind').replace('SS','surge').replace('PF','flood')
+AIR_value_destroyed = AIR_value_destroyed.reset_index().set_index(['hazard','province','Perspective','Sector'])
+AIR_value_destroyed = AIR_value_destroyed.drop(['index'],axis=1, errors="ignore")
 
-        if province_val == 'All Provinces':
-            print(province_val, [peril_val, 1000, row['EP1000']])
-            if peril_val == 'earthquake':  EQ_norm = 8.689917e-03/row['EP50']
-            if peril_val ==       'wind': WND_norm = 3.236697e-02/row['EP50']
-            continue
+# Stack return periods column
+AIR_value_destroyed.columns.name='rp'
+AIR_value_destroyed = AIR_value_destroyed.stack()
 
-for index, row in AIR_value_destroyed_phl_file.iterrows():
-    if (row['Sector'] == 0
-        and row['Perspective'] == 'Agg'
-        and AIR_peril_lookup[row['perilsetcode']] != 'AP'
-        and AIR_prov_lookup[row['province']] != 'All Provinces'):
+# Name values
+AIR_value_destroyed.name='v'
 
-        province_val = AIR_prov_lookup[row['province']]
-        peril_val = AIR_peril_lookup[row['perilsetcode']].replace('EQ','earthquake').replace('HUSSPF','tsunami').replace('HU','wind').replace('SS','surge').replace('PF','flood')
+# Choose only Sector = 0 (Private Assets) 
+# --> Alternative: 15 = All Assets (Private + Govt (16) + Emergency (17))
+AIR_value_destroyed = AIR_value_destroyed.reset_index().set_index(['Sector'])
+AIR_value_destroyed = AIR_value_destroyed.drop([iSec for iSec in range(1,20)])
 
-        if(peril_val == 'earthquake'):
-            aSer = pd.DataFrame.from_items([(province_val, [peril_val,  10,  row['EP10']*EQ_norm]), 
-                                            (province_val, [peril_val,  25,  row['EP25']*EQ_norm]),
-                                            (province_val, [peril_val,  30,  row['EP30']*EQ_norm]),
-                                            (province_val, [peril_val,  50,  row['EP50']*EQ_norm]),
-                                            (province_val, [peril_val, 100, row['EP100']*EQ_norm]),
-                                            (province_val, [peril_val, 200, row['EP200']*EQ_norm]),
-                                            (province_val, [peril_val, 250, row['EP200']*EQ_norm]),
-                                            (province_val, [peril_val, 500, row['EP200']*EQ_norm]),
-                                            (province_val, [peril_val,1000,row['EP1000']*EQ_norm])],orient='index', columns=['hazard', 'rp','loss'])
+# Choose only Perspective = Occurrence ('Occ') OR Aggregate ('Agg')
+AIR_value_destroyed = AIR_value_destroyed.reset_index().set_index(['Perspective'])
+AIR_value_destroyed = AIR_value_destroyed.drop('Occ')
 
-        if(peril_val == 'wind'):
-            aSer = pd.DataFrame.from_items([(province_val, [peril_val,  10,  row['EP10']*WND_norm]), 
-                                            (province_val, [peril_val,  25,  row['EP25']*WND_norm]),
-                                            (province_val, [peril_val,  30,  row['EP30']*WND_norm]),
-                                            (province_val, [peril_val,  50,  row['EP50']*WND_norm]),
-                                            (province_val, [peril_val, 100, row['EP100']*WND_norm]),
-                                            (province_val, [peril_val, 200, row['EP200']*WND_norm]),
-                                            (province_val, [peril_val, 250, row['EP200']*WND_norm]),
-                                            (province_val, [peril_val, 500, row['EP200']*WND_norm]),
-                                            (province_val, [peril_val,1000,row['EP1000']*WND_norm])],orient='index', columns=['hazard', 'rp','loss'])   
+# Map perilsetcode to perils to hazard
+AIR_value_destroyed = AIR_value_destroyed.reset_index().set_index(['hazard'])
+AIR_value_destroyed = AIR_value_destroyed.drop(-1)
 
-        else:
-            aSer = pd.DataFrame.from_items([(province_val, [peril_val,  10,0]), 
-                                            (province_val, [peril_val,  25,0]),
-                                            (province_val, [peril_val,  30,0]),
-                                            (province_val, [peril_val,  50,0]),
-                                            (province_val, [peril_val, 100,0]),
-                                            (province_val, [peril_val, 200,0]),
-                                            (province_val, [peril_val, 250,0]),
-                                            (province_val, [peril_val, 500,0]),
-                                            (province_val, [peril_val,1000,0])],orient='index', columns=['hazard', 'rp','loss'])
+# Drop Sector and Perspective columns
+AIR_value_destroyed = AIR_value_destroyed.reset_index().set_index(['province','hazard','rp'])
+AIR_value_destroyed = AIR_value_destroyed.drop(['Sector','Perspective'],axis=1, errors="ignore")
 
-        AIR_value_destroyed_phl = AIR_value_destroyed_phl.append(aSer)
+AIR_value_destroyed = AIR_value_destroyed.reset_index().set_index('province')
+AIR_value_destroyed["hazard"].replace(AIR_peril_lookup_1,inplace=True)
+AIR_value_destroyed["hazard"].replace(AIR_peril_lookup_2,inplace=True)
 
-AIR_value_destroyed_phl.index.name = "province"
-AIR_value_destroyed_phl = AIR_value_destroyed_phl.reset_index().set_index(["province", "hazard", "rp"]).squeeze()
-AIR_value_destroyed_phl.index.name = ['province','hazard','rp']
-AIR_value_destroyed_phl.name = 'loss'
-AIR_value_destroyed_phl = AIR_value_destroyed_phl.sort_index()
+AIR_value_destroyed = AIR_value_destroyed.reset_index().set_index(['province','hazard','rp'])
+AIR_value_destroyed = AIR_value_destroyed.sort_index().squeeze()
 
-#fa_guessed_gar_phl = (AIR_value_destroyed_phl/broadcast_simple(v_unshaved_phl,AIR_value_destroyed_phl.index)).dropna()
+#fa_guessed_gar_phl = (AIR_value_destroyed/broadcast_simple(v_unshaved_phl,AIR_value_destroyed.index)).dropna()
 fa_guessed_gar_phl = (frac_value_destroyed_gar_phl/broadcast_simple((v_unshaved_phl),frac_value_destroyed_gar_phl.index)).dropna()
 
 fa_guessed_gar_phl.name  = "fa"
@@ -502,8 +477,7 @@ cat_info_phl["social"] = concat_categories(df_phl.social_p, df_phl.social_r, ind
 cat_info_phl["axfin"] = concat_categories(df_phl.axfin_p, df_phl.axfin_r, index=income_cats) #access to finance
 
 cat_info_phl = cat_info_phl.dropna()
-
-print(cat_info_phl.head(70))
+#print(cat_info_phl.head(70))
 
 ##Taxes, redistribution, capital
 df_phl["tau_tax"],cat_info_phl["gamma_SP"] = social_to_tx_and_gsp('province',cat_info_phl)
