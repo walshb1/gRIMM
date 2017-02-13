@@ -13,7 +13,7 @@ img_width = 400
 import os, shutil
 from subprocess import Popen, PIPE, call 
 
-def make_map_from_svg(series_in, svg_file_path, outname, color_maper=plt.cm.get_cmap("Blues"), label = "", outfolder ="img/" , new_title=None, verbose=True):
+def make_map_from_svg(series_in, svg_file_path, outname, color_maper=plt.cm.get_cmap("Blues"), label = "", outfolder ="img/" , new_title=None, do_qualitative=False, res=1000, verbose=True):
     """Makes a cloropleth map and a legend from a panda series and a blank svg map. 
     Assumes the index of the series matches the SVG classes
     Saves the map in SVG, and in PNG if Inkscape is installed.
@@ -24,7 +24,7 @@ def make_map_from_svg(series_in, svg_file_path, outname, color_maper=plt.cm.get_
     series_in.index = series_in.index.str.lower().str.replace(" ","_").str.replace("-","_").str.replace(".","_").str.replace("(","_").str.replace(")","_")
     
     #compute the colors 
-    color = data_to_rgb(series_in,color_maper=color_maper)
+    color = data_to_rgb(series_in,color_maper=color_maper,do_qual=do_qualitative)
 
     #Builds the CCS style for the new map  (todo: this step could get its own function)
     style_base =\
@@ -114,7 +114,7 @@ def make_map_from_svg(series_in, svg_file_path, outname, color_maper=plt.cm.get_
             could_do_png_map = True
 
     #makes the legend with matplotlib
-    l = make_legend(100*series_in,color_maper,label,outfolder+"legend_of_"+outname)
+    l = make_legend(100*series_in,color_maper,label,outfolder+"legend_of_"+outname,do_qualitative,res)
     
     if shutil.which("convert") is None:
         print("Cannot merge map and legend. Install ImageMagick® to do so.")
@@ -139,7 +139,7 @@ def make_map_from_svg(series_in, svg_file_path, outname, color_maper=plt.cm.get_
     
 import matplotlib as mpl
 
-def make_legend(serie,cmap,label="",path=None):
+def make_legend(serie,cmap,label="",path=None,do_qualitative=False,res=1000):
     #todo: log flag
 
     
@@ -153,16 +153,25 @@ def make_legend(serie,cmap,label="",path=None):
     # bounds =np.linspace(vmin,vmax,5)
     # norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
 
-    #continuous legend
+    #if not do_qualitative:
+        #continuous legend
     norm = mpl.colors.Normalize(vmin=vmin, vmax=vmax)
-
     cb = mpl.colorbar.ColorbarBase(ax1, cmap=cmap, norm=norm, orientation='horizontal')
-    #cb.ax.set_xticklabels(['0.01%','0.1%','1%','10%'])
+    
+    if do_qualitative:
+        #delta = (vmax - vmin)/5
+        #bounds = np.array([vmin, vmin+delta, vmin+2*delta, vmin+3*delta, vmin+5*delta])
+        #norm = mpl.colors.BoundaryNorm(boundaries=bounds, ncolors=4)
+        #cb = mpl.colorbar.ColorbarBase(ax1, cmap=cmap, norm=norm, orientation='horizontal')
+
+        cb.set_ticks([vmin,vmax])
+        cb.ax.set_xticklabels(['Low','High'])
+        label = label[:label.find(" (")]
+
     cb.set_label(label)
     if path is not None:
-        plt.savefig(path+".png",bbox_inches="tight",transparent=True)  
+        plt.savefig(path+".png",bbox_inches="tight",transparent=True,dpi=res)  
     plt.close(fig)    
-    
     
     return Image(path+".png", width=img_width   )  
 
@@ -188,10 +197,24 @@ def num_to_hex(x):
         h="0"+h
     return h
 
-def data_to_rgb(serie,color_maper=plt.cm.get_cmap("Blues_r"), normalizer = n_to_one_normalizer, norm_param = 0, na_color = "#e0e0e0"):
+def data_to_rgb(serie,
+                color_maper=plt.cm.get_cmap("Blues_r"), 
+                normalizer = n_to_one_normalizer, 
+                norm_param = 0, 
+                na_color = "#e0e0e0",
+                do_qual=False):
     """This functions transforms  data series into a series of color, using a colormap."""
 
-    data_n = normalizer(serie,norm_param)
+    if not do_qual:
+        data_n = normalizer(serie,norm_param)
+    else: 
+        data_n = quantile_normalizer(serie)
+
+
+    #delta = (vmax - vmin)/5
+    #bounds = np.array([vmin, vmin+delta, vmin+2*delta, vmin+3*delta, vmin+5*delta])
+    #norm = mpl.colors.BoundaryNorm(boundaries=bounds, ncolors=4)
+    #cb = mpl.colorbar.ColorbarBase(ax1, cmap=cmap, norm=norm, orientation='horizontal')
 
     #here matplolib color mappers will just fill nas with the lowest color in the colormap
     colors = pd.DataFrame(color_maper(data_n),index=serie.index, columns=["r","g","b","a"]).applymap(num_to_hex)

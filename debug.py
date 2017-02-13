@@ -71,8 +71,9 @@ plot_pairs = [['gdp_pc_pp','risk'],
               ['cp','cr']]
 
 plot_dim = {'delta_W':[0,0.0002],
-            'risk':[0.1,0.2],
-            'fa':[0.08,0.12]}
+            #'risk':[0.1,0.2],
+            #'fa':[0.08,0.12]
+            }
 
 for ipair in plot_pairs:
     plt.cla()

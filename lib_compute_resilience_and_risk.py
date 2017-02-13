@@ -12,7 +12,7 @@ def process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,ve
 
     if type(hazard_ratios)==pd.DataFrame:
         hazard_ratios = hazard_ratios.dropna()
-		#removes countries in macro not in cat_info
+        #removes countries in macro not in cat_info        
         common_places = [c for c in macro.index if c in cat_info.index and c in hazard_ratios.index]
         macro = macro.ix[common_places]        
         cat_info = cat_info.ix[common_places]        
@@ -428,10 +428,11 @@ def average_over_rp(df,default_rp,protection=None):
 
     #just drops rp index if df contains default_rp
     if default_rp in df.index.get_level_values("rp"):
-        print("default_rp detected, droping rp")
+        print("default_rp detected, dropping rp")
         return (df.T/protection).T.reset_index("rp",drop=True)
            
     df=df.copy().reset_index("rp")
+
     protection=protection.copy().reset_index("rp",drop=True)
     
     #computes frequency of each return period
