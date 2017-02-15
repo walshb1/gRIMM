@@ -5,6 +5,7 @@ print(df_with_results.head(10))
 
 #this library contains ad hoc functions, coded for this project, that allow to produce maps 
 from maps_lib import *
+import sys
 
 #ploting capacities
 import matplotlib as mpl
@@ -22,6 +23,12 @@ mpl.rcParams['xtick.labelsize'] = 20
 # path to the blank map 
 svg_file_path = "map/BlankSimpleMap.svg"
 
+inp_do_qual = False
+inp_res = 600
+if len(sys.argv[1:]) > 0:
+    inp_do_qual = sys.argv[1]
+    inp_res = 2000
+
 make_map_from_svg(
         df_with_results.risk_to_assets, #data 
         svg_file_path,                  #path to blank map
@@ -29,8 +36,8 @@ make_map_from_svg(
         color_maper=plt.cm.get_cmap("Blues"), #color scheme (from matplotlib. Chose them from http://colorbrewer2.org/)
         label="Annual asset losses (% of GDP)",
         new_title="Map of asset risk in the Philippines",  #title for the colored SVG
-        do_qualitative=False,
-        res=600)
+        do_qualitative=inp_do_qual,
+        res=inp_res)
 
 make_map_from_svg(
         df_with_results.resilience, 
@@ -39,8 +46,8 @@ make_map_from_svg(
         color_maper=plt.cm.get_cmap("RdYlGn"), 
         label="Socio-economic capacity (%)",
         new_title="Map of socio-economic capacity in the Philippines",
-        do_qualitative=False,
-        res=600)
+        do_qualitative=inp_do_qual,
+        res=inp_res)
 
 make_map_from_svg(
         df_with_results.risk, 
@@ -49,5 +56,5 @@ make_map_from_svg(
         color_maper=plt.cm.get_cmap("Purples"), 
         label="Annual welfare losses (% of GDP)",
         new_title="Map of welfare risk in the Philippines",
-        do_qualitative=False,
-        res=600)
+        do_qualitative=inp_do_qual,
+        res=inp_res)

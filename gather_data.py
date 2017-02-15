@@ -226,6 +226,7 @@ PEB_wb_deltares_older = pd.read_csv(inputs+"/PEB_wb_deltares.csv",skiprows=[0,1,
 PEB_wb_deltares_older["country"] = replace_with_warning(PEB_wb_deltares_older["Country"],any_to_wb) #Replace with warning is used for columns, for index set_index is needed.
 
 df["pe"]=df["pe"].fillna(PEB_wb_deltares_older.set_index("country").drop(["Country"],axis=1).squeeze()) #Completes with bias from previous study when pov maps not available. squeeze is needed or else it's impossible to fillna with a dataframe
+
 if use_avg_pe:
     df["pe"]=df["pe"].fillna(wavg(df["pe"],df["pop"])) #use averaged pe from global data for countries that don't have PE.
 else:
@@ -237,7 +238,7 @@ fa_hazard_cat = broadcast_simple(fa_guessed_gar,index=income_cats) #fraction of 
 fa_with_pe = concat_categories(fa_guessed_gar*(1+pe),fa_guessed_gar*(1-df.pov_head*(1+pe))/(1-df.pov_head), index=income_cats)	
 # ^ fa_guessed_gar*(1+pe) gives f_p^a and fa_guessed_gar*(1-df.pov_head*(1+pe))/(1-df.pov_head) gives f_r^a. TESTED
 fa_with_pe = pd.DataFrame(fa_with_pe).query("hazard in ['flood','surge']").squeeze() #selects just flood and surge
-fa_hazard_cat.update(fa_with_pe) #updates fa_guessed_gar where necessary
+#fa_hazard_cat.update(fa_with_pe) #updates fa_guessed_gar where necessary
 
 ###gathers hazard ratios
 hazard_ratios = pd.DataFrame(fa_hazard_cat)

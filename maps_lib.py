@@ -8,7 +8,7 @@ import numpy as np
     
 from bs4 import BeautifulSoup    
 from IPython.display import Image, display, HTML, SVG
-img_width = 400
+#img_width = 400
 
 import os, shutil
 from subprocess import Popen, PIPE, call 
@@ -120,8 +120,8 @@ def make_map_from_svg(series_in, svg_file_path, outname, color_maper=plt.cm.get_
         print("Cannot merge map and legend. Install ImageMagick® to do so.")
     elif could_do_png_map:
         #Attempts to downsize to a single width and concatenate using imagemagick
-        call("convert "+outfolder+"legend_of_{outname}.png -resize {w} small_legend.png".format(outname=outname,w=img_width), shell=True )
-        call("convert "+outfolder+"map_of_{outname}.png -resize {w} small_map.png".format(outname=outname,w=img_width) , shell=True)
+        call("convert "+outfolder+"legend_of_{outname}.png -resize {w} small_legend.png".format(outname=outname,w=res), shell=True )
+        call("convert "+outfolder+"map_of_{outname}.png -resize {w} small_map.png".format(outname=outname,w=res) , shell=True)
         
         merged_path = outfolder+"map_and_legend_of_{outname}.png".format(outname=outname)
         
@@ -173,7 +173,7 @@ def make_legend(serie,cmap,label="",path=None,do_qualitative=False,res=1000):
         plt.savefig(path+".png",bbox_inches="tight",transparent=True,dpi=res)  
     plt.close(fig)    
     
-    return Image(path+".png", width=img_width   )  
+    return Image(path+".png", width=res)  
 
     
 def n_to_one_normalizer(s,n=0):
@@ -188,7 +188,7 @@ def bins_normalizer(x,n=7):
     return np.floor(n*y)/n
 
 def quantile_normalizer(column, nb_quantile=5):
-  #bbins in quintiles      
+  #bbins in quintiles
     return (pd.qcut(column, nb_quantile,labels=False))/(nb_quantile-1)
 
 def num_to_hex(x):

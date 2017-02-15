@@ -36,8 +36,6 @@ macro = pd.read_csv("intermediate/"+optionRUNPHL+"macro.csv", index_col=economy)
 cat_info = pd.read_csv("intermediate/"+optionRUNPHL+"cat_info.csv",  index_col=[economy, "income_cat"]).fillna(0)
 hazard_ratios = pd.read_csv("intermediate/"+optionRUNPHL+"hazard_ratios.csv", index_col=event_level+["income_cat"]).dropna()
 
-print(cat_info.head(10))
-
 #groups =  pd.read_csv("inputs/income_groups.csv",header =4,index_col=2)
 #country_per_gp = groups["Income group"].reset_index().dropna().set_index("Income group").squeeze()
 #country_per_rg = groups["Region"].reset_index().dropna().set_index("Region").squeeze()
@@ -62,7 +60,7 @@ cats_event_iah.to_csv('output/'+optionRUNPHL+'cats_event_iah_'+optionFee+'_'+opt
 out = compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_iah=True)
 
 
-results,iah = process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_local_welfare=False)
+results,iah = process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_local_welfare=True)
 results.to_csv('output/'+optionRUNPHL+'results_'+optionFee+'_'+optionPDS+'.csv',encoding="utf-8", header=True)
 iah.to_csv('output/'+optionRUNPHL+'iah_'+optionFee+'_'+optionPDS+'.csv',encoding="utf-8", header=True)
 

@@ -9,7 +9,7 @@ def get_AIR_data(fname,sname,keep_sec,keep_per):
     AIR_prov_corrections = {'Tawi-Tawi':'Tawi-tawi',
                             #'Metropolitan Manila':'Manila',
                             'Davao del Norte':'Davao',
-                            'Batanes':'Batanes_off',
+                            #'Batanes':'Batanes_off',
                             'North Cotabato':'Cotabato'}
     
     # AIR dataset peril code to peril name
@@ -68,7 +68,7 @@ def get_AIR_data(fname,sname,keep_sec,keep_per):
     
     # Keep only earthquake (EQ) and tsunami (HUSSPF)
     AIR_value_destroyed = AIR_value_destroyed.reset_index().set_index(['hazard'])
-    AIR_value_destroyed = AIR_value_destroyed.drop(['typhoon'])#'wind','surge','flood'])    
+    AIR_value_destroyed = AIR_value_destroyed.drop(['typhoon'])    
 
     AIR_value_destroyed = AIR_value_destroyed.reset_index().set_index(['province','hazard','rp'])
 
