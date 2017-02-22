@@ -322,8 +322,6 @@ def process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_l
     ##AGGREGATES LOSSES
     #Averages over return periods to get dk_{hazard} and dW_{hazard}
     dkdw_h = average_over_rp(dkdw_event,default_rp,macro_event["protection"])
-
-    print(dkdw_h.ix['Batanes'])
     
     #Sums over hazard dk, dW (gets one line per economy)
     dkdw = dkdw_h.sum(level=economy)

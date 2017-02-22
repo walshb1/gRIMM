@@ -355,16 +355,6 @@ df_phl["assets"]          = df_phl["gdp_pc_pp"]*df_phl["pop"]/df_phl["avg_prod_k
 # PSA materials file
 PSA_vulnerability = get_PSA_building_data(PHLinputs+"/PSA_materials.xlsx")
 
-######
-## This is how it was done
-## share_phl also references above
-#share_phl = pd.DataFrame([share.loc['Philippines']], index=df_phl.index, columns=["fragile","median","robust"])
-#
-#p_phl = pd.DataFrame(share_phl.cumsum(axis=1), index=df_phl.index, columns=["fragile","median","robust"]).add(-df_phl["pov_head"],axis=0).clip(lower=0)
-
-#poor_phl = (share_phl-p_phl).clip(lower=0)
-#rich_phl = share_phl - poor_phl
-
 poor_phl = PSA_vulnerability[PSA_vulnerability.income_cat == 'poor'].drop(['income_cat'],axis=1).multiply(df_phl["pov_head"],axis=0)
 rich_phl = PSA_vulnerability[PSA_vulnerability.income_cat == 'nonpoor'].drop(['income_cat'],axis=1).multiply((1-df_phl["pov_head"]),axis=0)
 
