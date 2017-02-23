@@ -46,6 +46,7 @@ reduction_vul       = 0.20
 model        = os.getcwd() #get current directory
 inputs       = model+'/inputs/' #get inputs data directory
 PHLinputs    = model+'/inputs/PHL' #get inputs data directory
+AVSinputs    = model+'/../resilience_indicator_multihazard/inputs'
 intermediate = model+'/intermediate/' #get outputs data directory
 if not os.path.exists(intermediate): #if the depository directory doesn't exist, create one
     os.makedirs(intermediate)
@@ -290,7 +291,6 @@ df["tau_tax"],cat_info["gamma_SP"] = social_to_tx_and_gsp(economy,cat_info)
 
 #here k in cat_info has poor and non poor, while that from capital_data.csv has only k, regardless of poor or nonpoor
 cat_info["k"] = (1-cat_info["social"])*cat_info["c"]/((1-df["tau_tax"])*df["avg_prod_k"]) 
-#flag
 
 #Exposure
 cat_info["fa"] =hazard_ratios.fa.mean(level=["country","income_cat"])
@@ -372,14 +372,36 @@ vp_phl.name = "vp"
 vr_phl.name = "vr"
 v_phl.name = "v"
 
-#fa is the fraction of asset affected. broadcast_simple, substitute the value in frac_value_destroyed_gar by values in v_unshaved. 
-# - Here it assumes that vulnerability for all types of disasters are the same. fa_guessed_gar = exposure/vulnerability
-frac_value_destroyed_gar_phl = pd.read_csv(PHLinputs+"/PHL_frac_value_destroyed_gar_completed.csv", index_col=["province", "hazard", "rp"], squeeze=True).dropna()#\delta_K,
-df_phl.index.name = "province"
+#######
+# Look at GAR data, compare to AIR
+# --> fa is the fraction of asset affected. broadcast_simple, substitute the value in frac_value_destroyed_gar by values in v_unshaved. 
+# --> Here it assumes that vulnerability for all types of disasters are the same. fa_guessed_gar = exposure/vulnerability
+
+# This file reports exposure as fraction of assets; AIR reports as absolute value
+# --> I think this comes from the file below
+frac_value_destroyed_gar_phl = pd.read_csv(PHLinputs+"/PHL_frac_value_destroyed_gar_completed.csv", 
+                                           index_col=["province", "hazard", "rp"], squeeze=True).dropna()
 
 fa_guessed_gar_phl = (frac_value_destroyed_gar_phl/broadcast_simple((v_unshaved_phl),frac_value_destroyed_gar_phl.index)).dropna()
 
+# This is the original GAR file
+gar_file_aal = pd.read_csv(AVSinputs+'/GAR15 results feb 2016_AALmundo.csv', encoding="latin-1", thousands=",", )
+gar_file_aal = gar_file_aal.set_index(replace_with_warning(gar_file_aal.ISO,iso3_to_wb)).drop(["ISO","Country"],axis=1)
+gar_file_aal.index.name="country"
+
+phl_gar_aal = gar_file_aal.ix['Philippines']
+
+print("\n --> df_phl ASSETS")
+print(df_phl['assets'].sum()/(50*1E3))
+
+print(gar_file_aal.ix['Philippines'])
+
+# productivity of capital = Income/assets
+df_phl['eff_prod_k_gar']  = ((df_phl["gdp_pc_pp"]*df_phl["pop"]).sum()/(50*1E3))/phl_gar_aal.ix['EXPOSED VALUE']
+print(df_phl['eff_prod_k_gar'])
+
 # AIR dataset
+df_phl.index.name = "province"
 AIR_value_destroyed = get_AIR_data(PHLinputs+"/Risk_Profile_Master_With_Population.xlsx","Loss_Results",'all','Agg')
 AIR_value_destroyed/=1e3
 AIR_value_destroyed.reset_index().set_index('province')
