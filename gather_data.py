@@ -301,24 +301,13 @@ cat_info["v"] = concat_categories(vp,vr, index=income_cats)
 #access to early warnings
 cat_info["shew"] = hazard_ratios.shew.drop("earthquake", level="hazard").mean(level=["country","income_cat"])
 
-if drop_unused_data:
-    cat_info = cat_info.drop(["social"],axis=1, errors="ignore").dropna()
-    df_in = df.drop(["social_p", "social_r","share1","pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"],axis=1, errors="ignore").dropna()
-else :
-    df_in = df.dropna()
-
-#df_in = df_in.drop(["shew","v"],axis=1, errors="ignore").dropna()
-
-#Save all data
-#hazard_ratios.to_csv(intermediate+"/hazard_ratios.csv",encoding="utf-8", header=True)
-#cat_info.to_csv(intermediate+"/cat_info.csv",encoding="utf-8", header=True)
-#pd.DataFrame([vp,vr,v], index=["vp","vr","v"]).T.to_csv(intermediate+"/v_pr_fromPAGER_shaved_GAR.csv",encoding="utf-8", header=True)
-#fa_guessed_gar.to_csv(intermediate+"/fa_guessed_from_GAR_and_PAGER_shaved.csv",encoding="utf-8", header=True)
-#df_in.to_csv(intermediate+"/macro.csv",encoding="utf-8", header=True)
-
 ######################################
+######################################
+#
 # ---> Philippines section
 #
+#####
+
 df_phl = pd.read_excel(PHLinputs+"/PSA_compiled.xlsx",sheetname="data", skiprows=1, index_col=0)#.dropna().squeeze()
 df_phl.index.name = "province"
 df_phl[["cp","cr","gdp_pc_pp"]]/=1e3
