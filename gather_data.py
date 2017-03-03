@@ -46,7 +46,7 @@ reduction_vul       = 0.20
 model        = os.getcwd() #get current directory
 inputs       = model+'/inputs/' #get inputs data directory
 PHLinputs    = model+'/inputs/PHL' #get inputs data directory
-AVSinputs    = model+'/../resilience_indicator_multihazard/inputs'
+AVSinputs    = model+'/../oth_mod_resilience_indicator_multihazard/inputs'
 intermediate = model+'/intermediate/' #get outputs data directory
 if not os.path.exists(intermediate): #if the depository directory doesn't exist, create one
     os.makedirs(intermediate)
@@ -371,6 +371,9 @@ v_phl.name = "v"
 frac_value_destroyed_gar_phl = pd.read_csv(PHLinputs+"/PHL_frac_value_destroyed_gar_completed.csv", 
                                            index_col=["province", "hazard", "rp"], squeeze=True).dropna()
 
+print("GAR")
+print(frac_value_destroyed_gar_phl.head(50))
+
 fa_guessed_gar_phl = (frac_value_destroyed_gar_phl/broadcast_simple((v_unshaved_phl),frac_value_destroyed_gar_phl.index)).dropna()
 
 # This is the original GAR file
@@ -380,21 +383,23 @@ gar_file_aal.index.name="country"
 
 phl_gar_aal = gar_file_aal.ix['Philippines']
 
-print("\n --> df_phl ASSETS")
-print(df_phl['assets'].sum()/(50*1E3))
-
+# --> PSA exposed assets
+#print(df_phl['assets'].sum()/(50*1E3))
+# --> GAR exposed assets
 print(gar_file_aal.ix['Philippines'])
 
 # productivity of capital = Income/assets
 df_phl['eff_prod_k_gar']  = ((df_phl["gdp_pc_pp"]*df_phl["pop"]).sum()/(50*1E3))/phl_gar_aal.ix['EXPOSED VALUE']
-print(df_phl['eff_prod_k_gar'])
 
 # AIR dataset
 df_phl.index.name = "province"
 AIR_value_destroyed = get_AIR_data(PHLinputs+"/Risk_Profile_Master_With_Population.xlsx","Loss_Results",'all','Agg')
 AIR_value_destroyed/=1e3
 AIR_value_destroyed.reset_index().set_index('province')
+
 frac_AIR_value_destroyed = (AIR_value_destroyed/df_phl['assets'].squeeze())
+
+print(frac_AIR_value_destroyed.ix['Cebu'])
 
 fa_guessed_air_phl = (frac_AIR_value_destroyed/broadcast_simple(v_unshaved_phl,AIR_value_destroyed.index)).dropna()
 

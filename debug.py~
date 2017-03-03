@@ -1,9 +1,0 @@
-from pylab import *
-import csv
-import prettyplotlib as ppl
-import matplotlib.patches as pts
-from matplotlib import rc
-from matplotlib import colors
-from textwrap import wrap
-rc('text', usetex=False)
-

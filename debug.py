@@ -5,6 +5,7 @@ import matplotlib.patches as pts
 from matplotlib import rc
 from matplotlib import colors
 from textwrap import wrap
+from collections import OrderedDict
 import os
 rc('text', usetex=False)
 
@@ -20,10 +21,35 @@ from matplotlib import colors
 
 def_pal = sns.color_palette()
 
-def plot_trendline(colX,colY):
+def categorize_GDP(df):
+    array = df['pop'].astype('float')*df['gdp_pc_pp'].astype('float')
+    df_gdp  = pd.DataFrame([return_bin(array,iGDP) for iGDP in array],index=df.index)
+    df_gdpl = pd.DataFrame([return_label(array,iGDP) for iGDP in array],index=df.index)
 
+    #df_gdpl2 = []
+    #for iEconVal in df_gdpl:
+    #    if iEconVal not in df_gdpl2:
+    #        df_gdpl2.append(iEconVal)
+    #    else:
+    #        df_gdpl2.append(None)
+
+    return df_gdp, df_gdpl
+
+def return_bin(array,iGDP):
+    if iGDP >= np.percentile(array,75): return 1600
+    if iGDP >= np.percentile(array,50): return 800
+    if iGDP >= np.percentile(array,25): return 400
+    return 200
+
+def return_label(array,iGDP):
+    if iGDP >= np.percentile(array,75): return '4th quartile'
+    if iGDP >= np.percentile(array,50): return '3rd quartile'
+    if iGDP >= np.percentile(array,25): return '2nd quartile'
+    return '1st quartile'
+
+def plot_trendline(colX,colY):
     tl_xvals = np.linspace(min(colX), max(colX), 10)
-        
+    
     r, p = stats.pearsonr(colX,colY)
     m, b = np.polyfit(colX,colY, 1)
     tl = b + (m*tl_xvals)
@@ -228,15 +254,101 @@ for ihist in res_head:
     plt.savefig(dbdir+'hist_'+ihist+'.pdf',bbox_inches='tight',format='pdf')
     plt.cla()
 
+# Scatter plots
+scatter_data = getcol(res_df,[res_head['risk_to_assets'],res_head['risk'],res_head['resilience'],res_head['pop'],res_head['gdp_pc_pp']])
+df = pd.DataFrame(scatter_data, columns=['risk_to_assets','risk','resilience','pop','gdp_pc_pp'],index=getcol(res_df,res_head['province']))
+df.index.name='province'
+df = df.reset_index()
+df.index.name='position'
+df = df.reset_index().set_index('province')
+
+df['risk_to_assets']*=100
+df['risk']*=100
+df['resilience']*=100
+
+df['gdp'], df['gdpl'] = categorize_GDP(df)
+
+for iPlt in ['resilience','risk','risk_to_assets']:
+
+    ##########
+    # Plot alphabetically
+    plt.cla()
+
+    df = df.sort_values('position',axis=0)
+
+    ax = df.plot(kind='scatter',x=[],y=[],s=150,alpha=0.25,color=def_pal[0],label='1st Quartile')
+    df.plot(kind='scatter',ax=ax,x=[],y=[],s=300,alpha=0.25,color=def_pal[0],label='2nd Quartile')
+    df.plot(kind='scatter',ax=ax,x=[],y=[],s=700,alpha=0.25,color=def_pal[0],label='3rd Quartile')
+    df.plot(kind='scatter',ax=ax,x=[],y=[],s=1500,alpha=0.25,color=def_pal[0],label='4th Quartile')
+
+    df.plot(ax=ax, kind='scatter',figsize=[16.0,4.0],
+            x='position',y=iPlt,xticks=df.position,rot=90,
+            xlim=[-1,79], s=df['gdp'],alpha=0.5)
+    leg = ax.legend(title='Provincial GDP',labelspacing=0.75,ncol=1,fontsize=9,borderpad=0.75,fancybox=True,frameon=True,framealpha=0.9)
+    leg.get_frame().set_facecolor('white')            
+
+    if 'risk' in iPlt: plt.gca().set_ylim(bottom=-0.01)
+
+    ax.set_xticklabels(df.index.values)
+
+    plt.xlabel('Province',fontsize=12)
+    plt.ylabel(iPlt.replace('_',' ').replace('r','R')+' [%]',fontsize=12)
+        
+    plt.savefig(dbdir+'scatter_'+iPlt+'.pdf',bbox_inches='tight',format='pdf')
+
+    ##########
+    # Plot in ascending order
+    df = df.sort_values(iPlt,axis=0)
+    df = df.reset_index()
+    df.index.name='position2'
+    df = df.reset_index().set_index('province')
+
+    ax = df.plot(kind='scatter',x=[],y=[],s=150,alpha=0.25,color=def_pal[0],label='1st Quartile')
+    df.plot(kind='scatter',ax=ax,x=[],y=[],s=300,alpha=0.25,color=def_pal[0],label='2nd Quartile')
+    df.plot(kind='scatter',ax=ax,x=[],y=[],s=700,alpha=0.25,color=def_pal[0],label='3rd Quartile')
+    df.plot(kind='scatter',ax=ax,x=[],y=[],s=1500,alpha=0.25,color=def_pal[0],label='4th Quartile')
+
+    df.plot(ax=ax,kind='scatter',figsize=[16.0,4.0],
+            x='position2',y=iPlt,xticks=df.position2,rot=90,
+            xlim=[-1,79],s=df['gdp'],alpha=0.5)
+    leg = ax.legend(title='Provincial GDP',loc='upper left',labelspacing=0.75,ncol=1,fontsize=9,borderpad=0.75,fancybox=True,frameon=True,framealpha=0.9)
+    leg.get_frame().set_facecolor('white')
+
+    if 'risk' in iPlt: plt.gca().set_ylim(bottom=-0.01)
+
+    ax.set_xticklabels(df.index.values)
+
+    plt.xlabel('Province',fontsize=12)
+    plt.ylabel(iPlt.replace('_',' ').replace('r','R')+' [%]',fontsize=12)
+
+    plt.savefig(dbdir+'sort_scatter_'+iPlt+'.pdf',bbox_inches='tight',format='pdf')
+
+    ##########
+    # Plot in ascending order without GDP/size
+    df.plot(ax=ax,kind='scatter',figsize=[16.0,4.0],
+            x='position2',y=iPlt,xticks=df.position2,rot=90,
+            xlim=[-1,79],alpha=0.5)
+
+    if 'risk' in iPlt: plt.gca().set_ylim(bottom=-0.01)
+
+    ax.set_xticklabels(df.index.values)
+
+    plt.xlabel('Province',fontsize=12)
+    plt.ylabel(iPlt.replace('_',' ').replace('r','R')+' [%]',fontsize=12)
+
+    plt.savefig(dbdir+'sort_scatter_noGDP_'+iPlt+'.pdf',bbox_inches='tight',format='pdf')
+    
+
+    df = df.drop('position2',axis=1)
+
+#########
 # Box plots
 plt.cla()
-plt.figure()
-
+plt.figure(figsize=[6.0,4.4])
 #
 comp_str = 'risk_to_assets'
 #
 cons_data = getcol(res_df,[res_head['cp'],res_head['gdp_pc_pp'],res_head['cr'],res_head[comp_str]])
-
 df = pd.DataFrame(cons_data, columns=['cp','ct','cr',comp_str],index=getcol(res_df,res_head['province']))
 df.index.name = 'province'
 
@@ -252,16 +364,16 @@ head_and_tail = [df.head(10),df.tail(10)]
 result = pd.concat(head_and_tail)
 
 positions = [i for i in range(10)]+[i for i in range(11,21)]
+positions_all = [i for i in range(len(result))]
+
 color = dict(boxes='DarkGreen', whiskers='DarkOrange', medians='DarkBlue', caps='Gray')
 
-#ax = result.T.boxplot(rot=80,return_type='dict')
 ax = result.T.plot(kind='box',rot=80,color=color,positions=positions,return_type='axes')
 
 plt.subplots_adjust(bottom=0.30)
 
-for i,box in enumerate(ax.artists):
-    box.set_facecolor(def_pal[0])
-
+#for i,box in enumerate(ax.artists):
+#    box.set_facecolor(def_pal[0])
 
 plt.ylabel("Income per cap. (poor - avg - nonpoor)",fontsize=10)
 plt.tick_params(axis='both', which='major', labelsize=8)
