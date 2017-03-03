@@ -10,6 +10,9 @@ import pandas as pd
 optionFee="tax"
 optionPDS="no"
 
+option_social_boost = ''
+option_shew = 'shew100'
+
 if optionFee=="insurance_premium":
     optionB='unlimited'
     optionT='perfect'
@@ -20,8 +23,6 @@ else:
 print('optionFee =',optionFee, 'optionPDS =', optionPDS, 'optionB =', optionB, 'optionT =', optionT)
 
 #Options and parameters
-#optionRUNPHL = ""
-#economy= 'country' #province, deparmtent
 optionRUNPHL = "PHL_"
 economy= 'province'
 
@@ -36,9 +37,25 @@ macro = pd.read_csv("intermediate/"+optionRUNPHL+"macro.csv", index_col=economy)
 cat_info = pd.read_csv("intermediate/"+optionRUNPHL+"cat_info.csv",  index_col=[economy, "income_cat"]).fillna(0)
 hazard_ratios = pd.read_csv("intermediate/"+optionRUNPHL+"hazard_ratios.csv", index_col=event_level+["income_cat"]).dropna()
 
-#groups =  pd.read_csv("inputs/income_groups.csv",header =4,index_col=2)
-#country_per_gp = groups["Income group"].reset_index().dropna().set_index("Income group").squeeze()
-#country_per_rg = groups["Region"].reset_index().dropna().set_index("Region").squeeze()
+if option_social_boost == 'social5':
+    pass
+else: 
+    pass
+
+#print(hazard_ratios.head(50))
+
+if option_shew == 'shew100':
+    
+    macro.shewp = 1.0
+    macro.shewr = 1.0
+    
+    cat_info.shew = 1.0
+
+    hazard_ratios.shew = 1.0
+    hazard_ratios['shew']=hazard_ratios.shew.unstack("hazard").assign(earthquake=0).stack("hazard").reset_index().set_index(event_level+[ "income_cat"]) 
+    #shew still 0 for earthquakes
+
+else: pass
 
 #compute
 macro_event, cats_event, hazard_ratios_event, macro = process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,verbose_replace=True) 
@@ -54,15 +71,18 @@ macro_event, cats_event_iah = calculate_response(macro_event,cats_event_ia,event
                                                  optionB=optionB, # optionB:one_per_affected, one_per_helped, one, unlimited, data, unif_poor, max01, max05
                                                  loss_measure="dk",fraction_inside=1, share_insured=.25)
 
-macro_event.to_csv('output/'+optionRUNPHL+'macro_'+optionFee+'_'+optionPDS+'.csv',encoding="utf-8", header=True)
-cats_event_iah.to_csv('output/'+optionRUNPHL+'cats_event_iah_'+optionFee+'_'+optionPDS+'.csv',encoding="utf-8", header=True)   
+macro_str = ('output/'+optionRUNPHL+'macro_'+optionFee+'_'+optionPDS+'_'+option_shew+'.csv').replace('__','_').replace('_.','.')
+cats_event_str = ('output/'+optionRUNPHL+'cats_event_iah_'+optionFee+'_'+optionPDS+'_'+option_shew+'.csv').replace('__','_').replace('_.','.')
+macro_event.to_csv(macro_str,encoding="utf-8", header=True)
+cats_event_iah.to_csv(cats_event_str,encoding="utf-8", header=True)   
 
 out = compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_iah=True)
 
-
+results_str = ('output/'+optionRUNPHL+'results_'+optionFee+'_'+optionPDS+'_'+option_shew+'.csv').replace('__','_').replace('_.','.')
+iah_str = ('output/'+optionRUNPHL+'iah_'+optionFee+'_'+optionPDS+'_'+option_shew+'.csv').replace('__','_').replace('_.','.')
 results,iah = process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_local_welfare=True)
-results.to_csv('output/'+optionRUNPHL+'results_'+optionFee+'_'+optionPDS+'.csv',encoding="utf-8", header=True)
-iah.to_csv('output/'+optionRUNPHL+'iah_'+optionFee+'_'+optionPDS+'.csv',encoding="utf-8", header=True)
+results.to_csv(results_str,encoding="utf-8", header=True)
+iah.to_csv(iah_str,encoding="utf-8", header=True)
 
 
 # result1=pd.read_csv("output-old/results.csv", index_col=economy)
