@@ -12,7 +12,7 @@ optionPDS="no"
 
 option_social = '' # { <any float> }
 option_shew   = '' # { 'shew100' }
-option_rshar  = True # { True or False }
+option_rshar  = False # { True or False }
 
 if optionFee=="insurance_premium":
     optionB='unlimited'
@@ -93,9 +93,10 @@ out = compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return
 results_str = ('output/PHL_results_'+options_string).replace('__','_')
 iah_str = ('output/PHL_iah_'+options_string).replace('__','_')
 
-results,iah = process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_local_welfare=True)
-results.to_csv(results_str,encoding="utf-8", header=True)
-iah.to_csv(iah_str,encoding="utf-8", header=True)
+# FLAG this is a mess!
+results,iah = process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_local_welfare=False)
+results.to_csv(results_str.replace('.csv','_nat.csv').replace('__','_'),encoding="utf-8", header=True)
+iah.to_csv(iah_str.replace('.csv','_nat.csv').replace('__','_'),encoding="utf-8", header=True)
 
 # result1=pd.read_csv("output-old/results.csv", index_col=economy)
 # iah1=pd.read_csv("output-old/iah.csv", index_col=event_level+["income_cat","affected_cat","helped_cat"])
