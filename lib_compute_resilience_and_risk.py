@@ -87,7 +87,7 @@ def process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,ve
         print("Replaced in both: "+", ".join(np.intersect1d(cols,cols_c)))
     return macro_event, cats_event, hazard_ratios_event, macro  
 
-def compute_dK(macro_event, cats_event,event_level,affected_cats):
+def compute_dK(macro_event, cats_event,event_level,affected_cats,option_rshar):
     cats_event_ia=concat_categories(cats_event,cats_event, index= affected_cats)
 
     #counts affected and non affected
@@ -103,6 +103,8 @@ def compute_dK(macro_event, cats_event,event_level,affected_cats):
     
     #capital losses and total capital losses
     cats_event_ia["dk"]  = cats_event_ia[["k","v_shew"]].prod(axis=1, skipna=False) #capital potentially be damaged 
+    if option_rshar:
+        cats_event_ia["dk"]*=0.7
 
     cats_event_ia.ix[(cats_event_ia.affected_cat=='na'), "dk"]=0
 

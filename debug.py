@@ -126,11 +126,23 @@ def read_file(fname):
 cdir   = os.getcwd()          # current directory
 dbdir  = cdir+'/debug_plots/' # plots go here
 shewdir = dbdir+'/option_shew/'
+rshardir = dbdir+'/option_risk_sharing/'
+social05dir = dbdir+'/option_social/05/'
+social10dir = dbdir+'/option_social/10/'
+social15dir = dbdir+'/option_social/15/'
 if not os.path.exists(dbdir): os.makedirs(dbdir)
 if not os.path.exists(shewdir): os.makedirs(shewdir)
+if not os.path.exists(rshardir): os.makedirs(rshardir)
+if not os.path.exists(social05dir): os.makedirs(social05dir)
+if not os.path.exists(social10dir): os.makedirs(social10dir)
+if not os.path.exists(social15dir): os.makedirs(social15dir)
 
 for anOption in [['output/PHL_results_tax_no.csv',dbdir],
-                 ['output/PHL_results_tax_no_shew100.csv',shewdir]]:
+                 ['output/PHL_results_tax_no_shew100.csv',shewdir],
+                 ['output/PHL_results_tax_no_rshar.csv',rshardir],
+                 ['output/PHL_results_tax_no_05.csv',social05dir],
+                 ['output/PHL_results_tax_no_10.csv',social10dir],
+                 ['output/PHL_results_tax_no_15.csv',social15dir]]:
                  
     res_head, res_df = read_file(anOption[0])
 
@@ -209,6 +221,8 @@ for anOption in [['output/PHL_results_tax_no.csv',dbdir],
         annotate("PSA data", xy=(0.9,0.97),xycoords='axes fraction',fontsize=8,weight='bold',va="top", ha="center")
         plt.savefig(anOption[1]+ipair[0]+'_VS_'+ipair[1]+'.pdf',bbox_inches='tight',format='pdf')
 
+    plt.close('all')
+
     # Histograms
     plt.style.use('seaborn-deep')
 
@@ -262,6 +276,7 @@ for anOption in [['output/PHL_results_tax_no.csv',dbdir],
         plt.cla()
 
     # Scatter plots
+    # --> This run
     scatter_data = getcol(res_df,[res_head['risk_to_assets'],res_head['risk'],res_head['resilience'],res_head['pop'],res_head['gdp_pc_pp']])
     df = pd.DataFrame(scatter_data, columns=['risk_to_assets','risk','resilience','pop','gdp_pc_pp'],index=getcol(res_df,res_head['province']))
     df.index.name='province'
@@ -273,6 +288,11 @@ for anOption in [['output/PHL_results_tax_no.csv',dbdir],
     df['risk']*=100
     df['resilience']*=100
 
+    # --> Nominal data: this grabs the nominal/baseline run
+    if anOption[1] == dbdir:
+        ndf = df.copy()
+
+    # Function assigns quartiles to GDP system
     df['gdp'], df['gdpl'] = categorize_GDP(df)
 
     for iPlt in ['resilience','risk','risk_to_assets']:
@@ -310,6 +330,9 @@ for anOption in [['output/PHL_results_tax_no.csv',dbdir],
         df.index.name='position2'
         df = df.reset_index().set_index('province')
 
+        # assign index in ascending order, according to new calculations
+        ndf['position2'] = df['position2']
+
         ax = df.plot(kind='scatter',x=[],y=[],s=150,alpha=0.25,color=def_pal[0],label='1st Quartile')
         df.plot(kind='scatter',ax=ax,x=[],y=[],s=300,alpha=0.25,color=def_pal[0],label='2nd Quartile')
         df.plot(kind='scatter',ax=ax,x=[],y=[],s=700,alpha=0.25,color=def_pal[0],label='3rd Quartile')
@@ -335,14 +358,27 @@ for anOption in [['output/PHL_results_tax_no.csv',dbdir],
         ax = df.plot(kind='scatter',figsize=[16.0,4.0],
                      x='position2',y=iPlt,xticks=df.position2,rot=90,
                      xlim=[-1,79],alpha=0.5)
+    
+        # This line plots the baseline results over the policy options
+        if anOption[1] != dbdir:
+            
+            df.plot(ax=ax,kind='scatter',x=[],y=[],alpha=0.5,color='grey',label='A')
+            df.plot(ax=ax,kind='scatter',x=[],y=[],alpha=0.5,label='B')
+            
+            ndf.plot(ax=ax,kind='scatter',figsize=[16.0,4.0],
+                     x='position2',y=iPlt,xticks=df.position2,rot=90,
+                     xlim=[-1,79],color='grey',alpha=0.5)
+            
+            leg = ax.legend(title='Policy',loc='upper left',labelspacing=0.75,ncol=1,fontsize=9,borderpad=0.75,fancybox=True,frameon=True,framealpha=0.9)
+            leg.get_frame().set_facecolor('white')
 
-        if 'risk' in iPlt: plt.gca().set_ylim(bottom=-0.01)
+        if 'risk' in iPlt: plt.gca().set_ylim(bottom=-0.5)
 
         ax.set_xticklabels(df.index.values)
 
         plt.xlabel('Province',fontsize=12)
         plt.ylabel(iPlt.replace('_',' ').replace('r','R')+' [%]',fontsize=12)
-    
+
         plt.savefig(anOption[1]+'sort_scatter_noGDP_'+iPlt+'.pdf',bbox_inches='tight',format='pdf')
     
         df = df.drop('position2',axis=1)
@@ -394,3 +430,5 @@ for anOption in [['output/PHL_results_tax_no.csv',dbdir],
     plt.draw()
 
     plt.savefig(anOption[1]+'boxplot_'+comp_str+'.pdf',bbox_inches='tight',format='pdf')
+    
+    plt.close('all')
