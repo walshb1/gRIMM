@@ -371,8 +371,8 @@ v_phl.name = "v"
 frac_value_destroyed_gar_phl = pd.read_csv(PHLinputs+"/PHL_frac_value_destroyed_gar_completed.csv", 
                                            index_col=["province", "hazard", "rp"], squeeze=True).dropna()
 
-print("GAR")
-print(frac_value_destroyed_gar_phl.head(50))
+#print("GAR")
+#print(frac_value_destroyed_gar_phl.head(50))
 
 fa_guessed_gar_phl = (frac_value_destroyed_gar_phl/broadcast_simple((v_unshaved_phl),frac_value_destroyed_gar_phl.index)).dropna()
 
@@ -386,7 +386,7 @@ phl_gar_aal = gar_file_aal.ix['Philippines']
 # --> PSA exposed assets
 #print(df_phl['assets'].sum()/(50*1E3))
 # --> GAR exposed assets
-print(gar_file_aal.ix['Philippines'])
+#print(gar_file_aal.ix['Philippines'])
 
 # productivity of capital = Income/assets
 df_phl['eff_prod_k_gar']  = ((df_phl["gdp_pc_pp"]*df_phl["pop"]).sum()/(50*1E3))/phl_gar_aal.ix['EXPOSED VALUE']
@@ -399,11 +399,9 @@ AIR_value_destroyed.reset_index().set_index('province')
 
 frac_AIR_value_destroyed = (AIR_value_destroyed/df_phl['assets'].squeeze())
 
-print(frac_AIR_value_destroyed.ix['Cebu'])
-
 fa_guessed_air_phl = (frac_AIR_value_destroyed/broadcast_simple(v_unshaved_phl,AIR_value_destroyed.index)).dropna()
 
-fa_guessed_phl = fa_guessed_air_phl
+fa_guessed_phl = fa_guessed_air_phl.clip(0.0,1.0)
 fa_guessed_phl.name  = "fa"
 
 df_v_phl = vp_phl.to_frame(name="vp")
@@ -417,11 +415,11 @@ pe_phl = df_phl.pop("pe")
 ###incorporates exposure bias, but only for (riverine) flood and surge, and gets an updated fa for income_cats
 fa_hazard_cat_phl = broadcast_simple(fa_guessed_phl,index=income_cats)
 
-fa_with_pe_phl = concat_categories(fa_guessed_phl*(1+pe_phl),fa_guessed_phl*(1-df_phl.pov_head*(1+pe_phl))/(1-df_phl.pov_head), index=income_cats)
+#fa_with_pe_phl = concat_categories(fa_guessed_phl*(1+pe_phl),fa_guessed_phl*(1-df_phl.pov_head*(1+pe_phl))/(1-df_phl.pov_head), index=income_cats)
 # ^ fa_guessed_gar*(1+pe) gives f_p^a and fa_guessed_gar*(1-df.pov_head*(1+pe))/(1-df.pov_head) gives f_r^a. TESTED
 
-fa_with_pe_phl = pd.DataFrame(fa_with_pe_phl).query("hazard in ['flood','surge']").squeeze() #selects just flood and surge
-fa_hazard_cat_phl.update(fa_with_pe_phl) #updates fa_guessed_gar where necessary
+#fa_with_pe_phl = pd.DataFrame(fa_with_pe_phl).query("hazard in ['flood','surge']").squeeze() #selects just flood and surge
+#fa_hazard_cat_phl.update(fa_with_pe_phl) #updates fa_guessed_gar where necessary
 
 ###gathers hazard ratios
 hazard_ratios_phl = pd.DataFrame(fa_hazard_cat_phl)

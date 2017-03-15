@@ -3,6 +3,7 @@ import pandas as pd
 from pandas_helper import get_list_of_index_names, broadcast_simple, concat_categories
 from scipy.interpolate import interp1d
 from lib_gather_data import social_to_tx_and_gsp
+from lib_policy_alternatives import *
 
 def process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,verbose_replace=True):
     flag1=False
@@ -43,7 +44,9 @@ def process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,ve
 
     #add finance to diversification and taxation
     cat_info["social"] = unpack_social(macro,cat_info)
-    cat_info["social"]+= 0.1* cat_info["axfin"]
+
+    cat_info["social"] = (cat_info["social"]+0.1* cat_info["axfin"]).clip(0.0,1.0)
+
     macro["tau_tax"], cat_info["gamma_SP"] = social_to_tx_and_gsp(economy,cat_info)
     
     #RECompute consumption from k and new gamma_SP and tau_tax
@@ -87,7 +90,7 @@ def process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,ve
         print("Replaced in both: "+", ".join(np.intersect1d(cols,cols_c)))
     return macro_event, cats_event, hazard_ratios_event, macro  
 
-def compute_dK(macro_event, cats_event,event_level,affected_cats,option_rshar):
+def compute_dK(macro_event, cats_event,event_level,affected_cats,opt_rshar):
     cats_event_ia=concat_categories(cats_event,cats_event, index= affected_cats)
 
     #counts affected and non affected
@@ -102,9 +105,8 @@ def compute_dK(macro_event, cats_event,event_level,affected_cats,option_rshar):
     cats_event_ia["v_shew"]=cats_event_ia["v"]*(1-macro_event["pi"]*cats_event_ia["shew"])
     
     #capital losses and total capital losses
-    cats_event_ia["dk"]  = cats_event_ia[["k","v_shew"]].prod(axis=1, skipna=False) #capital potentially be damaged 
-    if option_rshar:
-        cats_event_ia["dk"]*=0.7
+    cats_event_ia["dk"] = cats_event_ia[["k","v_shew"]].prod(axis=1, skipna=False) #capital potentially be damaged 
+    cats_event_ia["dk"] = policy_option_rshar(cats_event_ia["dk"],opt_rshar)
 
     cats_event_ia.ix[(cats_event_ia.affected_cat=='na'), "dk"]=0
 
@@ -275,8 +277,6 @@ def compute_response(macro_event, cats_event_iah, event_level, optionT="data", o
         cats_event_iah.ix[(cats_event_iah.income_cat=='nonpoor'),"help_fee"] = fraction_inside*agg_to_event_level(cats_event_iah.query("income_cat=='nonpoor'"),'help_received',event_level)/(cats_event_iah.query("income_cat=='nonpoor'").n.sum())
         cats_event_iah[['help_received','help_fee']]+=temp[['help_received','help_fee']]
     return macro_event, cats_event_iah
-	
-	
 
 	
 def compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_iah=True):
@@ -341,7 +341,7 @@ def process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_l
         return macro
 	
 def unpack_social(m,cat):
-    """Compute social from gamma_SP, taux tax and k and avg_prod_k"""
+    """Compute social from gamma_SP, tau tax and k and avg_prod_k"""
     c  = cat.c
     gs = cat.gamma_SP
     social = gs*m.gdp_pc_pp*m.tau_tax/c #gdp*tax should give the total social protection. gs=each one's social protection/(total social protection). social is defined as t(which is social protection)/c_i(consumption)
@@ -481,10 +481,10 @@ def calc_risk_and_resilience_from_k_w(df, is_local_welfare=True):
     
     ############
     #SOCIO-ECONOMIC CAPACITY)
-    print("\ndWref")
-    print(dWref.head(11))
-    print("\ndelta_W")
-    print(df["delta_W"].head(11))
+    #print("\ndWref")
+    #print(dWref.head(11))
+    #print("\ndelta_W")
+    #print(df["delta_W"].head(11))
     df["resilience"] = dWref/(df["delta_W"])
 
     ############

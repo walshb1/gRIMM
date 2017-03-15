@@ -5,9 +5,9 @@ Abra,earthquake,30,0.03823909364357966
 Abra,earthquake,50,0.1313256844515427
 Abra,earthquake,100,0.4500674350126865
 Abra,earthquake,200,0.9464757645748082
-Abra,earthquake,250,1.155285066900332
-Abra,earthquake,500,1.9767529669142454
-Abra,earthquake,1000,2.9541844925114944
+Abra,earthquake,250,1.0
+Abra,earthquake,500,1.0
+Abra,earthquake,1000,1.0
 Abra,flood,10,0.013750003804303707
 Abra,flood,25,0.08874531054287127
 Abra,flood,30,0.11500801601679442
@@ -24,17 +24,17 @@ Abra,wind,50,0.3300890761953452
 Abra,wind,100,0.5259867095003286
 Abra,wind,200,0.8292409010229924
 Abra,wind,250,0.897077022871782
-Abra,wind,500,1.224880876284852
-Abra,wind,1000,1.4866838422966724
+Abra,wind,500,1.0
+Abra,wind,1000,1.0
 Agusan del Norte,earthquake,10,0.004216777955006232
 Agusan del Norte,earthquake,25,0.03392692192415283
 Agusan del Norte,earthquake,30,0.055777365387220446
 Agusan del Norte,earthquake,50,0.17188256964299484
 Agusan del Norte,earthquake,100,0.5695738104337429
-Agusan del Norte,earthquake,200,1.2651912405269523
-Agusan del Norte,earthquake,250,1.465515341076424
-Agusan del Norte,earthquake,500,1.8631917126283426
-Agusan del Norte,earthquake,1000,2.0739720076021273
+Agusan del Norte,earthquake,200,1.0
+Agusan del Norte,earthquake,250,1.0
+Agusan del Norte,earthquake,500,1.0
+Agusan del Norte,earthquake,1000,1.0
 Agusan del Norte,flood,10,0.0009540375191149031
 Agusan del Norte,flood,25,0.0036003580598294883
 Agusan del Norte,flood,30,0.004997045232789048
@@ -69,8 +69,8 @@ Agusan del Sur,earthquake,50,0.14082102796013363
 Agusan del Sur,earthquake,100,0.3974975403734167
 Agusan del Sur,earthquake,200,0.7145826995302332
 Agusan del Sur,earthquake,250,0.8438460913911622
-Agusan del Sur,earthquake,500,1.0022350855495812
-Agusan del Sur,earthquake,1000,1.06235868673531
+Agusan del Sur,earthquake,500,1.0
+Agusan del Sur,earthquake,1000,1.0
 Agusan del Sur,flood,10,0.00023674263963803288
 Agusan del Sur,flood,25,0.0009137957119247898
 Agusan del Sur,flood,30,0.0011191701099252107
@@ -97,7 +97,7 @@ Aklan,earthquake,100,0.13347488669074017
 Aklan,earthquake,200,0.3669864783632284
 Aklan,earthquake,250,0.4360119363931874
 Aklan,earthquake,500,0.9867343643802545
-Aklan,earthquake,1000,1.5768771565069664
+Aklan,earthquake,1000,1.0
 Aklan,flood,10,0.002249376347698661
 Aklan,flood,25,0.006391103263903806
 Aklan,flood,30,0.008136562872174475
@@ -133,7 +133,7 @@ Albay,earthquake,100,0.15151664658944305
 Albay,earthquake,200,0.3305688678157968
 Albay,earthquake,250,0.42242482726482794
 Albay,earthquake,500,0.7391974345203861
-Albay,earthquake,1000,1.3457492887848923
+Albay,earthquake,1000,1.0
 Albay,flood,10,0.015381970147860491
 Albay,flood,25,0.02732786121413137
 Albay,flood,30,0.030663379926320757
@@ -157,10 +157,10 @@ Albay,wind,25,0.27081260603224977
 Albay,wind,30,0.3282950164875166
 Albay,wind,50,0.5391403544930474
 Albay,wind,100,0.9644512174755602
-Albay,wind,200,1.7631533538008288
-Albay,wind,250,2.016785308874746
-Albay,wind,500,2.81803780178568
-Albay,wind,1000,3.8347243108137175
+Albay,wind,200,1.0
+Albay,wind,250,1.0
+Albay,wind,500,1.0
+Albay,wind,1000,1.0
 Antique,earthquake,10,0.0005397235818690295
 Antique,earthquake,25,0.00951672387583493
 Antique,earthquake,30,0.014861719941087115
@@ -168,8 +168,8 @@ Antique,earthquake,50,0.04697282700667467
 Antique,earthquake,100,0.2234316131138165
 Antique,earthquake,200,0.6382453595531267
 Antique,earthquake,250,0.7679566266530311
-Antique,earthquake,500,1.5999111986462875
-Antique,earthquake,1000,2.1798543491405082
+Antique,earthquake,500,1.0
+Antique,earthquake,1000,1.0
 Antique,flood,10,0.0002854189107025582
 Antique,flood,25,0.003502875701815222
 Antique,flood,30,0.00477865571295835
@@ -205,7 +205,7 @@ Apayao,earthquake,100,0.36371545448677994
 Apayao,earthquake,200,0.6027476794557243
 Apayao,earthquake,250,0.6792403692750085
 Apayao,earthquake,500,0.8163095353231584
-Apayao,earthquake,1000,1.1706592426857108
+Apayao,earthquake,1000,1.0
 Apayao,flood,10,0.011886765459453165
 Apayao,flood,25,0.08265614082064619
 Apayao,flood,30,0.10414826666610545
@@ -220,10 +220,10 @@ Apayao,wind,25,0.3869738625848086
 Apayao,wind,30,0.4487051391844488
 Apayao,wind,50,0.6490930016050521
 Apayao,wind,100,0.9238936001366254
-Apayao,wind,200,1.5140017929260283
-Apayao,wind,250,1.8264123351909476
-Apayao,wind,500,2.4386452437994826
-Apayao,wind,1000,3.256005981311035
+Apayao,wind,200,1.0
+Apayao,wind,250,1.0
+Apayao,wind,500,1.0
+Apayao,wind,1000,1.0
 Aurora,earthquake,10,0.0032138814050679714
 Aurora,earthquake,25,0.06131445420802444
 Aurora,earthquake,30,0.08659756319935234
@@ -231,8 +231,8 @@ Aurora,earthquake,50,0.256352194377354
 Aurora,earthquake,100,0.5313371766042697
 Aurora,earthquake,200,0.9115266773621258
 Aurora,earthquake,250,0.977352821981053
-Aurora,earthquake,500,1.1747212045386557
-Aurora,earthquake,1000,1.7285496038644965
+Aurora,earthquake,500,1.0
+Aurora,earthquake,1000,1.0
 Aurora,flood,10,0.013763326103156543
 Aurora,flood,25,0.06869945595370901
 Aurora,flood,30,0.08643460874658596
@@ -257,9 +257,9 @@ Aurora,wind,30,0.30702822522422485
 Aurora,wind,50,0.46411123645148794
 Aurora,wind,100,0.692672957199725
 Aurora,wind,200,0.9818420246089882
-Aurora,wind,250,1.0688966907233366
-Aurora,wind,500,1.3829541564649168
-Aurora,wind,1000,1.6521708945647737
+Aurora,wind,250,1.0
+Aurora,wind,500,1.0
+Aurora,wind,1000,1.0
 Basilan,earthquake,10,0.0
 Basilan,earthquake,25,0.00017556250792451718
 Basilan,earthquake,30,0.0004488125576869026
@@ -302,9 +302,9 @@ Bataan,earthquake,30,0.049840678013599864
 Bataan,earthquake,50,0.16910548284514437
 Bataan,earthquake,100,0.4776237499176725
 Bataan,earthquake,200,0.9770970439007004
-Bataan,earthquake,250,1.2252180521595175
-Bataan,earthquake,500,1.6481962470963598
-Bataan,earthquake,1000,2.6943087947514353
+Bataan,earthquake,250,1.0
+Bataan,earthquake,500,1.0
+Bataan,earthquake,1000,1.0
 Bataan,flood,10,0.013804037681254128
 Bataan,flood,25,0.033583541605990676
 Bataan,flood,30,0.041877008977276586
@@ -326,12 +326,12 @@ Bataan,surge,1000,0.2242511023763699
 Bataan,wind,10,0.1109366531698541
 Bataan,wind,25,0.5082496521732578
 Bataan,wind,30,0.640091147666901
-Bataan,wind,50,1.0785898092059276
-Bataan,wind,100,2.0587974007777308
-Bataan,wind,200,3.4935308811589962
-Bataan,wind,250,4.05823243672768
-Bataan,wind,500,6.320244700266832
-Bataan,wind,1000,8.35019104550463
+Bataan,wind,50,1.0
+Bataan,wind,100,1.0
+Bataan,wind,200,1.0
+Bataan,wind,250,1.0
+Bataan,wind,500,1.0
+Bataan,wind,1000,1.0
 Batanes,earthquake,10,0.00013687697440024863
 Batanes,earthquake,25,0.0037464971248583278
 Batanes,earthquake,30,0.00602140443285315
@@ -351,14 +351,14 @@ Batanes,flood,250,0.10323794934056336
 Batanes,flood,500,0.12721537096009083
 Batanes,flood,1000,0.14653032065654875
 Batanes,wind,10,0.6617821111077954
-Batanes,wind,25,1.6592975951091022
-Batanes,wind,30,1.977628115106015
-Batanes,wind,50,3.053131582428541
-Batanes,wind,100,4.695962530712134
-Batanes,wind,200,7.530089325414663
-Batanes,wind,250,9.017798205717396
-Batanes,wind,500,11.355843683610765
-Batanes,wind,1000,13.494029382331732
+Batanes,wind,25,1.0
+Batanes,wind,30,1.0
+Batanes,wind,50,1.0
+Batanes,wind,100,1.0
+Batanes,wind,200,1.0
+Batanes,wind,250,1.0
+Batanes,wind,500,1.0
+Batanes,wind,1000,1.0
 Batangas,earthquake,10,0.005251842179331155
 Batangas,earthquake,25,0.05568603626944722
 Batangas,earthquake,30,0.08141476675450848
@@ -366,8 +366,8 @@ Batangas,earthquake,50,0.194179434516555
 Batangas,earthquake,100,0.5145047841351387
 Batangas,earthquake,200,0.827498897981685
 Batangas,earthquake,250,0.9771400283994821
-Batangas,earthquake,500,1.5916988463613075
-Batangas,earthquake,1000,2.3245098057021085
+Batangas,earthquake,500,1.0
+Batangas,earthquake,1000,1.0
 Batangas,flood,10,0.011134732222106532
 Batangas,flood,25,0.02003278156032959
 Batangas,flood,30,0.02292398933404085
@@ -391,10 +391,10 @@ Batangas,wind,25,0.24306596775364203
 Batangas,wind,30,0.3071032731257282
 Batangas,wind,50,0.5359886087207519
 Batangas,wind,100,0.9422901096823854
-Batangas,wind,200,1.6121155071528208
-Batangas,wind,250,1.8518120433495462
-Batangas,wind,500,2.6196560555337625
-Batangas,wind,1000,3.5475006509630393
+Batangas,wind,200,1.0
+Batangas,wind,250,1.0
+Batangas,wind,500,1.0
+Batangas,wind,1000,1.0
 Benguet,earthquake,10,9.755902816159399e-06
 Benguet,earthquake,25,0.008013439055338195
 Benguet,earthquake,30,0.015307834514294434
@@ -402,8 +402,8 @@ Benguet,earthquake,50,0.0587125338340341
 Benguet,earthquake,100,0.28674338736481897
 Benguet,earthquake,200,0.6421755202425041
 Benguet,earthquake,250,0.952242297578371
-Benguet,earthquake,500,1.8072941719417
-Benguet,earthquake,1000,2.923194993399382
+Benguet,earthquake,500,1.0
+Benguet,earthquake,1000,1.0
 Benguet,flood,10,0.04775402934931828
 Benguet,flood,25,0.0725320860375963
 Benguet,flood,30,0.0767087508716909
@@ -429,8 +429,8 @@ Biliran,earthquake,50,0.049491731317421246
 Biliran,earthquake,100,0.1606229939205776
 Biliran,earthquake,200,0.37143626117506306
 Biliran,earthquake,250,0.47778464216530747
-Biliran,earthquake,500,1.1872579203446234
-Biliran,earthquake,1000,1.458339203231298
+Biliran,earthquake,500,1.0
+Biliran,earthquake,1000,1.0
 Biliran,flood,10,0.0024483693888960865
 Biliran,flood,25,0.03420620600547706
 Biliran,flood,30,0.044626286408835605
@@ -454,10 +454,10 @@ Biliran,wind,25,0.16638996095734263
 Biliran,wind,30,0.19436942359264656
 Biliran,wind,50,0.3474440596008664
 Biliran,wind,100,0.5686920922270327
-Biliran,wind,200,1.0372083030024868
-Biliran,wind,250,1.177765537693004
-Biliran,wind,500,1.693798431132383
-Biliran,wind,1000,2.4142108226931374
+Biliran,wind,200,1.0
+Biliran,wind,250,1.0
+Biliran,wind,500,1.0
+Biliran,wind,1000,1.0
 Bohol,earthquake,10,0.0004056131154866682
 Bohol,earthquake,25,0.009137137012947529
 Bohol,earthquake,30,0.014308194704602898
@@ -466,7 +466,7 @@ Bohol,earthquake,100,0.113172895126444
 Bohol,earthquake,200,0.2978125849059112
 Bohol,earthquake,250,0.38465464683622186
 Bohol,earthquake,500,0.7204608122817359
-Bohol,earthquake,1000,1.2287493197872217
+Bohol,earthquake,1000,1.0
 Bohol,flood,10,0.0003324263563023247
 Bohol,flood,25,0.0037743282722983496
 Bohol,flood,30,0.005936030744166182
@@ -526,10 +526,10 @@ Bulacan,earthquake,25,0.050438650955518756
 Bulacan,earthquake,30,0.07665460236447103
 Bulacan,earthquake,50,0.24041936041177114
 Bulacan,earthquake,100,0.584377708329596
-Bulacan,earthquake,200,1.045991116577896
-Bulacan,earthquake,250,1.1405623395043911
-Bulacan,earthquake,500,1.4705871662716055
-Bulacan,earthquake,1000,1.708496528837132
+Bulacan,earthquake,200,1.0
+Bulacan,earthquake,250,1.0
+Bulacan,earthquake,500,1.0
+Bulacan,earthquake,1000,1.0
 Bulacan,flood,10,0.09437584453831215
 Bulacan,flood,25,0.1568350079808295
 Bulacan,flood,30,0.16798573467512573
@@ -553,10 +553,10 @@ Bulacan,wind,25,0.22343685123832624
 Bulacan,wind,30,0.27693843743344737
 Bulacan,wind,50,0.46790219398572674
 Bulacan,wind,100,0.782254083844579
-Bulacan,wind,200,1.2557900912504154
-Bulacan,wind,250,1.3869123728308115
-Bulacan,wind,500,1.9910639159237382
-Bulacan,wind,1000,3.1633539008262392
+Bulacan,wind,200,1.0
+Bulacan,wind,250,1.0
+Bulacan,wind,500,1.0
+Bulacan,wind,1000,1.0
 Cagayan,earthquake,10,0.006737030338121311
 Cagayan,earthquake,25,0.04990773192582446
 Cagayan,earthquake,30,0.06646503773438335
@@ -587,12 +587,12 @@ Cagayan,surge,1000,0.07831040691132254
 Cagayan,wind,10,0.30224279399085335
 Cagayan,wind,25,0.6528395443377869
 Cagayan,wind,30,0.7411920035605343
-Cagayan,wind,50,1.0440704309226692
-Cagayan,wind,100,1.541991773348723
-Cagayan,wind,200,2.02956232652523
-Cagayan,wind,250,2.169982493871696
-Cagayan,wind,500,3.0665052401413657
-Cagayan,wind,1000,3.5193585256648916
+Cagayan,wind,50,1.0
+Cagayan,wind,100,1.0
+Cagayan,wind,200,1.0
+Cagayan,wind,250,1.0
+Cagayan,wind,500,1.0
+Cagayan,wind,1000,1.0
 Camarines Norte,earthquake,10,0.00016294457027569363
 Camarines Norte,earthquake,25,0.008134650349980546
 Camarines Norte,earthquake,30,0.012126415126783365
@@ -625,10 +625,10 @@ Camarines Norte,wind,25,0.21784780528978895
 Camarines Norte,wind,30,0.26386664108937774
 Camarines Norte,wind,50,0.45624551963604293
 Camarines Norte,wind,100,0.8441379923904417
-Camarines Norte,wind,200,1.5850460553521555
-Camarines Norte,wind,250,1.8666558406059093
-Camarines Norte,wind,500,2.8318764957079545
-Camarines Norte,wind,1000,4.131905854295942
+Camarines Norte,wind,200,1.0
+Camarines Norte,wind,250,1.0
+Camarines Norte,wind,500,1.0
+Camarines Norte,wind,1000,1.0
 Camarines Sur,earthquake,10,0.0011990835992043178
 Camarines Sur,earthquake,25,0.016449061291476663
 Camarines Sur,earthquake,30,0.023120848624069427
@@ -661,10 +661,10 @@ Camarines Sur,wind,25,0.17672794409601475
 Camarines Sur,wind,30,0.2185245935976105
 Camarines Sur,wind,50,0.3425171922245581
 Camarines Sur,wind,100,0.627665292487174
-Camarines Sur,wind,200,1.2109347394345868
-Camarines Sur,wind,250,1.5055009505963775
-Camarines Sur,wind,500,2.5912525980163825
-Camarines Sur,wind,1000,3.5114393171175977
+Camarines Sur,wind,200,1.0
+Camarines Sur,wind,250,1.0
+Camarines Sur,wind,500,1.0
+Camarines Sur,wind,1000,1.0
 Camiguin,earthquake,10,0.0
 Camiguin,earthquake,25,0.0003721373178784886
 Camiguin,earthquake,30,0.0006491893436266459
@@ -700,7 +700,7 @@ Camiguin,wind,100,0.08684993047043534
 Camiguin,wind,200,0.214005051794584
 Camiguin,wind,250,0.2679994203093176
 Camiguin,wind,500,0.5453044069427165
-Camiguin,wind,1000,1.0293586703854656
+Camiguin,wind,1000,1.0
 Capiz,earthquake,10,5.6362641512048385e-05
 Capiz,earthquake,25,0.004043011504438077
 Capiz,earthquake,30,0.006084705187299897
@@ -744,8 +744,8 @@ Catanduanes,earthquake,50,0.08894633587083697
 Catanduanes,earthquake,100,0.27671033628499314
 Catanduanes,earthquake,200,0.6762036639215414
 Catanduanes,earthquake,250,0.7747279140774578
-Catanduanes,earthquake,500,1.0474083021352198
-Catanduanes,earthquake,1000,1.3684309071275778
+Catanduanes,earthquake,500,1.0
+Catanduanes,earthquake,1000,1.0
 Catanduanes,flood,10,0.004315280382547136
 Catanduanes,flood,25,0.036091410733749614
 Catanduanes,flood,30,0.04495028513751627
@@ -768,20 +768,20 @@ Catanduanes,wind,10,0.12915015682864986
 Catanduanes,wind,25,0.4642543441270708
 Catanduanes,wind,30,0.5584723745499595
 Catanduanes,wind,50,0.8712249677329758
-Catanduanes,wind,100,1.710215785900135
-Catanduanes,wind,200,2.841551905181337
-Catanduanes,wind,250,3.1887209721413265
-Catanduanes,wind,500,4.482909772548652
-Catanduanes,wind,1000,5.542254711388666
+Catanduanes,wind,100,1.0
+Catanduanes,wind,200,1.0
+Catanduanes,wind,250,1.0
+Catanduanes,wind,500,1.0
+Catanduanes,wind,1000,1.0
 Cavite,earthquake,10,0.0012231640252131192
 Cavite,earthquake,25,0.03453019519173752
 Cavite,earthquake,30,0.05306324655485254
 Cavite,earthquake,50,0.19007407003195226
 Cavite,earthquake,100,0.6446343692825779
-Cavite,earthquake,200,1.1883027270599793
-Cavite,earthquake,250,1.385607196918636
-Cavite,earthquake,500,2.11085787163896
-Cavite,earthquake,1000,2.4798695763912684
+Cavite,earthquake,200,1.0
+Cavite,earthquake,250,1.0
+Cavite,earthquake,500,1.0
+Cavite,earthquake,1000,1.0
 Cavite,flood,10,0.03590045540770194
 Cavite,flood,25,0.07853665689416514
 Cavite,flood,30,0.09405142472622154
@@ -804,11 +804,11 @@ Cavite,wind,10,0.05261963539410764
 Cavite,wind,25,0.24057675266738646
 Cavite,wind,30,0.30972838761415783
 Cavite,wind,50,0.5443569105673255
-Cavite,wind,100,1.0246648268942988
-Cavite,wind,200,1.7017553114104822
-Cavite,wind,250,2.0249282530402426
-Cavite,wind,500,3.2528885802994987
-Cavite,wind,1000,5.475655594380992
+Cavite,wind,100,1.0
+Cavite,wind,200,1.0
+Cavite,wind,250,1.0
+Cavite,wind,500,1.0
+Cavite,wind,1000,1.0
 Cebu,earthquake,10,0.0005274749943116235
 Cebu,earthquake,25,0.009172961803267349
 Cebu,earthquake,30,0.015954079766054098
@@ -817,7 +817,7 @@ Cebu,earthquake,100,0.11868457558689434
 Cebu,earthquake,200,0.32735818851625115
 Cebu,earthquake,250,0.45435959489802863
 Cebu,earthquake,500,0.7186505162703072
-Cebu,earthquake,1000,1.556465630581479
+Cebu,earthquake,1000,1.0
 Cebu,flood,10,0.08824104998557959
 Cebu,flood,25,0.1626005138543824
 Cebu,flood,30,0.1771454402217191
@@ -844,7 +844,7 @@ Cebu,wind,100,0.2710084644791757
 Cebu,wind,200,0.4777965881299301
 Cebu,wind,250,0.5540804354205907
 Cebu,wind,500,0.8157435808781031
-Cebu,wind,1000,1.6873081877126608
+Cebu,wind,1000,1.0
 Compostela Valley,earthquake,10,0.0038943121325941527
 Compostela Valley,earthquake,25,0.024614973674445647
 Compostela Valley,earthquake,30,0.036058518559642705
@@ -853,7 +853,7 @@ Compostela Valley,earthquake,100,0.28450684453889813
 Compostela Valley,earthquake,200,0.7184656383166177
 Compostela Valley,earthquake,250,0.7971761136089383
 Compostela Valley,earthquake,500,0.9494924860917355
-Compostela Valley,earthquake,1000,1.0111961383965884
+Compostela Valley,earthquake,1000,1.0
 Compostela Valley,flood,10,1.808433481457819e-05
 Compostela Valley,flood,25,0.00023762982787265733
 Compostela Valley,flood,30,0.0004477076193180428
@@ -913,10 +913,10 @@ Davao,earthquake,25,0.0752554069133784
 Davao,earthquake,30,0.12297252921177441
 Davao,earthquake,50,0.3017245794052151
 Davao,earthquake,100,0.7184890694052788
-Davao,earthquake,200,1.092305829685811
-Davao,earthquake,250,1.26784078545068
-Davao,earthquake,500,1.8452865244081489
-Davao,earthquake,1000,3.007239807965407
+Davao,earthquake,200,1.0
+Davao,earthquake,250,1.0
+Davao,earthquake,500,1.0
+Davao,earthquake,1000,1.0
 Davao,flood,10,7.512610240244006e-07
 Davao,flood,25,0.0062482613263719665
 Davao,flood,30,0.008083564842863027
@@ -1023,8 +1023,8 @@ Eastern Samar,earthquake,50,0.26473375993726
 Eastern Samar,earthquake,100,0.49199448335015367
 Eastern Samar,earthquake,200,0.8390906960060447
 Eastern Samar,earthquake,250,0.9613072616272114
-Eastern Samar,earthquake,500,1.4207653278560317
-Eastern Samar,earthquake,1000,1.7667835874640025
+Eastern Samar,earthquake,500,1.0
+Eastern Samar,earthquake,1000,1.0
 Eastern Samar,flood,10,0.0015160050806704872
 Eastern Samar,flood,25,0.012112542182515028
 Eastern Samar,flood,30,0.015776485471047947
@@ -1047,11 +1047,11 @@ Eastern Samar,wind,10,0.1748974828581945
 Eastern Samar,wind,25,0.4239148586392815
 Eastern Samar,wind,30,0.4873777645089485
 Eastern Samar,wind,50,0.7494158710990775
-Eastern Samar,wind,100,1.1542967880076203
-Eastern Samar,wind,200,1.715258750829274
-Eastern Samar,wind,250,1.8327748359173397
-Eastern Samar,wind,500,2.562921313329909
-Eastern Samar,wind,1000,3.047133836904015
+Eastern Samar,wind,100,1.0
+Eastern Samar,wind,200,1.0
+Eastern Samar,wind,250,1.0
+Eastern Samar,wind,500,1.0
+Eastern Samar,wind,1000,1.0
 Guimaras,earthquake,10,1.1823034151540928e-05
 Guimaras,earthquake,25,0.0036138191766188848
 Guimaras,earthquake,30,0.006107582651106772
@@ -1093,28 +1093,28 @@ Ifugao,flood,25,0.12183186636691166
 Ifugao,flood,30,0.13990483171051105
 Ifugao,flood,50,0.22114334980549682
 Ifugao,flood,100,0.8256420096852238
-Ifugao,flood,200,1.8464551392687225
-Ifugao,flood,250,1.900255806590424
-Ifugao,flood,500,1.9688305569219124
-Ifugao,flood,1000,2.074500142537624
+Ifugao,flood,200,1.0
+Ifugao,flood,250,1.0
+Ifugao,flood,500,1.0
+Ifugao,flood,1000,1.0
 Ifugao,wind,10,0.12306730994933882
 Ifugao,wind,25,0.3153799683753635
 Ifugao,wind,30,0.3539139710524936
 Ifugao,wind,50,0.5231532402165615
 Ifugao,wind,100,0.7484622403225367
-Ifugao,wind,200,1.0327718911441415
-Ifugao,wind,250,1.1028863571439553
-Ifugao,wind,500,1.3963343344311223
-Ifugao,wind,1000,1.8890670251731172
+Ifugao,wind,200,1.0
+Ifugao,wind,250,1.0
+Ifugao,wind,500,1.0
+Ifugao,wind,1000,1.0
 Ilocos Norte,earthquake,10,0.0034990120488904526
 Ilocos Norte,earthquake,25,0.06853135546628675
 Ilocos Norte,earthquake,30,0.10862723125721672
 Ilocos Norte,earthquake,50,0.3365166543545302
 Ilocos Norte,earthquake,100,0.8070947499637123
-Ilocos Norte,earthquake,200,1.4722324954007195
-Ilocos Norte,earthquake,250,1.7342574429539346
-Ilocos Norte,earthquake,500,2.814171281681705
-Ilocos Norte,earthquake,1000,4.171406544758404
+Ilocos Norte,earthquake,200,1.0
+Ilocos Norte,earthquake,250,1.0
+Ilocos Norte,earthquake,500,1.0
+Ilocos Norte,earthquake,1000,1.0
 Ilocos Norte,flood,10,0.03071747094119602
 Ilocos Norte,flood,25,0.06531268371659091
 Ilocos Norte,flood,30,0.07876733030840108
@@ -1137,20 +1137,20 @@ Ilocos Norte,wind,10,0.21061269789445422
 Ilocos Norte,wind,25,0.49583783808797893
 Ilocos Norte,wind,30,0.5622104153986137
 Ilocos Norte,wind,50,0.8323236405443983
-Ilocos Norte,wind,100,1.3585439250006386
-Ilocos Norte,wind,200,1.9950416323933307
-Ilocos Norte,wind,250,2.381813162491523
-Ilocos Norte,wind,500,3.9526698372547986
-Ilocos Norte,wind,1000,4.742709054911674
+Ilocos Norte,wind,100,1.0
+Ilocos Norte,wind,200,1.0
+Ilocos Norte,wind,250,1.0
+Ilocos Norte,wind,500,1.0
+Ilocos Norte,wind,1000,1.0
 Ilocos Sur,earthquake,10,0.002329794430446831
 Ilocos Sur,earthquake,25,0.04060334711081177
 Ilocos Sur,earthquake,30,0.06202652096049385
 Ilocos Sur,earthquake,50,0.17160729185918042
 Ilocos Sur,earthquake,100,0.5584643230430688
-Ilocos Sur,earthquake,200,1.2302899899776065
-Ilocos Sur,earthquake,250,1.4627941575541488
-Ilocos Sur,earthquake,500,2.836878109873603
-Ilocos Sur,earthquake,1000,3.68502057511937
+Ilocos Sur,earthquake,200,1.0
+Ilocos Sur,earthquake,250,1.0
+Ilocos Sur,earthquake,500,1.0
+Ilocos Sur,earthquake,1000,1.0
 Ilocos Sur,flood,10,0.012128216003575077
 Ilocos Sur,flood,25,0.05160554755476394
 Ilocos Sur,flood,30,0.06445891386480324
@@ -1174,10 +1174,10 @@ Ilocos Sur,wind,25,0.32978532380006575
 Ilocos Sur,wind,30,0.380112352848177
 Ilocos Sur,wind,50,0.5166110340157536
 Ilocos Sur,wind,100,0.7708140768628141
-Ilocos Sur,wind,200,1.1683293582211691
-Ilocos Sur,wind,250,1.2451649975857384
-Ilocos Sur,wind,500,1.8342971103130465
-Ilocos Sur,wind,1000,2.516130713254218
+Ilocos Sur,wind,200,1.0
+Ilocos Sur,wind,250,1.0
+Ilocos Sur,wind,500,1.0
+Ilocos Sur,wind,1000,1.0
 Iloilo,earthquake,10,0.0008062976222725125
 Iloilo,earthquake,25,0.017930471046983223
 Iloilo,earthquake,30,0.02642883677473192
@@ -1185,8 +1185,8 @@ Iloilo,earthquake,50,0.07767931977835851
 Iloilo,earthquake,100,0.3011808624088175
 Iloilo,earthquake,200,0.6664494216037813
 Iloilo,earthquake,250,0.855635406503159
-Iloilo,earthquake,500,1.2241179460888862
-Iloilo,earthquake,1000,1.3896413267346948
+Iloilo,earthquake,500,1.0
+Iloilo,earthquake,1000,1.0
 Iloilo,flood,10,0.014824956383101747
 Iloilo,flood,25,0.030017653117605323
 Iloilo,flood,30,0.0333377888627746
@@ -1222,7 +1222,7 @@ Isabela,earthquake,100,0.27976488097899976
 Isabela,earthquake,200,0.4908229490902289
 Isabela,earthquake,250,0.5555321653184927
 Isabela,earthquake,500,0.8756738076503894
-Isabela,earthquake,1000,1.066635985722898
+Isabela,earthquake,1000,1.0
 Isabela,flood,10,0.007295272502286007
 Isabela,flood,25,0.026079449817986915
 Isabela,flood,30,0.03388046255720591
@@ -1246,10 +1246,10 @@ Isabela,wind,25,0.45386934076909263
 Isabela,wind,30,0.5132717679656353
 Isabela,wind,50,0.6908410982577616
 Isabela,wind,100,0.982144581463541
-Isabela,wind,200,1.396867129095195
-Isabela,wind,250,1.4737873900485634
-Isabela,wind,500,1.8275123252992342
-Isabela,wind,1000,2.5222134475365183
+Isabela,wind,200,1.0
+Isabela,wind,250,1.0
+Isabela,wind,500,1.0
+Isabela,wind,1000,1.0
 Kalinga,earthquake,10,9.363136480265378e-05
 Kalinga,earthquake,25,0.006869387987809218
 Kalinga,earthquake,30,0.01164004043450729
@@ -1273,19 +1273,19 @@ Kalinga,wind,25,0.37453818903495745
 Kalinga,wind,30,0.4167239199188959
 Kalinga,wind,50,0.5760127240482186
 Kalinga,wind,100,0.8366250008467488
-Kalinga,wind,200,1.2777785501214494
-Kalinga,wind,250,1.4286560255111727
-Kalinga,wind,500,1.7665739023488134
-Kalinga,wind,1000,2.2074381963051097
+Kalinga,wind,200,1.0
+Kalinga,wind,250,1.0
+Kalinga,wind,500,1.0
+Kalinga,wind,1000,1.0
 La Union,earthquake,10,0.0005737327165519743
 La Union,earthquake,25,0.02313569209076517
 La Union,earthquake,30,0.04113993120825664
 La Union,earthquake,50,0.15907290703472196
 La Union,earthquake,100,0.5097775557841904
-La Union,earthquake,200,1.7935695997241892
-La Union,earthquake,250,2.467086673105765
-La Union,earthquake,500,3.6233936020434157
-La Union,earthquake,1000,4.982677407699936
+La Union,earthquake,200,1.0
+La Union,earthquake,250,1.0
+La Union,earthquake,500,1.0
+La Union,earthquake,1000,1.0
 La Union,flood,10,0.020530017609131535
 La Union,flood,25,0.07493704240843144
 La Union,flood,30,0.09615580540871367
@@ -1311,17 +1311,17 @@ La Union,wind,50,0.3835412577274891
 La Union,wind,100,0.5641960339775047
 La Union,wind,200,0.7667099681519177
 La Union,wind,250,0.8708056279429736
-La Union,wind,500,1.1838265183497203
-La Union,wind,1000,1.5141645644145307
+La Union,wind,500,1.0
+La Union,wind,1000,1.0
 Laguna,earthquake,10,0.0031772231922362728
 Laguna,earthquake,25,0.0632406485016753
 Laguna,earthquake,30,0.10045886206913254
 Laguna,earthquake,50,0.3455617847281486
 Laguna,earthquake,100,0.9202504195312101
-Laguna,earthquake,200,1.8069070030536367
-Laguna,earthquake,250,2.203807805840208
-Laguna,earthquake,500,5.264722859313606
-Laguna,earthquake,1000,6.14328735957609
+Laguna,earthquake,200,1.0
+Laguna,earthquake,250,1.0
+Laguna,earthquake,500,1.0
+Laguna,earthquake,1000,1.0
 Laguna,flood,10,0.07226666625660277
 Laguna,flood,25,0.1268996197731228
 Laguna,flood,30,0.13558573194678686
@@ -1335,11 +1335,11 @@ Laguna,wind,10,0.07739025082572228
 Laguna,wind,25,0.35871621446525026
 Laguna,wind,30,0.47958531138299804
 Laguna,wind,50,0.7649361260606916
-Laguna,wind,100,1.4646110879190382
-Laguna,wind,200,3.249180406872812
-Laguna,wind,250,3.654990319751493
-Laguna,wind,500,5.641026412520023
-Laguna,wind,1000,7.909347531825857
+Laguna,wind,100,1.0
+Laguna,wind,200,1.0
+Laguna,wind,250,1.0
+Laguna,wind,500,1.0
+Laguna,wind,1000,1.0
 Lanao del Norte,earthquake,10,0.0010707323897352027
 Lanao del Norte,earthquake,25,0.014801833669427078
 Lanao del Norte,earthquake,30,0.023636001455341105
@@ -1348,7 +1348,7 @@ Lanao del Norte,earthquake,100,0.20377308340268366
 Lanao del Norte,earthquake,200,0.4727150797689395
 Lanao del Norte,earthquake,250,0.5598436688923449
 Lanao del Norte,earthquake,500,0.8116947468919734
-Lanao del Norte,earthquake,1000,1.2344369766376384
+Lanao del Norte,earthquake,1000,1.0
 Lanao del Norte,flood,10,4.414100484661854e-08
 Lanao del Norte,flood,25,2.8549634621495695e-05
 Lanao del Norte,flood,30,8.138822071814133e-05
@@ -1420,7 +1420,7 @@ Leyte,earthquake,100,0.34749211667624724
 Leyte,earthquake,200,0.6434315968421428
 Leyte,earthquake,250,0.8053694892285586
 Leyte,earthquake,500,0.9904060671371047
-Leyte,earthquake,1000,1.178837314449509
+Leyte,earthquake,1000,1.0
 Leyte,flood,10,0.003072112829283612
 Leyte,flood,25,0.009985164592481803
 Leyte,flood,30,0.012436214321093816
@@ -1445,9 +1445,9 @@ Leyte,wind,30,0.23634780024294882
 Leyte,wind,50,0.35600973127987123
 Leyte,wind,100,0.5915634113001275
 Leyte,wind,200,0.9773424859218293
-Leyte,wind,250,1.1754575016459634
-Leyte,wind,500,1.7093379610228003
-Leyte,wind,1000,2.290346920896369
+Leyte,wind,250,1.0
+Leyte,wind,500,1.0
+Leyte,wind,1000,1.0
 Maguindanao,earthquake,10,0.007008261758859703
 Maguindanao,earthquake,25,0.044818297041312766
 Maguindanao,earthquake,30,0.0607741597848157
@@ -1456,7 +1456,7 @@ Maguindanao,earthquake,100,0.32958238905589166
 Maguindanao,earthquake,200,0.5267463082706602
 Maguindanao,earthquake,250,0.5966045612447286
 Maguindanao,earthquake,500,0.8067700689917091
-Maguindanao,earthquake,1000,1.0637080102277607
+Maguindanao,earthquake,1000,1.0
 Maguindanao,flood,10,0.0
 Maguindanao,flood,25,0.001366636906427839
 Maguindanao,flood,30,0.002702621942376361
@@ -1492,7 +1492,7 @@ Marinduque,earthquake,100,0.11365458640050952
 Marinduque,earthquake,200,0.2745904763602638
 Marinduque,earthquake,250,0.32051476635987847
 Marinduque,earthquake,500,0.8422617951764987
-Marinduque,earthquake,1000,1.5729590894922052
+Marinduque,earthquake,1000,1.0
 Marinduque,flood,10,0.0009936694115547351
 Marinduque,flood,25,0.013182649718524137
 Marinduque,flood,30,0.017279399583759323
@@ -1517,9 +1517,9 @@ Marinduque,wind,30,0.18413906880961128
 Marinduque,wind,50,0.31502344565984053
 Marinduque,wind,100,0.5550967149280711
 Marinduque,wind,200,0.9468411288367529
-Marinduque,wind,250,1.0707569639214123
-Marinduque,wind,500,1.8085001501183684
-Marinduque,wind,1000,2.9002703958437475
+Marinduque,wind,250,1.0
+Marinduque,wind,500,1.0
+Marinduque,wind,1000,1.0
 Masbate,earthquake,10,0.0019495702122295183
 Masbate,earthquake,25,0.012698681874135457
 Masbate,earthquake,30,0.017292815028937304
@@ -1555,7 +1555,7 @@ Masbate,wind,100,0.3067791484295043
 Masbate,wind,200,0.4357581830828643
 Masbate,wind,250,0.5115213600593143
 Masbate,wind,500,0.7768613600669049
-Masbate,wind,1000,1.1818646036134557
+Masbate,wind,1000,1.0
 Misamis Occidental,earthquake,10,0.0005153486841493076
 Misamis Occidental,earthquake,25,0.011383362245108436
 Misamis Occidental,earthquake,30,0.01930403530312066
@@ -1759,19 +1759,19 @@ Northern Samar,wind,25,0.16592684479326372
 Northern Samar,wind,30,0.20012646821260366
 Northern Samar,wind,50,0.3095653646364117
 Northern Samar,wind,100,0.5896778742783105
-Northern Samar,wind,200,1.0349542790344712
-Northern Samar,wind,250,1.1392120429050618
-Northern Samar,wind,500,1.6303805087808034
-Northern Samar,wind,1000,2.1760380823001397
+Northern Samar,wind,200,1.0
+Northern Samar,wind,250,1.0
+Northern Samar,wind,500,1.0
+Northern Samar,wind,1000,1.0
 Nueva Ecija,earthquake,10,0.0053061608653339224
 Nueva Ecija,earthquake,25,0.06763083335156668
 Nueva Ecija,earthquake,30,0.09274787220491798
 Nueva Ecija,earthquake,50,0.22992950988015673
 Nueva Ecija,earthquake,100,0.5893213142228723
 Nueva Ecija,earthquake,200,0.929072701234654
-Nueva Ecija,earthquake,250,1.0886532620705982
-Nueva Ecija,earthquake,500,1.424635016164982
-Nueva Ecija,earthquake,1000,1.678653604659963
+Nueva Ecija,earthquake,250,1.0
+Nueva Ecija,earthquake,500,1.0
+Nueva Ecija,earthquake,1000,1.0
 Nueva Ecija,flood,10,0.012554025810349777
 Nueva Ecija,flood,25,0.030474598352735652
 Nueva Ecija,flood,30,0.03962366386947593
@@ -1788,8 +1788,8 @@ Nueva Ecija,wind,50,0.33889413414077224
 Nueva Ecija,wind,100,0.5243704818593188
 Nueva Ecija,wind,200,0.7541937713596506
 Nueva Ecija,wind,250,0.8335639621338193
-Nueva Ecija,wind,500,1.1892832201022725
-Nueva Ecija,wind,1000,1.574234496407408
+Nueva Ecija,wind,500,1.0
+Nueva Ecija,wind,1000,1.0
 Nueva Vizcaya,earthquake,10,0.0007542021407160262
 Nueva Vizcaya,earthquake,25,0.01763826131721511
 Nueva Vizcaya,earthquake,30,0.026404731879257636
@@ -1815,8 +1815,8 @@ Nueva Vizcaya,wind,50,0.4214730714505686
 Nueva Vizcaya,wind,100,0.6298032689001809
 Nueva Vizcaya,wind,200,0.8305586543967787
 Nueva Vizcaya,wind,250,0.9061443820644283
-Nueva Vizcaya,wind,500,1.2082298898424686
-Nueva Vizcaya,wind,1000,1.549058647743049
+Nueva Vizcaya,wind,500,1.0
+Nueva Vizcaya,wind,1000,1.0
 Occidental Mindoro,earthquake,10,0.003925577618818638
 Occidental Mindoro,earthquake,25,0.026040379116477587
 Occidental Mindoro,earthquake,30,0.03884590299674247
@@ -1824,8 +1824,8 @@ Occidental Mindoro,earthquake,50,0.09559051013187593
 Occidental Mindoro,earthquake,100,0.19175509770770754
 Occidental Mindoro,earthquake,200,0.3802276117895613
 Occidental Mindoro,earthquake,250,0.5651498120197178
-Occidental Mindoro,earthquake,500,1.0879294900946255
-Occidental Mindoro,earthquake,1000,1.5580281188517842
+Occidental Mindoro,earthquake,500,1.0
+Occidental Mindoro,earthquake,1000,1.0
 Occidental Mindoro,flood,10,0.00351610481158955
 Occidental Mindoro,flood,25,0.015196270958318594
 Occidental Mindoro,flood,30,0.01969722127140361
@@ -1860,8 +1860,8 @@ Oriental Mindoro,earthquake,50,0.13397323240431733
 Oriental Mindoro,earthquake,100,0.35829209051000993
 Oriental Mindoro,earthquake,200,0.7946540791338478
 Oriental Mindoro,earthquake,250,0.9351168218660454
-Oriental Mindoro,earthquake,500,1.3070884908979958
-Oriental Mindoro,earthquake,1000,1.52527156180697
+Oriental Mindoro,earthquake,500,1.0
+Oriental Mindoro,earthquake,1000,1.0
 Oriental Mindoro,flood,10,0.0023254726899518447
 Oriental Mindoro,flood,25,0.00765682585978347
 Oriental Mindoro,flood,30,0.01010417167333091
@@ -1888,7 +1888,7 @@ Oriental Mindoro,wind,100,0.36167573043175744
 Oriental Mindoro,wind,200,0.5411404079853478
 Oriental Mindoro,wind,250,0.622933102027063
 Oriental Mindoro,wind,500,0.9029605484720592
-Oriental Mindoro,wind,1000,1.4023270740777856
+Oriental Mindoro,wind,1000,1.0
 Palawan,earthquake,10,2.9593309539644797e-06
 Palawan,earthquake,25,0.00016052627462197978
 Palawan,earthquake,30,0.00025016996871387746
@@ -1931,9 +1931,9 @@ Pampanga,earthquake,30,0.0648373074324441
 Pampanga,earthquake,50,0.15257019106501796
 Pampanga,earthquake,100,0.46630626519729484
 Pampanga,earthquake,200,0.9166794254803055
-Pampanga,earthquake,250,1.1507066053100552
-Pampanga,earthquake,500,1.5861139668714892
-Pampanga,earthquake,1000,2.02643213662411
+Pampanga,earthquake,250,1.0
+Pampanga,earthquake,500,1.0
+Pampanga,earthquake,1000,1.0
 Pampanga,flood,10,0.019876380315768053
 Pampanga,flood,25,0.03133190349429933
 Pampanga,flood,30,0.034199913555038625
@@ -1958,18 +1958,18 @@ Pampanga,wind,30,0.21291827848972325
 Pampanga,wind,50,0.3616923196885386
 Pampanga,wind,100,0.609272867825316
 Pampanga,wind,200,0.9307820658811381
-Pampanga,wind,250,1.0453330519745538
-Pampanga,wind,500,1.584590947738731
-Pampanga,wind,1000,2.217382673040513
+Pampanga,wind,250,1.0
+Pampanga,wind,500,1.0
+Pampanga,wind,1000,1.0
 Pangasinan,earthquake,10,0.003843709634335933
 Pangasinan,earthquake,25,0.05348849324511097
 Pangasinan,earthquake,30,0.07948713322155157
 Pangasinan,earthquake,50,0.23284418828391196
 Pangasinan,earthquake,100,0.9284720172393994
-Pangasinan,earthquake,200,1.6705015854937906
-Pangasinan,earthquake,250,2.079725292445215
-Pangasinan,earthquake,500,3.5132341562889136
-Pangasinan,earthquake,1000,4.207386179621182
+Pangasinan,earthquake,200,1.0
+Pangasinan,earthquake,250,1.0
+Pangasinan,earthquake,500,1.0
+Pangasinan,earthquake,1000,1.0
 Pangasinan,flood,10,0.014866001842995042
 Pangasinan,flood,25,0.03936121634706606
 Pangasinan,flood,30,0.0470766763214058
@@ -1995,8 +1995,8 @@ Pangasinan,wind,50,0.40365279787784814
 Pangasinan,wind,100,0.6340118236478092
 Pangasinan,wind,200,0.8874760873307217
 Pangasinan,wind,250,0.958539418912306
-Pangasinan,wind,500,1.1959321839052208
-Pangasinan,wind,1000,1.5366862391407556
+Pangasinan,wind,500,1.0
+Pangasinan,wind,1000,1.0
 Quezon,earthquake,10,0.004928834834704696
 Quezon,earthquake,25,0.03758440474224993
 Quezon,earthquake,30,0.054084535730852756
@@ -2029,10 +2029,10 @@ Quezon,wind,25,0.23185680737727615
 Quezon,wind,30,0.2776049924195105
 Quezon,wind,50,0.4577387344043867
 Quezon,wind,100,0.763292913075056
-Quezon,wind,200,1.2248887996351745
-Quezon,wind,250,1.4737524618408955
-Quezon,wind,500,2.003752817208098
-Quezon,wind,1000,2.8021959179617704
+Quezon,wind,200,1.0
+Quezon,wind,250,1.0
+Quezon,wind,500,1.0
+Quezon,wind,1000,1.0
 Quirino,earthquake,10,0.0004838565845338866
 Quirino,earthquake,25,0.013247590296377586
 Quirino,earthquake,30,0.022598642235525504
@@ -2041,7 +2041,7 @@ Quirino,earthquake,100,0.17862985167027653
 Quirino,earthquake,200,0.4421765937275651
 Quirino,earthquake,250,0.5476278576410221
 Quirino,earthquake,500,0.7619326560939073
-Quirino,earthquake,1000,1.051796093339828
+Quirino,earthquake,1000,1.0
 Quirino,flood,10,0.012060398611656408
 Quirino,flood,25,0.10132571755785272
 Quirino,flood,30,0.12816164304490943
@@ -2057,18 +2057,18 @@ Quirino,wind,30,0.36685958002513
 Quirino,wind,50,0.5181737140745775
 Quirino,wind,100,0.7809538064540876
 Quirino,wind,200,0.9883654100561807
-Quirino,wind,250,1.193505673978903
-Quirino,wind,500,1.6246258722039166
-Quirino,wind,1000,1.9767696553578542
+Quirino,wind,250,1.0
+Quirino,wind,500,1.0
+Quirino,wind,1000,1.0
 Rizal,earthquake,10,0.0003293788632588683
 Rizal,earthquake,25,0.016116265908403718
 Rizal,earthquake,30,0.02755028893733007
 Rizal,earthquake,50,0.12930586922139778
 Rizal,earthquake,100,0.3620393562587611
-Rizal,earthquake,200,1.0231156184321837
-Rizal,earthquake,250,1.7834828470798698
-Rizal,earthquake,500,3.5473010420313984
-Rizal,earthquake,1000,4.055018216827838
+Rizal,earthquake,200,1.0
+Rizal,earthquake,250,1.0
+Rizal,earthquake,500,1.0
+Rizal,earthquake,1000,1.0
 Rizal,flood,10,0.11939495515532612
 Rizal,flood,25,0.20481417205890118
 Rizal,flood,30,0.2254791075396559
@@ -2084,9 +2084,9 @@ Rizal,wind,30,0.1914420491522998
 Rizal,wind,50,0.3308877131478532
 Rizal,wind,100,0.6289318503522675
 Rizal,wind,200,0.9657236468046378
-Rizal,wind,250,1.1345311733260672
-Rizal,wind,500,1.687053531686408
-Rizal,wind,1000,2.395607276451108
+Rizal,wind,250,1.0
+Rizal,wind,500,1.0
+Rizal,wind,1000,1.0
 Romblon,earthquake,10,0.0002639834207950984
 Romblon,earthquake,25,0.005328155502051034
 Romblon,earthquake,30,0.008222994211574658
@@ -2121,8 +2121,8 @@ Romblon,wind,50,0.2046975121537661
 Romblon,wind,100,0.3652562871033361
 Romblon,wind,200,0.5821159500152149
 Romblon,wind,250,0.6920448203056593
-Romblon,wind,500,1.0016916235444149
-Romblon,wind,1000,1.4865296424418948
+Romblon,wind,500,1.0
+Romblon,wind,1000,1.0
 Samar (Western),earthquake,10,0.00432473065870273
 Samar (Western),earthquake,25,0.027256503883786944
 Samar (Western),earthquake,30,0.03795879823470405
@@ -2156,9 +2156,9 @@ Samar (Western),wind,30,0.25436703206047007
 Samar (Western),wind,50,0.39984266645207384
 Samar (Western),wind,100,0.650363892732826
 Samar (Western),wind,200,0.9009119599242009
-Samar (Western),wind,250,1.0148748560477805
-Samar (Western),wind,500,1.5305155350711845
-Samar (Western),wind,1000,1.7399014835874178
+Samar (Western),wind,250,1.0
+Samar (Western),wind,500,1.0
+Samar (Western),wind,1000,1.0
 Sarangani,earthquake,10,0.00210728713354506
 Sarangani,earthquake,25,0.013374200105803645
 Sarangani,earthquake,30,0.017786797716926737
@@ -2254,10 +2254,10 @@ Sorsogon,wind,25,0.20755486730445505
 Sorsogon,wind,30,0.24871431417395237
 Sorsogon,wind,50,0.43382079340863616
 Sorsogon,wind,100,0.6969384540649104
-Sorsogon,wind,200,1.2556878918265744
-Sorsogon,wind,250,1.4652305406238242
-Sorsogon,wind,500,1.9589428924326893
-Sorsogon,wind,1000,2.858015199504079
+Sorsogon,wind,200,1.0
+Sorsogon,wind,250,1.0
+Sorsogon,wind,500,1.0
+Sorsogon,wind,1000,1.0
 South Cotabato,earthquake,10,0.004561302133724039
 South Cotabato,earthquake,25,0.031100747043597405
 South Cotabato,earthquake,30,0.04301901293883122
@@ -2265,8 +2265,8 @@ South Cotabato,earthquake,50,0.09360035519437689
 South Cotabato,earthquake,100,0.24656542482573135
 South Cotabato,earthquake,200,0.5366227374982341
 South Cotabato,earthquake,250,0.648115012763243
-South Cotabato,earthquake,500,1.0605293260381292
-South Cotabato,earthquake,1000,1.3953408272523686
+South Cotabato,earthquake,500,1.0
+South Cotabato,earthquake,1000,1.0
 South Cotabato,flood,10,0.0
 South Cotabato,flood,25,2.8798866271052878e-08
 South Cotabato,flood,30,1.0165232827274475e-05
@@ -2293,7 +2293,7 @@ Southern Leyte,earthquake,100,0.24000323637007623
 Southern Leyte,earthquake,200,0.5400313607120584
 Southern Leyte,earthquake,250,0.6180380448593381
 Southern Leyte,earthquake,500,0.8510513775055547
-Southern Leyte,earthquake,1000,1.2396164060950758
+Southern Leyte,earthquake,1000,1.0
 Southern Leyte,flood,10,0.0006861745426826267
 Southern Leyte,flood,25,0.008775711436531537
 Southern Leyte,flood,30,0.012982078006470868
@@ -2319,8 +2319,8 @@ Southern Leyte,wind,50,0.20164309915388762
 Southern Leyte,wind,100,0.35016863039473906
 Southern Leyte,wind,200,0.5922029867027191
 Southern Leyte,wind,250,0.6757602525771754
-Southern Leyte,wind,500,1.285684317599545
-Southern Leyte,wind,1000,2.266923277246368
+Southern Leyte,wind,500,1.0
+Southern Leyte,wind,1000,1.0
 Sultan Kudarat,earthquake,10,0.007125406994008725
 Sultan Kudarat,earthquake,25,0.04259982448139945
 Sultan Kudarat,earthquake,30,0.06125769895458071
@@ -2329,7 +2329,7 @@ Sultan Kudarat,earthquake,100,0.3106016933491472
 Sultan Kudarat,earthquake,200,0.52192884025238
 Sultan Kudarat,earthquake,250,0.6307491611214038
 Sultan Kudarat,earthquake,500,0.7937338367031511
-Sultan Kudarat,earthquake,1000,1.0303795173581427
+Sultan Kudarat,earthquake,1000,1.0
 Sultan Kudarat,flood,10,0.0
 Sultan Kudarat,flood,25,0.0
 Sultan Kudarat,flood,30,7.277012780755206e-08
@@ -2391,8 +2391,8 @@ Surigao del Norte,earthquake,50,0.1145961323829113
 Surigao del Norte,earthquake,100,0.3796012995591896
 Surigao del Norte,earthquake,200,0.7155636385499968
 Surigao del Norte,earthquake,250,0.8061871452435472
-Surigao del Norte,earthquake,500,1.0517784756127857
-Surigao del Norte,earthquake,1000,1.3955555893144673
+Surigao del Norte,earthquake,500,1.0
+Surigao del Norte,earthquake,1000,1.0
 Surigao del Norte,flood,10,7.494027444223438e-06
 Surigao del Norte,flood,25,0.0010419208219582152
 Surigao del Norte,flood,30,0.0015785324288525135
@@ -2463,8 +2463,8 @@ Tarlac,earthquake,50,0.14210439498889346
 Tarlac,earthquake,100,0.37990385246223174
 Tarlac,earthquake,200,0.7216121212482565
 Tarlac,earthquake,250,0.8724064789135914
-Tarlac,earthquake,500,1.6066175336180553
-Tarlac,earthquake,1000,2.4715252443536198
+Tarlac,earthquake,500,1.0
+Tarlac,earthquake,1000,1.0
 Tarlac,flood,10,0.010301519476738793
 Tarlac,flood,25,0.029749386992217373
 Tarlac,flood,30,0.03577066666762342
@@ -2481,8 +2481,8 @@ Tarlac,wind,50,0.29816995293396875
 Tarlac,wind,100,0.4701095606077209
 Tarlac,wind,200,0.6735876463775886
 Tarlac,wind,250,0.8176781252242246
-Tarlac,wind,500,1.1030477999209907
-Tarlac,wind,1000,1.4119090282339928
+Tarlac,wind,500,1.0
+Tarlac,wind,1000,1.0
 Tawi-tawi,earthquake,10,0.0
 Tawi-tawi,earthquake,25,0.0
 Tawi-tawi,earthquake,30,2.8913901421095637e-06
@@ -2514,11 +2514,11 @@ Zambales,earthquake,10,0.003050591136403574
 Zambales,earthquake,25,0.045279508938393054
 Zambales,earthquake,30,0.07045933095554557
 Zambales,earthquake,50,0.24809757873780955
-Zambales,earthquake,100,1.0184467605796228
-Zambales,earthquake,200,2.701564305254996
-Zambales,earthquake,250,3.2280781971689496
-Zambales,earthquake,500,5.219582427694578
-Zambales,earthquake,1000,10.874120872908746
+Zambales,earthquake,100,1.0
+Zambales,earthquake,200,1.0
+Zambales,earthquake,250,1.0
+Zambales,earthquake,500,1.0
+Zambales,earthquake,1000,1.0
 Zambales,flood,10,0.18466383964675406
 Zambales,flood,25,0.31331480665974437
 Zambales,flood,30,0.3489483528271597
@@ -2526,8 +2526,8 @@ Zambales,flood,50,0.4647733491351684
 Zambales,flood,100,0.6457461725048133
 Zambales,flood,200,0.8668966796692287
 Zambales,flood,250,0.9375248044183387
-Zambales,flood,500,1.1557210823404178
-Zambales,flood,1000,1.3064670240714071
+Zambales,flood,500,1.0
+Zambales,flood,1000,1.0
 Zambales,surge,10,0.02129404156243987
 Zambales,surge,25,0.034925966401104055
 Zambales,surge,30,0.03729283077787268
@@ -2541,11 +2541,11 @@ Zambales,wind,10,0.12946070620992053
 Zambales,wind,25,0.4921317127991801
 Zambales,wind,30,0.5864398237059507
 Zambales,wind,50,0.9905094584400818
-Zambales,wind,100,1.6175870857806238
-Zambales,wind,200,2.7007125079680416
-Zambales,wind,250,3.139416247884429
-Zambales,wind,500,4.814816270643518
-Zambales,wind,1000,5.853024198767221
+Zambales,wind,100,1.0
+Zambales,wind,200,1.0
+Zambales,wind,250,1.0
+Zambales,wind,500,1.0
+Zambales,wind,1000,1.0
 Zamboanga Sibugay,earthquake,10,0.00035941048651370693
 Zamboanga Sibugay,earthquake,25,0.0074754445780262245
 Zamboanga Sibugay,earthquake,30,0.010998905094252616

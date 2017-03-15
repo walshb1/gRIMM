@@ -121,7 +121,6 @@ def read_file(fname):
 
     return head, df
 
-
 # read in output file
 cdir   = os.getcwd()          # current directory
 dbdir  = cdir+'/debug_plots/' # plots go here
@@ -137,12 +136,13 @@ if not os.path.exists(social05dir): os.makedirs(social05dir)
 if not os.path.exists(social10dir): os.makedirs(social10dir)
 if not os.path.exists(social15dir): os.makedirs(social15dir)
 
-for anOption in [['output/PHL_results_tax_no.csv',dbdir],
-                 ['output/PHL_results_tax_no_shew100.csv',shewdir],
-                 ['output/PHL_results_tax_no_rshar.csv',rshardir],
-                 ['output/PHL_results_tax_no_05.csv',social05dir],
-                 ['output/PHL_results_tax_no_10.csv',social10dir],
-                 ['output/PHL_results_tax_no_15.csv',social15dir]]:
+loc_nat = 'gdpLOC'
+for anOption in [['output/'+loc_nat+'/PHL_results_tax_no.csv',dbdir],
+                 ['output/'+loc_nat+'/options/PHL_results_tax_no_ew100.csv',shewdir],
+                 ['output/'+loc_nat+'/options/PHL_results_tax_no_rs30.csv',rshardir],
+                 ['output/'+loc_nat+'/options/PHL_results_tax_no_so5.csv',social05dir],
+                 ['output/'+loc_nat+'/options/PHL_results_tax_no_so10.csv',social10dir],
+                 ['output/'+loc_nat+'/options/PHL_results_tax_no_so15.csv',social15dir]]:
                  
     res_head, res_df = read_file(anOption[0])
 
