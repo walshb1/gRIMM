@@ -154,9 +154,7 @@ pager_desc_to_code.Description = pager_desc_to_code.Description.str.strip(". ")	
 pager_desc_to_code.Description = pager_desc_to_code.Description.str.replace("  "," ")	#replace double spaces with single spaces
 pager_desc_to_code = pager_desc_to_code.set_index("PAGER-STR")
 pager_code_to_aggcat = replace_with_warning( pager_desc_to_code.Description, pager_description_to_aggregate_category, joiner="\n") #results in a table with PAGER-STR index and associated category (fragile, median etc.)
-print(pager_description_to_aggregate_category.head(10))
-print(pager_desc_to_code.head(10))
-assert(False)
+
 ###total share of each category of building per country
 rural_share= .5*get_share_from_sheet(PAGER_XL,pager_code_to_aggcat,iso3_to_wb,sheetname='Rural_Non_Res')+.5*get_share_from_sheet(PAGER_XL,pager_code_to_aggcat,iso3_to_wb,sheetname='Rural_Res')
 urban_sare = .5*get_share_from_sheet(PAGER_XL,pager_code_to_aggcat,iso3_to_wb,sheetname='Urban_Non_Res')+.5*get_share_from_sheet(PAGER_XL,pager_code_to_aggcat,iso3_to_wb,sheetname='Urban_Res')
