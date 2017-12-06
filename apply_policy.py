@@ -8,7 +8,7 @@ def apply_policy(m_,c_,h_, a_=None , policy_name=None, verbose=True):
     m=m_.copy(deep=True)
     c=c_.copy(deep=True)
     h=h_.copy(deep=True)
-    #a=a_.copy() #dictionary, do not attempt to deep copy
+    a=a_ #dictionary, do not attempt to deep copy
 
 
     if policy_name is None:

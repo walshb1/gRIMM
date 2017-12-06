@@ -3,7 +3,7 @@
 #Import package for data analysis
 from lib_gather_data import *
 from replace_with_warning import *
-import apply_policy
+from apply_policy import *
 import numpy as np
 import pandas as pd
 from pandas import isnull
@@ -47,7 +47,6 @@ if not os.path.exists(intermediate): #if the depository directory doesn't exist,
 any_to_wb=pd.read_csv(inputs+"/any_name_to_wb_name.csv",index_col="any",squeeze=True)	#Names to WB names
 iso3_to_wb=pd.read_csv(inputs+"/iso3_to_wb_name.csv").set_index("iso3").squeeze()	#iso3 to wb country name table
 iso2_iso3=pd.read_csv(inputs+"/names_to_iso.csv", usecols=["iso2","iso3"]).drop_duplicates().set_index("iso2").squeeze() #iso2 to iso3 table
-
 
 #Read data
 ##Macro data
@@ -147,13 +146,15 @@ df["avg_prod_k"]=k_data["prod_from_k"]/k_data["k"]	#\mu in the technical paper -
 ##Hazards data
 ###Vulnerability from Pager data
 pager_description_to_aggregate_category = pd.read_csv(inputs+"/pager_description_to_aggregate_category.csv", index_col="pager_description", squeeze=True)
-PAGER_XL = pd.ExcelFile(inputs+"/PAGER_Inventory_database_v2.0.xls")
+PAGER_XL = pd.ExcelFile(inputs+"/PAGER_Inventory_database_v2.0.xlsx")
 pager_desc_to_code = pd.read_excel(PAGER_XL,sheetname="Release_Notes", parse_cols="B:C", skiprows=56).dropna().squeeze()
 pager_desc_to_code.Description = pager_desc_to_code.Description.str.strip(". ")	#removes spaces and dots from PAGER description
 pager_desc_to_code.Description = pager_desc_to_code.Description.str.replace("  "," ")	#replace double spaces with single spaces
 pager_desc_to_code = pager_desc_to_code.set_index("PAGER-STR")
 pager_code_to_aggcat = replace_with_warning( pager_desc_to_code.Description, pager_description_to_aggregate_category, joiner="\n") #results in a table with PAGER-STR index and associated category (fragile, median etc.)
-
+print(pager_description_to_aggregate_category.head(10))
+print(pager_desc_to_code.head(10))
+assert(False)
 ###total share of each category of building per country
 rural_share= .5*get_share_from_sheet(PAGER_XL,pager_code_to_aggcat,iso3_to_wb,sheetname='Rural_Non_Res')+.5*get_share_from_sheet(PAGER_XL,pager_code_to_aggcat,iso3_to_wb,sheetname='Rural_Res')
 urban_sare = .5*get_share_from_sheet(PAGER_XL,pager_code_to_aggcat,iso3_to_wb,sheetname='Urban_Non_Res')+.5*get_share_from_sheet(PAGER_XL,pager_code_to_aggcat,iso3_to_wb,sheetname='Urban_Res')
@@ -253,7 +254,7 @@ cat_info["v"] = concat_categories(vp,vr, index=income_cats)
 #access to early warnings
 cat_info["shew"] = hazard_ratios.shew.drop("eathrquake", level="hazard").mean(level=["country","income_cat"])
 
-df_in,cat_info,hazard_ratios,desc=apply_policy(df_in,cat_info,hazard_ratios)
+df,cat_info,hazard_ratios,a,desc=apply_policy(df,cat_info,hazard_ratios)
 
 
 if drop_unused_data:
