@@ -10,9 +10,9 @@ import matplotlib.pyplot as plt
 #from res_ind_lib import *
 
 import os, time
-from wb_api_wraper import *
+from wb_api_wrapper import *
 
-from fancy_plots import *
+#from fancy_plots import *
 import numpy as np
 
 include_remitances = True
