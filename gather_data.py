@@ -11,6 +11,7 @@ import os, time
 import warnings
 warnings.filterwarnings("always",category=UserWarning)
 
+debug = False
 
 #Options and parameters
 protection_from_flopros=True #FLOPROS is an evolving global database of flood protection standards. It will be used in Protection.
