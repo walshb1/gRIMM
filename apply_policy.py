@@ -1,14 +1,14 @@
 from pandas_helper import *
 #from res_ind_lib import *
 
-def apply_policy(m_,c_,h_, a_ , policy_name=None, verbose=True):
-    """Choses a policy by name, appliesit to m,c,and/or h, and returns new values as well as a policy description"""
+def apply_policy(m_,c_,h_, a_=None , policy_name=None, verbose=True):
+    """Choses a policy by name, applies it to m,c,and/or h, and returns new values as well as a policy description"""
 
     #duplicate inputes
     m=m_.copy(deep=True)
     c=c_.copy(deep=True)
     h=h_.copy(deep=True)
-    a=a_.copy() #dictionary, do not attempt to deep copy
+    #a=a_.copy() #dictionary, do not attempt to deep copy
 
 
     if policy_name is None:
@@ -110,11 +110,11 @@ def apply_policy(m_,c_,h_, a_ , policy_name=None, verbose=True):
         desc = "Make poor people's exposure the same as the rest of population"
 
     elif policy_name=="prop_nonpoor":
-        a.update(optionPDS = "prop_nonpoor", optionT="perfect",optionB="unlimited",optionFee="insurance_premium", share_insured=.25)
+        #a.update(optionPDS = "prop_nonpoor", optionT="perfect",optionB="unlimited",optionFee="insurance_premium", share_insured=.25)
         desc = "Develop market\ninsurance\n(nonpoor people)"
 
     elif policy_name=="prop_nonpoor_lms":
-        a.update(optionPDS = "prop_nonpoor_lms", optionT="prop_nonpoor_lms",optionB="unlimited",optionFee="insurance_premium", share_insured=.5)
+        #a.update(optionPDS = "prop_nonpoor_lms", optionT="prop_nonpoor_lms",optionB="unlimited",optionFee="insurance_premium", share_insured=.5)
         desc = "Develop market insurance (25% of population, only nonpoor)"
 
 

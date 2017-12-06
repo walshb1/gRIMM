@@ -3,17 +3,18 @@
 #Import package for data analysis
 from lib_gather_data import *
 from replace_with_warning import *
+import apply_policy
 import numpy as np
 import pandas as pd
 from pandas import isnull
 import os, time
 import warnings
-warnings.filterwarnings("always",category=UserWarning)  
+warnings.filterwarnings("always",category=UserWarning)
 
 
 #Options and parameters
 protection_from_flopros=True #FLOPROS is an evolving global database of flood protection standards. It will be used in Protection.
-no_protection=True #Used in Protection. 
+no_protection=True #Used in Protection.
 use_GLOFRIS_flood=False  #else uses GAR (True does not work i think)
 use_guessed_social=True #else keeps nans
 use_avg_pe=True #otherwise 0 when no data
@@ -45,7 +46,7 @@ if not os.path.exists(intermediate): #if the depository directory doesn't exist,
 #Country dictionaries
 any_to_wb=pd.read_csv(inputs+"/any_name_to_wb_name.csv",index_col="any",squeeze=True)	#Names to WB names
 iso3_to_wb=pd.read_csv(inputs+"/iso3_to_wb_name.csv").set_index("iso3").squeeze()	#iso3 to wb country name table
-iso2_iso3=pd.read_csv(inputs+"/names_to_iso.csv", usecols=["iso2","iso3"]).drop_duplicates().set_index("iso2").squeeze() #iso2 to iso3 table 
+iso2_iso3=pd.read_csv(inputs+"/names_to_iso.csv", usecols=["iso2","iso3"]).drop_duplicates().set_index("iso2").squeeze() #iso2 to iso3 table
 
 
 #Read data
@@ -53,7 +54,7 @@ iso2_iso3=pd.read_csv(inputs+"/names_to_iso.csv", usecols=["iso2","iso3"]).drop_
 ###Economic data from the world bank
 the_file=inputs+"wb_data_backup.csv"
 nb_weeks=(time.time()-os.stat(the_file).st_mtime )/(3600*24*7)	#calculate the nb of weeks since the last modified time
-if nb_weeks>20: 
+if nb_weeks>20:
     warnings.warn("World bank data are "+str(int(nb_weeks))+" weeks old. You may want to download them again.")
 df=pd.read_csv(the_file).set_index(economy)
 df["urbanization_rate"]=pd.read_csv(inputs+"/wb_data.csv").set_index(economy)["urbanization_rate"]
@@ -67,7 +68,7 @@ df["pi"] = reduction_vul	# how much early warning reduces vulnerability
 df["income_elast"] = inc_elast	#income elasticity
 df["rho"] = discount_rate	#discount rate
 df["shareable"]=asset_loss_covered  #target of asset losses to be covered by scale up
-df["max_increased_spending"] = max_support # 5% of GDP in post-disaster support maximum, if everything is ready  
+df["max_increased_spending"] = max_support # 5% of GDP in post-disaster support maximum, if everything is ready
 
 ###Social transfer Data from EUsilc (European Union Survey of Income and Living Conditions) and other countries.
 silc=pd.read_csv(inputs+"/social_ratios.csv") #XXX: there is data from ASPIRE in social_ratios. Use fillna instead to update df.
@@ -84,7 +85,7 @@ guessed_social.columns=["social_p", "social_r"]
 if use_guessed_social:
     df=df.fillna(guessed_social.clip(lower=0, upper=1)) #replace the NaN with guessed social transfer.
 
-####HFA (Hyogo Framework for Action) data to assess the role of early warning system	
+####HFA (Hyogo Framework for Action) data to assess the role of early warning system
 #2015 hfa
 hfa15=pd.read_csv(inputs+"/HFA_all_2013_2015.csv")
 hfa15=hfa15.set_index(replace_with_warning(hfa15["Country name"],any_to_wb))
@@ -97,7 +98,7 @@ hfa_previous=hfa_previous.set_index(replace_with_warning(hfa_previous["Country n
 #most recent values... if no 2011-2013 reporting, we use 2009-2011
 hfa_oldnew=pd.concat([hfa_newest, hfa_previous, hfa15], axis=1,keys=['new', 'old', "15"]) #this is important to join the list of all countries
 hfa = hfa_oldnew["15"].fillna(hfa_oldnew["new"].fillna(hfa_oldnew["old"]))
-hfa["shew"]=1/5*hfa["P2-C3"] #access to early warning normalized between zero and 1. 
+hfa["shew"]=1/5*hfa["P2-C3"] #access to early warning normalized between zero and 1.
 hfa["prepare_scaleup"]=(hfa["P4-C2"]+hfa["P5-C2"]+hfa["P4-C5"])/3/5 # q_s in the report, ability to scale up support to to affected population after the disaster, normalized between zero and 1
 hfa["finance_pre"]=(1+hfa["P5-C3"])/6 #betwenn 0 and 1	!!!!!!!!!!!!!!!!!!!REMARK: INCONSISTENT WITH THE TECHNICAL PAPER. Q_f=1/2(ratings+P5C3/5)
 df[["shew","prepare_scaleup","finance_pre"]]=hfa[["shew","prepare_scaleup","finance_pre"]]
@@ -109,14 +110,14 @@ df[["shew","prepare_scaleup","finance_pre"]]=df[["shew","prepare_scaleup","finan
 ###Country Ratings
 the_credit_rating_file=inputs+"/cred_rat.csv"
 nb_weeks=(time.time()-os.stat(the_credit_rating_file).st_mtime )/(3600*24*7)
-if nb_weeks>3: 
+if nb_weeks>3:
     warnings.warn("Credit ratings are "+str(int(nb_weeks))+" weeks old. Get new ones at http://www.tradingeconomics.com/country-list/rating")
 ratings_raw=pd.read_csv(the_credit_rating_file,dtype="str").dropna(how="all") #drop rows where only all columns are NaN.
 ratings_raw=ratings_raw.rename(columns={"Unnamed: 0": "country_in_ratings"})[["country_in_ratings","S&P","Moody's","Fitch"]]	#Rename "Unnamed: 0" to "country_in_ratings" and pick only columns with country_in_ratings, S&P, Moody's and Fitch.
 ratings_raw.country_in_ratings= ratings_raw.country_in_ratings.str.strip().replace(["Congo"],["Congo, Dem. Rep."])	#The creidt rating sources calls DR Congo just Congo. Here str.strip() is needed to remove any space in the raw data. In the raw data, Congo has some spaces after "o". If not used str.strip(), nothing is replaced.
 ratings_raw["country"]= replace_with_warning(ratings_raw.country_in_ratings.apply(str.strip),any_to_wb)	#change country name to wb's name
 ratings_raw=ratings_raw.set_index("country")
-ratings_raw=ratings_raw.applymap(mystriper)	#mystriper is a function in lib_gather_data. To lower case and strips blanks.    
+ratings_raw=ratings_raw.applymap(mystriper)	#mystriper is a function in lib_gather_data. To lower case and strips blanks.
 
 #Transforms ratings letters into 1-100 numbers
 rat_disc = pd.read_csv(inputs+"/cred_rat_dict.csv")
@@ -161,8 +162,8 @@ share=  share[share.index.isin(iso3_to_wb)] #the share of building inventory for
 
 ###matching vulnerability of buildings and people's income and calculate poor's, rich's and country's vulnerability
 agg_cat_to_v = pd.read_csv(inputs+"/aggregate_category_to_vulnerability.csv", sep=";", index_col="aggregate_category", squeeze=True)
-##REMARK: NEED TO BE CHANGED....Stephane I've talked to @adrien_vogt_schilb and don't want you to go over our whole conversation. Here is the thing: in your model, you assume that the bottom 20% of population gets the 20% of buildings of less quality. I don't think it's a fair jusfitication, because normally poor people live in buildings of less quality but in a more crowded way,i.e., it could be the bottom 40% of population get the 10% of buildings of less quality. I think we need to correct this matter. @adrien_vogt_schilb also agreed on that, if he didn't change his opinion. How to do that? I think once we incorporate household data, we can allocate buildings on the decile of households, rather than population. I think it's a more realistic assumption. 
-p=(share.cumsum(axis=1).add(-df["pov_head"],axis=0)).clip(lower=0) 
+##REMARK: NEED TO BE CHANGED....Stephane I've talked to @adrien_vogt_schilb and don't want you to go over our whole conversation. Here is the thing: in your model, you assume that the bottom 20% of population gets the 20% of buildings of less quality. I don't think it's a fair jusfitication, because normally poor people live in buildings of less quality but in a more crowded way,i.e., it could be the bottom 40% of population get the 10% of buildings of less quality. I think we need to correct this matter. @adrien_vogt_schilb also agreed on that, if he didn't change his opinion. How to do that? I think once we incorporate household data, we can allocate buildings on the decile of households, rather than population. I think it's a more realistic assumption.
+p=(share.cumsum(axis=1).add(-df["pov_head"],axis=0)).clip(lower=0)
 poor=(share-p).clip(lower=0)
 rich=share-poor
 vp_unshaved=((poor*agg_cat_to_v).sum(axis=1, skipna=False)/df["pov_head"] )
@@ -228,7 +229,7 @@ if no_protection:
     p=hazard_ratios.reset_index("rp").rp.min()
     df.protection=p
     print("PROTECTION IS ",p)
-    
+
 ##Data by income categories
 cat_info =pd.DataFrame()
 cat_info["n"]  = concat_categories(ph,(1-ph),index= income_cats)	#number
@@ -252,7 +253,7 @@ cat_info["v"] = concat_categories(vp,vr, index=income_cats)
 #access to early warnings
 cat_info["shew"] = hazard_ratios.shew.drop("eathrquake", level="hazard").mean(level=["country","income_cat"])
 
-
+df_in,cat_info,hazard_ratios,desc=apply_policy(df_in,cat_info,hazard_ratios)
 
 
 if drop_unused_data:
@@ -264,10 +265,7 @@ df_in = df_in.drop([ "shew","v"],axis=1, errors="ignore").dropna()
 
 #Save all data
 fa_guessed_gar.to_csv(intermediate+"/fa_guessed_from_GAR_and_PAGER_shaved.csv",encoding="utf-8", header=True)
-pd.DataFrame([vp,vr,v], index=["vp","vr","v"]).T.to_csv(intermediate+"/v_pr_fromPAGER_shaved_GAR.csv",encoding="utf-8", header=True)	
+pd.DataFrame([vp,vr,v], index=["vp","vr","v"]).T.to_csv(intermediate+"/v_pr_fromPAGER_shaved_GAR.csv",encoding="utf-8", header=True)
 df_in.to_csv(intermediate+"/macro.csv",encoding="utf-8", header=True)
 cat_info.to_csv(intermediate+"/cat_info.csv",encoding="utf-8", header=True)
 hazard_ratios.to_csv(intermediate+"/hazard_ratios.csv",encoding="utf-8", header=True)
-
-
-
