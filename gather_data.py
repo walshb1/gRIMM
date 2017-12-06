@@ -127,7 +127,8 @@ ratings["Moody's"].replace(rat_disc["moodys"].values,rat_disc["moodys_score"].va
 ratings["Fitch"].replace(rat_disc["fitch"].values,rat_disc["fitch_score"].values,inplace=True)
 ratings["rating"]=ratings.mean(axis=1)/100 #axis=1 is the average across columns, axis=0 is to average across rows. .mean ignores NaN
 df["rating"] = ratings["rating"]
-print("some bad rating occurs for" + "; ".join(df.loc[isnull(df.rating)].index))
+if debug:
+    print("some bad rating occurs for" + "; ".join(df.loc[isnull(df.rating)].index))
 df["rating"].fillna(0,inplace=True)  #assumes no rating is bad rating
 
 ###Ratings + HFA
