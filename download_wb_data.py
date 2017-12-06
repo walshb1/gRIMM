@@ -1,7 +1,7 @@
 # Downloads wb data
-%load_ext autoreload
-%autoreload
-%matplotlib inline
+#%load_ext autoreload
+#%autoreload
+#%matplotlib inline
 
 from pandas_datareader import wb
 import pandas as pd
@@ -11,6 +11,9 @@ from res_ind_lib import *
 
 import os, time
 from wb_api_wraper import *
+
+from fancy_plots import *
+import numpy as np
 
 include_remitances = True
 
@@ -51,8 +54,6 @@ poor_cov_assistance = mrv(get_wb("per_sa_allsa.cov_q1_tot"))
 poor_cov_assistance
 
 other_cov_assistance =( mrv(get_wb("per_sa_allsa.cov_q2_tot")) + mrv(get_wb("per_sa_allsa.cov_q3_tot"))+ mrv(get_wb("per_sa_allsa.cov_q4_tot")) + mrv(get_wb("per_sa_allsa.cov_q5_tot")))/4
-
-from fancy_plots import *
 
 font = {'family' : 'serif',
     'weight' : 'normal',
@@ -151,8 +152,6 @@ y_2= mrv(rem2 + tra2_)/la_2
 y_3= mrv(rem3 + tra3_)/la_3
 y_4= mrv(rem4 + tra4_)/la_4
 y_5= mrv(rem5 + tra5_)/la_5
-
-import numpy as np
 
 print(pop)
 print((4*t_1*pop).sum()/((t_2+t_3+t_4+t_5)*pop).sum())
