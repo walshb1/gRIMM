@@ -212,7 +212,7 @@ df.ix["Syrian Arab Republic","gdp_pc_pp"]=5100/10700 * 10405.
 
 #for SIDS, manual addition from online research
 
-manual_additions_sids = pd.read_csv("sids data/sids_missing_data_manual_input.csv",index_col="country")
+manual_additions_sids = pd.read_csv('inputs/sids_missing_data_manual_input.csv',index_col='country')
 
 df = df.fillna(manual_additions_sids)
 
