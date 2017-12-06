@@ -55,25 +55,25 @@ poor_cov_assistance
 
 other_cov_assistance =( mrv(get_wb("per_sa_allsa.cov_q2_tot")) + mrv(get_wb("per_sa_allsa.cov_q3_tot"))+ mrv(get_wb("per_sa_allsa.cov_q4_tot")) + mrv(get_wb("per_sa_allsa.cov_q5_tot")))/4
 
-font = {'family' : 'serif',
-    'weight' : 'normal',
-    'size'   : 15}
+#font = {'family' : 'serif',
+#    'weight' : 'normal',
+#    'size'   : 15}
 
-plt.rc('font', **font)
+#plt.rc('font', **font)
 
-pd.DataFrame([poor_cov_assistance, other_cov_assistance], index=["Poor","Nonpoor"]).T.plot.scatter(
-    x="Poor", 
-    y="Nonpoor", 
-    s=60, 
-    alpha=0.5,
-    figsize=(7,7),
-    clip_on=False)
-plt.xlim(0,100)
-plt.ylim(0,100)
+#pd.DataFrame([poor_cov_assistance, other_cov_assistance], index=["Poor","Nonpoor"]).T.plot.scatter(
+#    x="Poor", 
+#    y="Nonpoor", 
+#    s=60, 
+#    alpha=0.5,
+#    figsize=(7,7),
+#    clip_on=False)
+#plt.xlim(0,100)
+#plt.ylim(0,100)
 
-plt.plot([0,100],[0,100], "--", color="black")
+#plt.plot([0,100],[0,100], "--", color="black")
 
-spine_and_ticks(plt.gca())
+#spine_and_ticks(plt.gca())
 
 #savefig("img/cov_assist_p_np")
 
