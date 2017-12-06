@@ -1,7 +1,7 @@
 import pandas as pd
 
-loc_nat = 'nat'
-df_with_results = pd.read_csv("output/PHL_results_tax_no_"+loc_nat+".csv", index_col=0)
+loc_nat = 'gdpLOC'
+df_with_results = pd.read_csv('output/'+loc_nat+'/PHL_results_tax_no.csv', index_col=0)
 
 #this library contains ad hoc functions, coded for this project, that allow to produce maps 
 from maps_lib import *

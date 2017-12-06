@@ -129,12 +129,16 @@ rshardir = dbdir+'/option_risk_sharing/'
 social05dir = dbdir+'/option_social/05/'
 social10dir = dbdir+'/option_social/10/'
 social15dir = dbdir+'/option_social/15/'
+expdir = dbdir+'/option_exposure/poor/'
+exnpdir = dbdir+'/option_exposure/nonpoor/'
 if not os.path.exists(dbdir): os.makedirs(dbdir)
 if not os.path.exists(shewdir): os.makedirs(shewdir)
 if not os.path.exists(rshardir): os.makedirs(rshardir)
 if not os.path.exists(social05dir): os.makedirs(social05dir)
 if not os.path.exists(social10dir): os.makedirs(social10dir)
 if not os.path.exists(social15dir): os.makedirs(social15dir)
+if not os.path.exists(expdir): os.makedirs(expdir)
+if not os.path.exists(exnpdir): os.makedirs(exnpdir)
 
 loc_nat = 'gdpLOC'
 for anOption in [['output/'+loc_nat+'/PHL_results_tax_no.csv',dbdir],
@@ -142,7 +146,9 @@ for anOption in [['output/'+loc_nat+'/PHL_results_tax_no.csv',dbdir],
                  ['output/'+loc_nat+'/options/PHL_results_tax_no_rs30.csv',rshardir],
                  ['output/'+loc_nat+'/options/PHL_results_tax_no_so5.csv',social05dir],
                  ['output/'+loc_nat+'/options/PHL_results_tax_no_so10.csv',social10dir],
-                 ['output/'+loc_nat+'/options/PHL_results_tax_no_so15.csv',social15dir]]:
+                 ['output/'+loc_nat+'/options/PHL_results_tax_no_so15.csv',social15dir],
+                 ['output/'+loc_nat+'/options/PHL_results_tax_no_expoor.csv',expdir],
+                 ['output/'+loc_nat+'/options/PHL_results_tax_no_exnonpoor.csv',exnpdir]]:
                  
     res_head, res_df = read_file(anOption[0])
 

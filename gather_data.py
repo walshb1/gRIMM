@@ -54,7 +54,7 @@ if not os.path.exists(intermediate): #if the depository directory doesn't exist,
 # - Country dictionaries
 any_to_wb  = pd.read_csv(inputs+"/any_name_to_wb_name.csv",index_col="any",squeeze=True)	#Names to WB names
 iso3_to_wb = pd.read_csv(inputs+"/iso3_to_wb_name.csv").set_index("iso3").squeeze()	#iso3 to wb country name table
-iso2_iso3  = pd.read_csv(inputs+"/names_to_iso.csv", usecols=["iso2","iso3"]).drop_duplicates().set_index("iso2").squeeze() #iso2 to iso3 table 
+iso2_iso3  = pd.read_csv(inputs+"/names_to_iso.csv", usecols=["iso2","iso3"]).drop_duplicates().set_index("iso2").squeeze() #iso2 to iso3 
 
 ######################################
 # ---> Global section
@@ -112,6 +112,7 @@ hfa_newest=hfa_newest.set_index(replace_with_warning(hfa_newest["Country name"],
 # READ THE PREVIOUS HFA DATA
 hfa_previous=pd.read_csv(inputs+"/HFA_all_2009_2011.csv")
 hfa_previous=hfa_previous.set_index(replace_with_warning(hfa_previous["Country name"],any_to_wb))
+
 #most recent values... if no 2011-2013 reporting, we use 2009-2011
 hfa_oldnew=pd.concat([hfa_newest, hfa_previous, hfa15], axis=1,keys=['new', 'old', "15"]) #this is important to join the list of all countries
 hfa = hfa_oldnew["15"].fillna(hfa_oldnew["new"].fillna(hfa_oldnew["old"]))
@@ -168,6 +169,7 @@ PAGER_XL = pd.ExcelFile(inputs+"/PAGER_Inventory_database_v2.0.xls")
 pager_desc_to_code = pd.read_excel(PAGER_XL,sheetname="Release_Notes", parse_cols="B:C", skiprows=56).dropna().squeeze()
 pager_desc_to_code.Description = pager_desc_to_code.Description.str.strip(". ")	#removes spaces and dots from PAGER description
 pager_desc_to_code.Description = pager_desc_to_code.Description.str.replace("  "," ")	#replace double spaces with single spaces
+
 pager_desc_to_code = pager_desc_to_code.set_index("PAGER-STR")
 pager_code_to_aggcat = replace_with_warning( pager_desc_to_code.Description, pager_description_to_aggregate_category, joiner="\n") 
 #results in a table with PAGER-STR index and associated category (fragile, median etc.)
@@ -330,16 +332,16 @@ df_phl["max_increased_spending"] = max_support         # 5% of GDP in post-disas
 df_phl["share1"] = df_phl['cp']*df_phl['pov_head']/df_phl["gdp_pc_pp"] #consumption levels, by definition.
 # at this point, df_phl also has ["cp","cr","shewp","shewr"], more than df
 
-# Haven't dissociated these 6 from the previous, but this is particularly important because of "shew"
+# Haven't dissociated these 6 from the previous
+df_phl["shew"]            = 0.0
 df_phl["finance_pre"]     = df["finance_pre"]["Philippines"]
 df_phl["prepare_scaleup"] = df["prepare_scaleup"]["Philippines"]
-df_phl["shew"]            = df["shew"]["Philippines"]
 df_phl["rating"]          = df["rating"]["Philippines"]
 df_phl["borrow_abi"]      = df["borrow_abi"]["Philippines"]
 df_phl["avg_prod_k"]      = df["avg_prod_k"]["Philippines"]
 
 # Income = assets*productivity of capital 
-df_phl["assets"]          = df_phl["gdp_pc_pp"]*df_phl["pop"]/df_phl["avg_prod_k"]
+df_phl['k']          = df_phl["gdp_pc_pp"]*df_phl["pop"]/df_phl["avg_prod_k"]
 
 # PSA materials file
 PSA_vulnerability = get_PSA_building_data(PHLinputs+"/PSA_materials.xlsx")
@@ -384,7 +386,7 @@ gar_file_aal.index.name="country"
 phl_gar_aal = gar_file_aal.ix['Philippines']
 
 # --> PSA exposed assets
-#print(df_phl['assets'].sum()/(50*1E3))
+#print(df_phl['k'].sum()/(50*1E3))
 # --> GAR exposed assets
 #print(gar_file_aal.ix['Philippines'])
 
@@ -392,17 +394,35 @@ phl_gar_aal = gar_file_aal.ix['Philippines']
 df_phl['eff_prod_k_gar']  = ((df_phl["gdp_pc_pp"]*df_phl["pop"]).sum()/(50*1E3))/phl_gar_aal.ix['EXPOSED VALUE']
 
 # AIR dataset
+# --> Need to think about public assets
 df_phl.index.name = "province"
 AIR_value_destroyed = get_AIR_data(PHLinputs+"/Risk_Profile_Master_With_Population.xlsx","Loss_Results",'all','Agg')
-AIR_value_destroyed/=1e3
+
+print(AIR_value_destroyed.head(10))
+
+AIR_value_destroyed*=(50.*1E3)
 AIR_value_destroyed.reset_index().set_index('province')
 
-frac_AIR_value_destroyed = (AIR_value_destroyed/df_phl['assets'].squeeze())
+frac_AIR_value_destroyed = (AIR_value_destroyed/df['k'].squeeze())
 
-fa_guessed_air_phl = (frac_AIR_value_destroyed/broadcast_simple(v_unshaved_phl,AIR_value_destroyed.index)).dropna()
+#fa_guessed_air_phl = (frac_AIR_value_destroyed/broadcast_simple(v_unshaved_phl,AIR_value_destroyed.index)).dropna()
 
-fa_guessed_phl = fa_guessed_air_phl.clip(0.0,1.0)
-fa_guessed_phl.name  = "fa"
+# Can just clip...
+#fa_guessed_phl = fa_guessed_air_phl.clip(0.0,1.0)
+
+# or transfer the exposure above 90% to vulnerability
+excess=fa_guessed_air_phl[fa_guessed_air_phl>fa_threshold].max(level="province")
+
+for c in excess.index:
+    r = (excess/fa_threshold)[c]
+    #print(c,r, fa_guessed_air_phl[fa_guessed_air_phl>fa_threshold].ix[c])
+    fa_guessed_air_phl.update(fa_guessed_air_phl.ix[[c]]/r)  # i don't care.
+    vp_phl.ix[c] *= r
+    vr_phl.ix[c] *= r
+    v_phl.ix[c] *=r
+
+vp_phl = vp_phl.clip(upper=.99)
+vr_phl = vr_phl.clip(upper=.99)
 
 df_v_phl = vp_phl.to_frame(name="vp")
 df_v_phl["vr"] = vr_phl
@@ -412,19 +432,23 @@ df_v_phl.index.name = "province"
 df_phl["pe"] = pe["Philippines"]
 pe_phl = df_phl.pop("pe")
 
+# Assign what was just constructed to fa_guessed_phl
+fa_guessed_phl = fa_guessed_air_phl
+fa_guessed_phl.name  = "fa"
+
 ###incorporates exposure bias, but only for (riverine) flood and surge, and gets an updated fa for income_cats
 fa_hazard_cat_phl = broadcast_simple(fa_guessed_phl,index=income_cats)
 
-#fa_with_pe_phl = concat_categories(fa_guessed_phl*(1+pe_phl),fa_guessed_phl*(1-df_phl.pov_head*(1+pe_phl))/(1-df_phl.pov_head), index=income_cats)
+fa_with_pe_phl = concat_categories(fa_guessed_phl*(1+pe_phl),fa_guessed_phl*(1-df_phl.pov_head*(1+pe_phl))/(1-df_phl.pov_head), index=income_cats)
 # ^ fa_guessed_gar*(1+pe) gives f_p^a and fa_guessed_gar*(1-df.pov_head*(1+pe))/(1-df.pov_head) gives f_r^a. TESTED
 
-#fa_with_pe_phl = pd.DataFrame(fa_with_pe_phl).query("hazard in ['flood','surge']").squeeze() #selects just flood and surge
-#fa_hazard_cat_phl.update(fa_with_pe_phl) #updates fa_guessed_gar where necessary
+fa_with_pe_phl = pd.DataFrame(fa_with_pe_phl).query("hazard in ['flood','surge']").squeeze() #selects just flood and surge
+fa_hazard_cat_phl.update(fa_with_pe_phl) #updates fa_guessed_gar where necessary
 
 ###gathers hazard ratios
 hazard_ratios_phl = pd.DataFrame(fa_hazard_cat_phl)
 
-# This sets early warning access to 60% for all provinces 
+# This sets early warning access to 00% for all provinces
 hazard_ratios_phl["shew"]=broadcast_simple(df_phl.shew, index=hazard_ratios_phl.index)
 
 # This block sets early warning access to province- and income-specific values

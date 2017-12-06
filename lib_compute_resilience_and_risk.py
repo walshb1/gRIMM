@@ -81,7 +81,8 @@ def process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,ve
     # applies mh ratios to relevant columns
     cols_c = [c for c in cats_event if c in hazard_ratios_event] #columns that are both in cats_event and hazard_ratios_event    
     if not cols_c==[]:
-        hrb = broadcast_simple(hazard_ratios_event[cols_c], cat_info.index).reset_index().set_index(get_list_of_index_names(cats_event)) #explicitly broadcasts hazard ratios to contain income categories
+        hrb = broadcast_simple(hazard_ratios_event[cols_c], cat_info.index).reset_index().set_index(get_list_of_index_names(cats_event)) 
+        # ^ explicitly broadcasts hazard ratios to contain income categories
         cats_event[cols_c] = hrb
         if verbose_replace:
             flag2=True
@@ -292,9 +293,9 @@ def compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_i
     df_out = pd.DataFrame(index=macro_event.index)
     
     df_out["dK"] = dK
-    df_out["dKtot"]=dK*macro_event["pop"]
-    df_out["delta_W"]    =delta_W
-    df_out["delta_W_tot"]=delta_W*macro_event["pop"] 
+    df_out["dKtot"] = dK*macro_event["pop"]
+    df_out["delta_W"] = delta_W
+    df_out["delta_W_tot"] = delta_W*macro_event["pop"] 
     df_out["average_aid_cost_pc"] = macro_event["aid"]
     
     if return_stats:

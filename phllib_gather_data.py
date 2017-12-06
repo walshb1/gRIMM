@@ -8,8 +8,8 @@ def get_AIR_data(fname,sname,keep_sec,keep_per):
 
     AIR_prov_corrections = {'Tawi-Tawi':'Tawi-tawi',
                             #'Metropolitan Manila':'Manila',
-                            'Davao del Norte':'Davao',
-                            #'Batanes':'Batanes_off',
+                            #'Davao del Norte':'Davao',
+                            'Batanes':'Batanes_off',
                             'North Cotabato':'Cotabato'}
     
     # AIR dataset peril code to peril name

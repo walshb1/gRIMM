@@ -1,4 +1,4 @@
-python gather_data.py
-python compute_resilience_and_risk.py
-python draw_maps.py
-python debug.py
+iPython gather_data.py
+iPython compute_resilience_and_risk.py
+iPython draw_maps.py
+iPython debug.py
