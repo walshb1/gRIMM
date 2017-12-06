@@ -7,7 +7,7 @@ from pandas_datareader import wb
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from res_ind_lib import *
+#from res_ind_lib import *
 
 import os, time
 from wb_api_wraper import *
