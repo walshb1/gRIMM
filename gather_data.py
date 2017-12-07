@@ -252,9 +252,9 @@ cat_info["fa"] =hazard_ratios.fa.mean(level=["country","income_cat"])
 cat_info["v"] = concat_categories(vp,vr, index=income_cats)
 
 #access to early warnings
-cat_info["shew"] = hazard_ratios.shew.drop("eathrquake", level="hazard").mean(level=["country","income_cat"])
+cat_info["shew"] = hazard_ratios.shew.drop("earthquake", level="hazard").mean(level=["country","income_cat"])
 
-df,cat_info,hazard_ratios,a,desc=apply_policy(df,cat_info,hazard_ratios)
+df,cat_info,hazard_ratios,a,desc=apply_policy(df,cat_info,hazard_ratios,None,"T_rebuild_K")
 
 
 if drop_unused_data:

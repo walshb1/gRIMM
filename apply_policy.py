@@ -39,10 +39,10 @@ def apply_policy(m_,c_,h_, a_=None , policy_name=None, verbose=True):
         h.shew=h.shew.unstack("hazard").assign(earthquake=0).stack("hazard").reset_index().   set_index(event_level+[ "income_cat"])
         desc = "Universal\naccess to early\nwarnings"
 
-    #reconstruction to 2.5 years
+    #reconstruction to X years
     elif policy_name=="T_rebuild_K":
-        m.T_rebuild_K = 2
-        desc = "Accelerate\nreconstruction\n(by 33%)"
+        m.T_rebuild_K = 1
+        desc = "Accelerate\nreconstruction\n(by 66%)"
 
     #social_p needs to be at least 50%
     elif policy_name=="social_p":
@@ -69,6 +69,14 @@ def apply_policy(m_,c_,h_, a_=None , policy_name=None, verbose=True):
         c.v = c.v.unstack().assign(poor=lambda df:(df.poor*(1-dv*f/n))).stack().clip(lower=0)
 
         desc = "Reduce asset\nvulnerability\n(by 30%) of\npoor people\n(5% of the population)"
+
+    #previously affected people see their v reduced 30%
+    #elif policy_name=="bbb":
+    #    dv = .3 #reduction in v
+    #    fbbb = c.fa
+    #    f = fbbb #fractionof nat pop would get the reduction
+    #    c.v = c.v.unstack().assign().stack()
+    #    desc = "Reduce asset\nvulnerability\n(by 30%)"
 
     #10% or nonpoor people see their v reduced 30%
     elif policy_name=="vr":
