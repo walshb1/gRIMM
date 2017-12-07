@@ -216,6 +216,6 @@ manual_additions_sids = pd.read_csv('inputs/sids_missing_data_manual_input.csv',
 
 df = df.fillna(manual_additions_sids)
 
-print(df.dropna().shape)
+print(df.dropna().shape,'countries!')
 df.dropna(how="all",inplace=True)
 df.to_csv("inputs/wb_data.csv", encoding="utf8")

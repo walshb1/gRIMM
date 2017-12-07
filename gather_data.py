@@ -52,13 +52,13 @@ iso2_iso3=pd.read_csv(inputs+"/names_to_iso.csv", usecols=["iso2","iso3"]).drop_
 #Read data
 ##Macro data
 ###Economic data from the world bank
-the_file=inputs+"wb_data_backup.csv"
+the_file=inputs+"wb_data.csv"#"wb_data_backup.csv"
 nb_weeks=(time.time()-os.stat(the_file).st_mtime )/(3600*24*7)	#calculate the nb of weeks since the last modified time
 if nb_weeks>20:
     warnings.warn("World bank data are "+str(int(nb_weeks))+" weeks old. You may want to download them again.")
 df=pd.read_csv(the_file).set_index(economy)
 df["urbanization_rate"]=pd.read_csv(inputs+"/wb_data.csv").set_index(economy)["urbanization_rate"]
-df=df.drop(["plgp","unemp","bashs","ophe", "axhealth"],axis=1)	## Drops here the data not used, to avoid it counting as missing data. What are included are:gdp_pc_pp, pop, share1, axfin_p, axfin_r, social_p, social_r, urbanization_rat.
+df=df.drop([i for i in ["plgp","unemp","bashs","ophe", "axhealth"] if i in df.columns],axis=1)	## Drops here the data not used, to avoid it counting as missing data. What are included are:gdp_pc_pp, pop, share1, axfin_p, axfin_r, social_p, social_r, urbanization_rat.
 
 ###Define parameters
 df["pov_head"]=poverty_head #poverty head
@@ -256,6 +256,7 @@ cat_info["shew"] = hazard_ratios.shew.drop("eathrquake", level="hazard").mean(le
 
 df,cat_info,hazard_ratios,a,desc=apply_policy(df,cat_info,hazard_ratios)
 
+print(df.ix['Vanuatu'])
 
 if drop_unused_data:
     cat_info= cat_info.drop(["social"],axis=1, errors="ignore").dropna()
@@ -265,6 +266,7 @@ else :
 df_in = df_in.drop([ "shew","v"],axis=1, errors="ignore").dropna()
 
 #Save all data
+print(df_in.shape[0],'countries in analysis')
 fa_guessed_gar.to_csv(intermediate+"/fa_guessed_from_GAR_and_PAGER_shaved.csv",encoding="utf-8", header=True)
 pd.DataFrame([vp,vr,v], index=["vp","vr","v"]).T.to_csv(intermediate+"/v_pr_fromPAGER_shaved_GAR.csv",encoding="utf-8", header=True)
 df_in.to_csv(intermediate+"/macro.csv",encoding="utf-8", header=True)
