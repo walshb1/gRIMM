@@ -274,7 +274,7 @@ for apol in [None, 'shew', ['T_rebuild_K',1], ['T_rebuild_K',5]]:
     # clean up and save out
     if drop_unused_data:
         cat_info= cat_info.drop([i for i in ["social"] if i in cat_info.columns],axis=1, errors="ignore").dropna()
-        df_in = df.drop(["social_p", "social_r","share1","pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"],axis=1, errors="ignore").dropna()
+        df_in = df.drop([i for i in ["social_p", "social_r","share1","pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"] if i in df.columns],axis=1, errors="ignore").dropna()
     else :
         df_in = df.dropna()
     df_in = df_in.drop([ "shew","v"],axis=1, errors="ignore").dropna()
