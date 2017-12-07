@@ -1,7 +1,7 @@
 from pandas_helper import *
 #from res_ind_lib import *
 
-def apply_policy(m_,c_,h_, a_=None , policy_name=None, verbose=True):
+def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=True):
     """Choses a policy by name, applies it to m,c,and/or h, and returns new values as well as a policy description"""
 
     #duplicate inputes
@@ -41,8 +41,8 @@ def apply_policy(m_,c_,h_, a_=None , policy_name=None, verbose=True):
 
     #reconstruction to X years
     elif policy_name=="T_rebuild_K":
-        m.T_rebuild_K = 1
-        desc = "Accelerate\nreconstruction\n(by 66%)"
+        m.T_rebuild_K = policy_opt
+        desc = "Accelerate reconstruction (by some%)"
 
     #social_p needs to be at least 50%
     elif policy_name=="social_p":

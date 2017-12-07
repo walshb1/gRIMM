@@ -254,19 +254,37 @@ cat_info["v"] = concat_categories(vp,vr, index=income_cats)
 #access to early warnings
 cat_info["shew"] = hazard_ratios.shew.drop("earthquake", level="hazard").mean(level=["country","income_cat"])
 
-df,cat_info,hazard_ratios,a,desc=apply_policy(df,cat_info,hazard_ratios,None,"T_rebuild_K")
+_df            = df.copy('deep')
+_cat_info      = cat_info.copy('deep')
+_hazard_ratios = hazard_ratios.copy('deep')
 
-if drop_unused_data:
-    cat_info= cat_info.drop(["social"],axis=1, errors="ignore").dropna()
-    df_in = df.drop(["social_p", "social_r","share1","pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"],axis=1, errors="ignore").dropna()
-else :
-    df_in = df.dropna()
-df_in = df_in.drop([ "shew","v"],axis=1, errors="ignore").dropna()
+# Create loop over policies
+for apol in [[None,None], ['T_rebuild_K',1], ['T_rebuild_K',5]]:
 
-#Save all data
-print(df_in.shape[0],'countries in analysis')
-fa_guessed_gar.to_csv(intermediate+"/fa_guessed_from_GAR_and_PAGER_shaved.csv",encoding="utf-8", header=True)
-pd.DataFrame([vp,vr,v], index=["vp","vr","v"]).T.to_csv(intermediate+"/v_pr_fromPAGER_shaved_GAR.csv",encoding="utf-8", header=True)
-df_in.to_csv(intermediate+"/macro.csv",encoding="utf-8", header=True)
-cat_info.to_csv(intermediate+"/cat_info.csv",encoding="utf-8", header=True)
-hazard_ratios.to_csv(intermediate+"/hazard_ratios.csv",encoding="utf-8", header=True)
+    pol_str = apol[0]
+    pol_opt = apol[1]
+
+    # apply policy apol
+    df,cat_info,hazard_ratios,a,desc=apply_policy(_df,_cat_info,_hazard_ratios,pol_str,pol_opt)
+
+    # clean up and save out
+    if drop_unused_data:
+        cat_info= cat_info.drop(["social"],axis=1, errors="ignore").dropna()
+        df_in = df.drop(["social_p", "social_r","share1","pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"],axis=1, errors="ignore").dropna()
+    else :
+        df_in = df.dropna()
+    df_in = df_in.drop([ "shew","v"],axis=1, errors="ignore").dropna()
+
+    #Save all data
+    print(df_in.shape[0],'countries in analysis')
+
+    try:
+        pol_str = pol_str+str(pol_opt)
+    except: 
+        pol_str = ''
+
+    fa_guessed_gar.to_csv(intermediate+"/fa_guessed_from_GAR_and_PAGER_shaved_"+pol_str+".csv",encoding="utf-8", header=True)
+    pd.DataFrame([vp,vr,v], index=["vp","vr","v"]).T.to_csv(intermediate+"/v_pr_fromPAGER_shaved_GAR_"+pol_str+".csv",encoding="utf-8", header=True)
+    df_in.to_csv(intermediate+"/macro_"+pol_str+".csv",encoding="utf-8", header=True)
+    cat_info.to_csv(intermediate+"/cat_info_"+pol_str+".csv",encoding="utf-8", header=True)
+    hazard_ratios.to_csv(intermediate+"/hazard_ratios_"+pol_str+".csv",encoding="utf-8", header=True)
