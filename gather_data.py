@@ -256,8 +256,6 @@ cat_info["shew"] = hazard_ratios.shew.drop("earthquake", level="hazard").mean(le
 
 df,cat_info,hazard_ratios,a,desc=apply_policy(df,cat_info,hazard_ratios,None,"T_rebuild_K")
 
-print(df.ix['Vanuatu'])
-
 if drop_unused_data:
     cat_info= cat_info.drop(["social"],axis=1, errors="ignore").dropna()
     df_in = df.drop(["social_p", "social_r","share1","pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"],axis=1, errors="ignore").dropna()
