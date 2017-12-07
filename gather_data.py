@@ -261,8 +261,11 @@ _hazard_ratios = hazard_ratios.copy('deep')
 # Create loop over policies
 for apol in [[None,None], ['T_rebuild_K',1], ['T_rebuild_K',5]]:
 
-    pol_str = apol[0]
-    pol_opt = apol[1]
+    try:
+        pol_str = apol[0]
+        pol_opt = apol[1]
+    except:
+        pol_str = apol
 
     # apply policy apol
     df,cat_info,hazard_ratios,a,desc=apply_policy(_df,_cat_info,_hazard_ratios,pol_str,pol_opt)
