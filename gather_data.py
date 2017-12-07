@@ -261,9 +261,10 @@ _hazard_ratios = hazard_ratios.copy('deep')
 # Create loop over policies
 for apol in [None, 'shew', ['T_rebuild_K',1], ['T_rebuild_K',5]]:
 
+    pol_opt = None
     try:
-        pol_str = apol[0]
         pol_opt = apol[1]
+        pol_str = apol[0]
     except:
         pol_str = apol
 
