@@ -287,8 +287,8 @@ for apol in [None, 'shew', ['T_rebuild_K',1], ['T_rebuild_K',5]]:
     except: 
         pol_str = ''
 
-    fa_guessed_gar.to_csv(intermediate+"/fa_guessed_from_GAR_and_PAGER_shaved_"+pol_str+".csv",encoding="utf-8", header=True)
-    pd.DataFrame([vp,vr,v], index=["vp","vr","v"]).T.to_csv(intermediate+"/v_pr_fromPAGER_shaved_GAR_"+pol_str+".csv",encoding="utf-8", header=True)
-    df_in.to_csv(intermediate+"/macro_"+pol_str+".csv",encoding="utf-8", header=True)
-    cat_info.to_csv(intermediate+"/cat_info_"+pol_str+".csv",encoding="utf-8", header=True)
+    fa_guessed_gar.to_csv(intermediate+"/fa_guessed_from_GAR_and_PAGER_shaved"+pol_str+".csv",encoding="utf-8", header=True)
+    pd.DataFrame([vp,vr,v], index=["vp","vr","v"]).T.to_csv(intermediate+"/v_pr_fromPAGER_shaved_GAR"+pol_str+".csv",encoding="utf-8", header=True)
+    df_in.to_csv(intermediate+"/macro"+pol_str+".csv",encoding="utf-8", header=True)
+    cat_info.to_csv(intermediate+"/cat_info"+pol_str+".csv",encoding="utf-8", header=True)
     hazard_ratios.to_csv(intermediate+"/hazard_ratios"+pol_str+".csv",encoding="utf-8", header=True)
