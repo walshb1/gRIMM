@@ -211,7 +211,9 @@ fa_hazard_cat.update(fa_with_pe) #updates fa_guessed_gar where necessary
 
 ###gathers hazard ratios
 hazard_ratios = pd.DataFrame(fa_hazard_cat)
-hazard_ratios["shew"]=broadcast_simple(df.shew, index=hazard_ratios.index)
+print(hazard_ratios.head(2))
+hazard_ratios = pd.merge(hazard_ratios.reset_index(),df['shew'].reset_index(),on=['country']).set_index(event_level+['income_cat'])
+#hazard_ratios["shew"]=broadcast_simple(df.shew, index=hazard_ratios.index)
 hazard_ratios["shew"]=hazard_ratios.shew.unstack("hazard").assign(earthquake=0).stack("hazard").reset_index().set_index(event_level+[ "income_cat"]) #shew at 0 for earthquake
 if not no_protection:
     #protection at 0 for earthquake and wind
@@ -259,7 +261,7 @@ _cat_info      = cat_info.copy('deep')
 _hazard_ratios = hazard_ratios.copy('deep')
 
 # Create loop over policies
-for apol in [None, 'shew', ['T_rebuild_K',1], ['T_rebuild_K',5]]:
+for apol in [None, ['T_rebuild_K',1], ['T_rebuild_K',5]]:
 
     pol_opt = None
     try:
@@ -284,7 +286,7 @@ for apol in [None, 'shew', ['T_rebuild_K',1], ['T_rebuild_K',5]]:
 
     try:
         pol_str = '_'+pol_str+str(pol_opt)
-    except: 
+    except:
         pol_str = ''
 
     fa_guessed_gar.to_csv(intermediate+"/fa_guessed_from_GAR_and_PAGER_shaved"+pol_str+".csv",encoding="utf-8", header=True)
