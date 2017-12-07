@@ -259,7 +259,7 @@ _cat_info      = cat_info.copy('deep')
 _hazard_ratios = hazard_ratios.copy('deep')
 
 # Create loop over policies
-for apol in [[None,None], ['T_rebuild_K',1], ['T_rebuild_K',5]]:
+for apol in [None, 'shew', ['T_rebuild_K',1], ['T_rebuild_K',5]]:
 
     try:
         pol_str = apol[0]

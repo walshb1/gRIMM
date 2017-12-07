@@ -9,7 +9,7 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
     c=c_.copy(deep=True)
     h=h_.copy(deep=True)
     a=a_ #dictionary, do not attempt to deep copy
-
+    desc = ''
 
     if policy_name is None:
         desc = "Baseline"
