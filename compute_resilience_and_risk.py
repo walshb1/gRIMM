@@ -9,9 +9,9 @@ import numpy as np
 import pandas as pd
 
 #create loop over policies
-for apol in [pol_str]:
-#print(pol_str)
-
+#for pol_str in ['', '_bbb0.2', '_bbb0.5']:
+for pol_str in ['', '_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K5']:
+    print(pol_str)
     optionFee="tax"
     optionPDS="no"
 
@@ -48,6 +48,7 @@ for apol in [pol_str]:
     #optionT(targeting errors):perfect, prop_nonpoor_lms, data, x33, incl, excl.
     #optionB:one_per_affected, one_per_helped, one, unlimited, data, unif_poor, max01, max05
     #optionPDS: unif_poor, no, "prop", "prop_nonpoor"
+
     macro_event.to_csv('output/macro_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
     cats_event_iah.to_csv('output/cats_event_iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
 

@@ -269,8 +269,8 @@ _hazard_ratios = hazard_ratios.copy('deep')
 
 # Create loop over policies
 #for apol in [None]: #baseline
-#for apol in [None, ['T_rebuild_K',1], ['T_rebuild_K',5]]: #for changing reconstruction time
-for apol in [None, ['bbb',0.5], ['bbb',0.2]]:
+for apol in [None, ['T_rebuild_K',1], ['T_rebuild_K',2], ['T_rebuild_K',5]]: #for changing reconstruction time
+#for apol in [None, ['bbb',0.2], ['bbb',0.5]]:
 
     pol_opt = None
     try:
