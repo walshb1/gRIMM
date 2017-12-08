@@ -71,7 +71,7 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
 
     #previously affected people see their v reduced 30%
     elif policy_name=="bbb":
-        dv = .3 #reduction in v
+        dv = policy_opt #reduction in v
         c.v = c.v*(1-dv)
         desc = "Reduce asset\nvulnerability\n(by 30%)"
 
