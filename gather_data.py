@@ -145,6 +145,13 @@ if cond.sum()>0:
 k_data=k_data.reset_index().set_index("country")
 df["avg_prod_k"]=k_data["prod_from_k"]/k_data["k"]	#\mu in the technical paper -- average productivity of capital
 
+#####
+#for SIDS, adding capital data from GAR
+sids_k = pd.read_csv("intermediate/avg_prod_k_with_gar_for_sids.csv").rename(columns={"Unnamed: 0":"country"}).set_index("country")
+df = df.fillna(sids_k)
+df.dropna().shape
+#####
+
 ##Hazards data
 ###Vulnerability from Pager data
 pager_description_to_aggregate_category = pd.read_csv(inputs+"/pager_description_to_aggregate_category.csv", index_col="pager_description", squeeze=True)
@@ -261,7 +268,8 @@ _cat_info      = cat_info.copy('deep')
 _hazard_ratios = hazard_ratios.copy('deep')
 
 # Create loop over policies
-for apol in [None, ['T_rebuild_K',1], ['T_rebuild_K',5]]:
+for apol in [None]:
+#for apol in [None, ['T_rebuild_K',1], ['T_rebuild_K',5]]:
 
     pol_opt = None
     try:

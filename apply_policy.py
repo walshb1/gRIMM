@@ -65,18 +65,15 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
         n = c.n.unstack().poor
         dv = .3 #reduction in v
         f =.05 #fractionof nat pop would get the reduction
-
         c.v = c.v.unstack().assign(poor=lambda df:(df.poor*(1-dv*f/n))).stack().clip(lower=0)
 
         desc = "Reduce asset\nvulnerability\n(by 30%) of\npoor people\n(5% of the population)"
 
     #previously affected people see their v reduced 30%
-    #elif policy_name=="bbb":
-    #    dv = .3 #reduction in v
-    #    fbbb = c.fa
-    #    f = fbbb #fractionof nat pop would get the reduction
-    #    c.v = c.v.unstack().assign().stack()
-    #    desc = "Reduce asset\nvulnerability\n(by 30%)"
+    elif policy_name=="bbb":
+        dv = .3 #reduction in v
+        c.v = c.v*(1-dv)
+        desc = "Reduce asset\nvulnerability\n(by 30%)"
 
     #10% or nonpoor people see their v reduced 30%
     elif policy_name=="vr":

@@ -1,6 +1,7 @@
 
 from lib_compute_resilience_and_risk import *
 from replace_with_warning import *
+from gather_data import *
 import os, time
 import warnings
 warnings.filterwarnings("always",category=UserWarning)
@@ -16,7 +17,7 @@ if optionFee=="insurance_premium":
 else:
     optionB='data'
     optionT='data'
-	
+
 print('optionFee =',optionFee, 'optionPDS =', optionPDS, 'optionB =', optionB, 'optionT =', optionT)
 
 #Options and parameters
@@ -28,9 +29,9 @@ affected_cats = pd.Index(["a", "na"]            ,name="affected_cat")	#categorie
 helped_cats   = pd.Index(["helped","not_helped"],name="helped_cat")
 
 #read data
-macro = pd.read_csv("intermediate/macro.csv", index_col=economy).dropna()
-cat_info = pd.read_csv("intermediate/cat_info.csv",  index_col=[economy, "income_cat"]).dropna()
-hazard_ratios = pd.read_csv("intermediate/hazard_ratios.csv", index_col=event_level+["income_cat"]).dropna()
+macro = pd.read_csv("intermediate/macro"+pol_str+".csv", index_col=economy).dropna()
+cat_info = pd.read_csv("intermediate/cat_info"+pol_str+".csv",  index_col=[economy, "income_cat"]).dropna()
+hazard_ratios = pd.read_csv("intermediate/hazard_ratios"+pol_str+".csv", index_col=event_level+["income_cat"]).dropna()
 groups =  pd.read_csv("inputs/income_groups.csv",header =4,index_col=2)
 country_per_gp = groups["Income group"].reset_index().dropna().set_index("Income group").squeeze()
 country_per_rg = groups["Region"].reset_index().dropna().set_index("Region").squeeze()
@@ -44,7 +45,7 @@ macro_event, cats_event_iah = calculate_response(macro_event,cats_event_ia,event
 #optionB:one_per_affected, one_per_helped, one, unlimited, data, unif_poor, max01, max05
 #optionPDS: unif_poor, no, "prop", "prop_nonpoor"
 macro_event.to_csv('output/macro_'+optionFee+'_'+optionPDS+'.csv',encoding="utf-8", header=True)
-cats_event_iah.to_csv('output/cats_event_iah_'+optionFee+'_'+optionPDS+'.csv',encoding="utf-8", header=True)   
+cats_event_iah.to_csv('output/cats_event_iah_'+optionFee+'_'+optionPDS+'.csv',encoding="utf-8", header=True)
 
 out = compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_iah=True)
 
