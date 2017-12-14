@@ -1,7 +1,5 @@
-
 from lib_compute_resilience_and_risk import *
 from replace_with_warning import *
-from gather_data import *
 import os, time
 import warnings
 warnings.filterwarnings("always",category=UserWarning)
@@ -10,7 +8,7 @@ import pandas as pd
 
 #create loop over policies
 #for pol_str in ['', '_bbb0.2', '_bbb0.5']:
-for pol_str in ['', '_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K5']:
+for pol_str in ['']:
     print(pol_str)
     optionFee="tax"
     optionPDS="no"
