@@ -10,6 +10,10 @@ from pandas import isnull
 import os, time
 import warnings
 warnings.filterwarnings("always",category=UserWarning)
+from lib_gar_preprocess import *
+
+# Run GAR preprocessing
+gar_preprocessing()
 
 debug = False
 
