@@ -7,8 +7,8 @@ import numpy as np
 import pandas as pd
 
 #create loop over policies
-#for pol_str in ['', '_bbb0.2', '_bbb0.5']:
-for pol_str in ['']:
+for pol_str in ['', '_bbb0.2', '_bbb0.5', '_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K5', '_bbbf50_1.5']:
+#for pol_str in ['']:
     print(pol_str)
     optionFee="tax"
     optionPDS="no"
