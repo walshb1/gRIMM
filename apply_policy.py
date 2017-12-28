@@ -75,6 +75,12 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
         c.v = c.v*(1-dv)
         desc = "Reduce asset\nvulnerability\n(by 30%)"
 
+    #build back better & faster - previously affected people see their v reduced 50%, T_rebuild is reduced too
+    elif policy_name=="bbbf50_":
+        m.T_rebuild_K = policy_opt
+        dv = policy_opt #reduction in v
+        c.v = c.v*(dv-1)
+
     #10% or nonpoor people see their v reduced 30%
     elif policy_name=="vr":
         n = c.n.unstack().nonpoor

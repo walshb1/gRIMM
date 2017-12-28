@@ -1,5 +1,4 @@
 #This script provides data input for the resilience indicator multihazard model. The script was developed by Adrien Vogt-Schilb and improved by Jinqiang Chen.
-
 #Import package for data analysis
 from lib_gather_data import *
 from replace_with_warning import *
@@ -12,8 +11,9 @@ import warnings
 warnings.filterwarnings("always",category=UserWarning)
 from lib_gar_preprocess import *
 
+
 # Run GAR preprocessing
-gar_preprocessing()
+#gar_preprocessing()
 
 debug = False
 
@@ -280,7 +280,7 @@ _cat_info      = cat_info.copy('deep')
 _hazard_ratios = hazard_ratios.copy('deep')
 
 # Create loop over policies
-for apol in [None]: #baseline
+for apol in [None, ['T_rebuild_K',1], ['T_rebuild_K',2], ['T_rebuild_K',5], ['bbb',0.2], ['bbb',0.5], ['bbbf50_', 0.5]]: #baseline
 #for apol in [None, ['T_rebuild_K',1], ['T_rebuild_K',2], ['T_rebuild_K',5]]: #for changing reconstruction time
 #for apol in [None, ['bbb',0.2], ['bbb',0.5]]:
 
