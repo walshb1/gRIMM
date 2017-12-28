@@ -38,8 +38,8 @@ def compute_resilience(df_in,cat_info, infra_stocks, hazard_ratios=None, is_loca
     #make sure to copy inputs
     macro        =    df_in.dropna().copy(deep=True)
     cat_info     = cat_info.dropna().copy(deep=True)
-    infra_stocks = infra_stocks.dropna().copy(deep=True)
-    
+    try: infra_stocks = infra_stocks.dropna().copy(deep=True)
+    except: pass
     
     ####DEFAULT VALUES
     if type(hazard_ratios)==pd.DataFrame:
@@ -70,12 +70,14 @@ def compute_resilience(df_in,cat_info, infra_stocks, hazard_ratios=None, is_loca
     #########
     ## PRE PROCESS and harmonize input values
     #removes countries in macro not in cat_info, otherwise it crashes
-    common_places = [c for c in macro.index if c in cat_info.index and c in hazard_ratios.index and c in infra_stocks.index]
+    try: common_places = [c for c in macro.index if c in cat_info.index and c in hazard_ratios.index and c in infra_stocks.index]
+    except: common_places = [c for c in macro.index if c in cat_info.index and c in hazard_ratios.index]
     macro = macro.ix[common_places]        
     cat_info = cat_info.ix[common_places]        
-    hazard_ratios = hazard_ratios.ix[common_places]        
-    infra_stocks = infra_stocks.ix[common_places]        
-    
+    hazard_ratios = hazard_ratios.ix[common_places]
+  
+    try: infra_stocks = infra_stocks.ix[common_places]        
+    except: pass
     
     ##consistency of income, gdp, etc.
     # gdp from k and mu
@@ -102,12 +104,14 @@ def compute_resilience(df_in,cat_info, infra_stocks, hazard_ratios=None, is_loca
     recons_rate = three/ macro["T_rebuild_K"]  
     
     # Calculation of macroeconomic resilience
-    macro["v_product"]        = v_product(infra_stocks, infra_cats)
-    macro["alpha_v_sum"]      = alpha_v_sum(infra_stocks)
-    macro["dy_over_dk"]       = (1-macro["v_product"])/macro["alpha_v_sum"]*macro["avg_prod_k"]+macro["v_product"]*macro["avg_prod_k"]/3
+    try:
+        macro["v_product"]        = v_product(infra_stocks, infra_cats)
+        macro["alpha_v_sum"]      = alpha_v_sum(infra_stocks)
+        macro["dy_over_dk"]       = (1-macro["v_product"])/macro["alpha_v_sum"]*macro["avg_prod_k"]+macro["v_product"]*macro["avg_prod_k"]/3
     # macro["dy_over_dk"]       = macro["avg_prod_k"]
-    macro["macro_multiplier"] = (macro["dy_over_dk"] +recons_rate)/(macro["rho"]+recons_rate)  
-    
+        macro["macro_multiplier"] = (macro["dy_over_dk"] +recons_rate)/(macro["rho"]+recons_rate)  
+    except: macro["macro_multiplier"] = (macro["avg_prod_k"] +recons_rate)/(macro["rho"]+recons_rate)  
+
     ####FORMATING
     #gets the event level index
     event_level_index = hazard_ratios_event.reset_index().set_index(event_level).index

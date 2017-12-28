@@ -1,10 +1,23 @@
+from res_ind_lib import *
 from lib_compute_resilience_and_risk import *
+
 from replace_with_warning import *
 import os, time
 import warnings
 warnings.filterwarnings("always",category=UserWarning)
 import numpy as np
 import pandas as pd
+
+#define directory
+use_published_inputs = True
+
+model        = os.getcwd() #get current directory
+inputs       = model+'/inputs/' #get inputs data directory
+intermediate = model+'/intermediate/' #get outputs data directory
+
+if use_published_inputs:
+    inputs       = model+'/orig_inputs/' #get inputs data directory
+    intermediate = model+'/orig_intermediate/' #get outputs data directory
 
 #create loop over policies
 #for pol_str in ['', '_bbb0.2', '_bbb0.5']:
@@ -31,10 +44,10 @@ for pol_str in ['']:
     helped_cats   = pd.Index(["helped","not_helped"],name="helped_cat")
 
     #read data
-    macro = pd.read_csv("intermediate/macro"+pol_str+".csv", index_col=economy).dropna()
-    cat_info = pd.read_csv("intermediate/cat_info"+pol_str+".csv",  index_col=[economy, "income_cat"]).dropna()
-    hazard_ratios = pd.read_csv("intermediate/hazard_ratios"+pol_str+".csv", index_col=event_level+["income_cat"]).dropna()
-    groups =  pd.read_csv("inputs/income_groups.csv",header =4,index_col=2)
+    macro = pd.read_csv(intermediate+'macro'+pol_str+".csv", index_col=economy).dropna()
+    cat_info = pd.read_csv(intermediate+'cat_info'+pol_str+".csv",  index_col=[economy, "income_cat"]).dropna()
+    hazard_ratios = pd.read_csv(intermediate+'hazard_ratios'+pol_str+".csv", index_col=event_level+["income_cat"]).dropna()
+    groups =  pd.read_csv(inputs+"income_groups.csv",header =4,index_col=2)
     country_per_gp = groups["Income group"].reset_index().dropna().set_index("Income group").squeeze()
     country_per_rg = groups["Region"].reset_index().dropna().set_index("Region").squeeze()
 
@@ -52,8 +65,12 @@ for pol_str in ['']:
 
     out = compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_iah=True)
 
-
-    results,iah = process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_local_welfare=True)
+    #Computes
+    args = dict(return_stats=True,hazard_ratios = hazard_ratios)
+    results, iah=compute_resilience(macro,cat_info,None,return_iah=True,verbose_replace=True,**args)
+    #results,iah = process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_local_welfare=True)
+    
+    #Saves
     results.to_csv('output/results_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
     iah.to_csv('output/iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
 
