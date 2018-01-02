@@ -149,7 +149,7 @@ def compute_response(macro_event, cats_event_iah, event_level, optionT="data", o
     cats_event_iah = cats_event_iah.copy()   
 	
 
-    macro_event["fa"] =  agg_to_event_level(cats_event_iah,"fa",event_level)/2 # because cats_event_ia is dumplicated in cats_event_iah, cats_event_iah.n.sum(level=event_level) is 2 instead of 1, here /2 is to correct it. macro_event["fa"] =  agg_to_event_level(cats_event_ia,"fa") would work but needs to pass a new variable cats_event_ia.   
+    macro_event["fa"] =  agg_to_event_level(cats_event_iah,"fa",event_level)/2 # because cats_event_ia is duplicated in cats_event_iah, cats_event_iah.n.sum(level=event_level) is 2 instead of 1, here /2 is to correct it. macro_event["fa"] =  agg_to_event_level(cats_event_ia,"fa") would work but needs to pass a new variable cats_event_ia.   
 
     ####targeting errors
     if optionT=="perfect":
