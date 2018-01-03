@@ -4,6 +4,8 @@ from pandas_helper import get_list_of_index_names, broadcast_simple, concat_cate
 from scipy.interpolate import interp1d
 from lib_gather_data import social_to_tx_and_gsp
 
+pd.set_option('display.width', 200)
+
 def process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,verbose_replace=True):
     flag1=False
     flag2=False
@@ -39,12 +41,14 @@ def process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,ve
 	#recompute
     macro["gdp_pc_pp"] = macro["avg_prod_k"]*agg_to_economy_level(cat_info,"k",economy) #here we assume that gdp = consumption = prod_from_k
     cat_info["c"]=(1-macro["tau_tax"])*macro["avg_prod_k"]*cat_info["k"]+ cat_info["gamma_SP"]*macro["tau_tax"]*macro["avg_prod_k"]*agg_to_economy_level(cat_info,"k",economy)  
+    #print(cat_info.reset_index('income_cat').ix['Denmark'])
+
 
     #add finance to diversification and taxation
     cat_info["social"] = unpack_social(macro,cat_info)
     cat_info["social"]+= 0.1* cat_info["axfin"]
     macro["tau_tax"], cat_info["gamma_SP"] = social_to_tx_and_gsp(economy,cat_info)
-        
+
     #RECompute consumption from k and new gamma_SP and tau_tax
     cat_info["c"]=(1-macro["tau_tax"])*macro["avg_prod_k"]*cat_info["k"]+ cat_info["gamma_SP"]*macro["tau_tax"]*macro["avg_prod_k"]*agg_to_economy_level(cat_info,"k",economy)  
     
@@ -84,6 +88,7 @@ def process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,ve
             print("Replaced in cats: "+", ".join(cols_c))
     if (flag1 and flag2):
         print("Replaced in both: "+", ".join(np.intersect1d(cols,cols_c)))
+
     return macro_event, cats_event, hazard_ratios_event, macro  
 
 def compute_dK(macro_event, cats_event,event_level,affected_cats):
@@ -112,6 +117,7 @@ def compute_dK(macro_event, cats_event,event_level,affected_cats):
     
     # NPV consumption losses accounting for reconstruction and productivity of capital (pre-response)
     cats_event_ia["dc_npv_pre"] = cats_event_ia["dc"]*macro_event["macro_multiplier"]
+
     return 	macro_event, cats_event_ia
 	
 def calculate_response(macro_event,cats_event_ia,event_level,helped_cats,optionFee="tax",optionT="data", optionPDS="unif_poor", optionB="data",loss_measure="dk",fraction_inside=1, share_insured=.25):
@@ -137,8 +143,7 @@ def calculate_response(macro_event,cats_event_ia,event_level,helped_cats,optionF
         
         columns_to_add = ["need","aid"]
         macro_event[columns_to_add] +=  m__[columns_to_add]
-      
-
+          
     return macro_event, cats_event_iah
 	
 def compute_response(macro_event, cats_event_iah, event_level, optionT="data", optionPDS="unif_poor", optionB="data", optionFee="tax", fraction_inside=1, loss_measure="dk"):    
@@ -322,9 +327,15 @@ def process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_l
     ##AGGREGATES LOSSES
     #Averages over return periods to get dk_{hazard} and dW_{hazard}
     dkdw_h = average_over_rp(dkdw_event,default_rp,macro_event["protection"])
-    
+
+    #print(dkdw_h.columns)
+    #print(dkdw_h.ix['Denmark'])
+    #assert(False)
+
     #Sums over hazard dk, dW (gets one line per economy)
     dkdw = dkdw_h.sum(level=economy)
+    for i in ['axfin','social','gamma_SP']:
+        dkdw[i] = dkdw_h[i].mean(level=economy)
 
     #adds dk and dw-like columns to macro
     macro[dkdw.columns]=dkdw
@@ -457,7 +468,11 @@ def average_over_rp(df,default_rp,protection=None):
 
 def calc_risk_and_resilience_from_k_w(df, is_local_welfare=True): 
     """Computes risk and resilience from dk, dw and protection. Line by line: multiple return periods or hazard is transparent to this function"""
-    df=df.copy()    
+    df=df.copy()   
+
+    #print(df.ix['Denmark'])
+    #assert(False)
+ 
     ############################
     #Expressing welfare losses in currency 
     #discount rate
@@ -485,5 +500,5 @@ def calc_risk_and_resilience_from_k_w(df, is_local_welfare=True):
     ############
     #RISK TO ASSETS
     df["risk_to_assets"]  =df.resilience* df.risk
-    
+
     return df

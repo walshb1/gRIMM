@@ -1,12 +1,12 @@
 import numpy as np
 import pandas as pd
 
-
 #help with multiindex dataframe
 from pandas_helper import get_list_of_index_names, broadcast_simple, concat_categories
 
 from scipy.interpolate import interp1d
 
+pd.set_option('display.width', 200)
 
 #name of admin division 
 economy = "country"
@@ -26,7 +26,7 @@ infra_cats = ['transport','all_infra_but_transport']
 sector_cats = ['transport','all_infra_but_transport','other_k']
 
 
-def compute_resilience(df_in,cat_info, infra_stocks, hazard_ratios=None, is_local_welfare=True, return_iah=False, return_stats=False,optionT="data", optionPDS="unif_poor", optionB = "data", loss_measure = "dk",fraction_inside=1, verbose_replace=False, optionFee="tax",  share_insured=.25):
+def compute_resilience(df_in,cat_info, infra_stocks, hazard_ratios=None, is_local_welfare=True, return_iah=False, return_stats=False,optionT="data", optionPDS="no", optionB = "data", loss_measure = "dk",fraction_inside=1, verbose_replace=False, optionFee="tax",  share_insured=.25):
     """Main function. Computes all outputs (dK, resilience, dC, etc,.) from inputs
     optionT=="perfect","data","x33","incl" or "excl"
     optionPDS=="no","unif_all","unif_poor","prop"
@@ -90,11 +90,14 @@ def compute_resilience(df_in,cat_info, infra_stocks, hazard_ratios=None, is_loca
     cat_info["social"] = unpack_social(macro,cat_info)
     cat_info["social"]+= 0.1* cat_info["axfin"]
     macro["tau_tax"], cat_info["gamma_SP"] = social_to_tx_and_gsp(cat_info)
-        
+
+    #print(cat_info.ix['Denmark'])        
+    #print(macro.ix['Denmark'])
+    #assert(False)
+
     #RECompute consumption from k and new gamma_SP and tau_tax
     cat_info["c"]=(1-macro["tau_tax"])*macro["avg_prod_k"]*cat_info["k"]+ cat_info["gamma_SP"]*macro["tau_tax"]*macro["avg_prod_k"]*agg_to_economy_level(cat_info,"k")  
 
-    
     # # # # # # # # # # # # # # # # # # #
     # MACRO_MULTIPLIER
     # # # # # # # # # # # # # # # # # # #
@@ -173,7 +176,7 @@ def compute_resilience(df_in,cat_info, infra_stocks, hazard_ratios=None, is_loca
         return results
 
     
-def compute_dK_dW(macro_event, cats_event, optionT="data", optionPDS="unif_poor", optionB="data", optionFee="tax", return_iah=False, return_stats=False, is_local_welfare=True,loss_measure="dk",fraction_inside=1, share_insured=.25):  
+def compute_dK_dW(macro_event, cats_event, optionT="data", optionPDS='no', optionB="data", optionFee="tax", return_iah=False, return_stats=False, is_local_welfare=True,loss_measure="dk",fraction_inside=1, share_insured=.25):  
     '''Computes dk and dW line by line. 
     presence of multiple return period or multihazard data is transparent to this function'''    
     ###TODO: split this function. First compute dK. Then compute response. Then compute DW. 3 functions. (then aggregate over rp and hazard)
@@ -206,6 +209,7 @@ def compute_dK_dW(macro_event, cats_event, optionT="data", optionPDS="unif_poor"
     #immediate consumption losses: direct capital losses plus losses through event-scale depression of transfers
     cats_event_ia["dc"] = (1-macro_event["tau_tax"])*cats_event_ia["dk"]  +  cats_event_ia["gamma_SP"]*macro_event["tau_tax"] *macro_event["dk_event"] 
     
+
     # NPV consumption losses accounting for reconstruction and productivity of capital (pre-response)
     cats_event_ia["dc_npv_pre"] = cats_event_ia["dc"]*macro_event["macro_multiplier"]
 
@@ -225,7 +229,7 @@ def compute_dK_dW(macro_event, cats_event, optionT="data", optionPDS="unif_poor"
     #special case of insurance that adds to existing default PDS
     else:
         #compute post disaster response with default PDS from data ONLY
-        m__,c__ = compute_response(macro_event, cats_event_iah,optionT="data", optionPDS="unif_poor", optionB="data", optionFee="tax", fraction_inside=1, loss_measure="dk") 
+        m__,c__ = compute_response(macro_event, cats_event_iah,optionT="data", optionPDS=optionPDS, optionB="data", optionFee="tax", fraction_inside=1, loss_measure="dk") 
 
         c__h = c__.rename(columns=dict(helped_cat="has_received_help_from_PDS_cat"))
         
@@ -285,7 +289,7 @@ def compute_dK_dW(macro_event, cats_event, optionT="data", optionPDS="unif_poor"
         return df_out
     
 
-def compute_response(macro_event, cats_event_iah,  optionT="data", optionPDS="unif_poor", optionB="data", optionFee="tax", fraction_inside=1, loss_measure="dk"):    
+def compute_response(macro_event, cats_event_iah,  optionT="data", optionPDS='no', optionB="data", optionFee="tax", fraction_inside=1, loss_measure="dk"):    
     """
     Computes aid received,  aid fee, and other stuff, from losses and PDS options on targeting, financing, and dimensioning of the help.
     Returns copies of macro_event and cats_event_iah updated with stuff
@@ -467,19 +471,15 @@ def compute_response(macro_event, cats_event_iah,  optionT="data", optionPDS="un
             
     else:
         print("unrecognised optionPDS treated as no")
-        
-        
+                
     return macro_event, cats_event_iah
     
-    
-    
-    
-    
+
 
 def calc_risk_and_resilience_from_k_w(df, is_local_welfare): 
     """Computes risk and resilience from dk, dw and protection. Line by line: multiple return periods or hazard is transparent to this function"""
     
-    df=df.copy()    
+    df=df.copy()
     
     ############################
     #Expressing welfare losses in currency 
@@ -517,7 +517,7 @@ def calc_risk_and_resilience_from_k_w(df, is_local_welfare):
     ############
     #RISK TO ASSETS
     df["risk_to_assets"]  =df.resilience* df.risk;
-    
+        
     return df
     
     

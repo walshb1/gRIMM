@@ -54,7 +54,7 @@ args = dict(return_stats=True,hazard_ratios = hazard_ratios)
 results, iah=compute_resilience(macro,cat_info,None,return_iah=True,verbose_replace=True,**args)
 
 #Saves
-results.to_csv("results/results.csv",float_format="%.5f")
+results.to_csv("results/results.csv",float_format="%.9f")
 
 #Quick statistics
 print("nb countries with macro data :" +str(macro.shape[0]))

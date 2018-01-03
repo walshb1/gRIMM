@@ -53,7 +53,9 @@ for pol_str in ['']:
 
     #compute
     macro_event, cats_event, hazard_ratios_event, macro = process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,verbose_replace=True) #verbose_replace=True by default, replace common columns in macro_event and cats_event with those in hazard_ratios_event
+    
     macro_event, cats_event_ia = compute_dK(macro_event, cats_event,event_level,affected_cats) #calculate the actual vulnerability, the potential damange to capital, and consumption
+
     macro_event, cats_event_iah = calculate_response(macro_event,cats_event_ia,event_level,helped_cats,optionFee=optionFee,optionT=optionT, optionPDS=optionPDS, optionB=optionB,loss_measure="dk",fraction_inside=1, share_insured=.25)
     #optionFee: tax or insurance_premium  optionFee="insurance_premium",optionT="perfect", optionPDS="prop", optionB="unlimited",optionFee="tax",optionT="data", optionPDS="unif_poor", optionB="data",
     #optionT(targeting errors):perfect, prop_nonpoor_lms, data, x33, incl, excl.
@@ -67,9 +69,11 @@ for pol_str in ['']:
 
     #Computes
     args = dict(return_stats=True,hazard_ratios = hazard_ratios)
-    results, iah=compute_resilience(macro,cat_info,None,return_iah=True,verbose_replace=True,**args)
-    #results,iah = process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_local_welfare=True)
+    #results, iah=compute_resilience(macro,cat_info,None,return_iah=True,verbose_replace=True,**args)
+    results,iah = process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_local_welfare=True)
     
+    print(results.ix['Denmark'])
+
     #Saves
     results.to_csv('output/results_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
     iah.to_csv('output/iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
