@@ -268,7 +268,7 @@ def compute_response(macro_event, cats_event_iah, event_level, optionT="data", o
     if optionPDS=="unif_poor":	
         macro_event["unif_aid"] = macro_event["aid"]/(cats_event_iah.ix[(cats_event_iah.helped_cat=="helped"),"n"].sum(level=event_level)) 
         cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_received"] = macro_event["unif_aid"]
-        cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped')|(cats_event_iah.affected_cat=='na'),"help_received"]=0
+        cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped'),"help_received"]=0
         # Step 4: help_received = unif_aid = aid/(N hh helped)
 
     elif optionPDS=="unif_poor_only":
