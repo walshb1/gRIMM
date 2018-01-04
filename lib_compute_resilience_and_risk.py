@@ -198,40 +198,41 @@ def compute_response(macro_event, cats_event_iah, event_level, optionT="data", o
     if optionPDS=="no":        
         macro_event["aid"] = 0
         macro_event['need']=0
+        cats_event_iah['help_needed']=0
         cats_event_iah['help_received']=0
         optionB='no'
         
     elif optionPDS=="unif_poor":
-        cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_received"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a')&(cats_event_iah.income_cat=='poor'),loss_measure]
+        cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_needed"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a')&(cats_event_iah.income_cat=='poor'),loss_measure]
 
-        cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped'),"help_received"]=0
+        cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped'),"help_needed"]=0
         # Step 1: help_received for all helped hh = 80% of dk for poor, affected hh
 
     elif optionPDS=="unif_poor_only":
-        cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_received"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='poor'),loss_measure]
+        cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_needed"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='poor'),loss_measure]
         cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped')|(cats_event_iah.income_cat=='nonpoor'),"help_received"]=0
 		
     elif optionPDS=="prop_nonpoor":
         if not "has_received_help_from_PDS_cat" in cats_event_iah.columns:
-            cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_received"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='nonpoor'),loss_measure]
-            cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped')|(cats_event_iah.income_cat=='poor'),"help_received"]=0
+            cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_needed"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='nonpoor'),loss_measure]
+            cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped')|(cats_event_iah.income_cat=='poor'),"help_needed"]=0
         else:
-            cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_received"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='nonpoor')& (cats_event_iah.has_received_help_from_PDS_cat=='helped'),loss_measure]
-            cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped')|(cats_event_iah.income_cat=='poor'),"help_received"]=0
+            cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_needed"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='nonpoor')& (cats_event_iah.has_received_help_from_PDS_cat=='helped'),loss_measure]
+            cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped')|(cats_event_iah.income_cat=='poor'),"help_needed"]=0
 		
     elif optionPDS=="prop":
         if not "has_received_help_from_PDS_cat" in cats_event_iah.columns:
-            cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.income_cat=='poor'),"help_received"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='poor'),loss_measure]
-            cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.income_cat=='nonpoor'),"help_received"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='nonpoor'),loss_measure]
-            cats_event_iah.ix[cats_event_iah.helped_cat=='not_helped',"help_received"]=0		
+            cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.income_cat=='poor'),"help_needed"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='poor'),loss_measure]
+            cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.income_cat=='nonpoor'),"help_needed"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='nonpoor'),loss_measure]
+            cats_event_iah.ix[cats_event_iah.helped_cat=='not_helped',"help_needed"]=0		
         else:
-            cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.income_cat=='poor'),"help_received"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='poor') & (cats_event_iah.has_received_help_from_PDS_cat=='helped'),loss_measure]
-            cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.income_cat=='nonpoor'),"help_received"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='nonpoor')& (cats_event_iah.has_received_help_from_PDS_cat=='helped'),loss_measure]
-            cats_event_iah.ix[cats_event_iah.helped_cat=='not_helped',"help_received"]=0           
+            cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.income_cat=='poor'),"help_needed"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='poor') & (cats_event_iah.has_received_help_from_PDS_cat=='helped'),loss_measure]
+            cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.income_cat=='nonpoor'),"help_needed"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='nonpoor')& (cats_event_iah.has_received_help_from_PDS_cat=='helped'),loss_measure]
+            cats_event_iah.ix[cats_event_iah.helped_cat=='not_helped',"help_needed"]=0           
 		
-    #print(cats_event_iah[['helped_cat','affected_cat','income_cat','help_received','n']])
-    macro_event["need"]=agg_to_event_level(cats_event_iah,"help_received",event_level)
-    # Step 2: total need (cost) for all helped hh = sum over help_received for helped hh
+    #print(cats_event_iah[['helped_cat','affected_cat','income_cat','help_needed','n']])
+    macro_event["need"]=agg_to_event_level(cats_event_iah,"help_needed",event_level)
+    # Step 2: total need (cost) for all helped hh = sum over help_needed for helped hh
 
     #actual aid reduced by capacity
     print('optionB = ',optionB)
