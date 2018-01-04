@@ -202,9 +202,9 @@ def compute_response(macro_event, cats_event_iah, event_level, optionT="data", o
         optionB='no'
         
     elif optionPDS=="unif_poor":
-        cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')&(cats_event_iah.affected_cat=='a'),"help_received"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a')&(cats_event_iah.income_cat=='poor'),loss_measure]
+        cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_received"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a')&(cats_event_iah.income_cat=='poor'),loss_measure]
 
-        cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped')|(cats_event_iah.affected_cat=='na'),"help_received"]=0
+        cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped'),"help_received"]=0
         # Step 1: help_received for all helped hh = 80% of dk for poor, affected hh
 
     elif optionPDS=="unif_poor_only":
