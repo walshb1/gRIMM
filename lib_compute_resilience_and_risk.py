@@ -4,7 +4,7 @@ from pandas_helper import get_list_of_index_names, broadcast_simple, concat_cate
 from scipy.interpolate import interp1d
 from lib_gather_data import social_to_tx_and_gsp
 
-pd.set_option('display.width', 200)
+pd.set_option('display.width', 220)
 
 def process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,verbose_replace=True):
     flag1=False
@@ -189,7 +189,8 @@ def compute_response(macro_event, cats_event_iah, event_level, optionT="data", o
 	
     # MAXIMUM NATIONAL SPENDING ON SCALE UP
     macro_event["max_aid"] = macro_event["max_increased_spending"]*macro_event["borrow_abi"]*macro_event["gdp_pc_pp"]
-	
+    # Step 0: define max_aid
+
     if optionFee=='insurance_premium':
         temp=cats_event_iah.copy()	
     
@@ -201,8 +202,10 @@ def compute_response(macro_event, cats_event_iah, event_level, optionT="data", o
         optionB='no'
         
     elif optionPDS=="unif_poor":
-        cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_received"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='poor'),loss_measure]
-        cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped'),"help_received"]=0
+        cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')&(cats_event_iah.affected_cat=='a'),"help_received"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a')&(cats_event_iah.income_cat=='poor'),loss_measure]
+
+        cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped')|(cats_event_iah.affected_cat=='na'),"help_received"]=0
+        # Step 1: help_received for all helped hh = 80% of dk for poor, affected hh
 
     elif optionPDS=="unif_poor_only":
         cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_received"]= macro_event["shareable"]*cats_event_iah.ix[(cats_event_iah.helped_cat=='helped')& (cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='poor'),loss_measure]
@@ -228,11 +231,16 @@ def compute_response(macro_event, cats_event_iah, event_level, optionT="data", o
 		
     #print(cats_event_iah[['helped_cat','affected_cat','income_cat','help_received','n']])
     macro_event["need"]=agg_to_event_level(cats_event_iah,"help_received",event_level)
+    # Step 2: total need (cost) for all helped hh = sum over help_received for helped hh
+
     #actual aid reduced by capacity
+    print('optionB = ',optionB)
+
     if optionB=="data":
-        macro_event["aid"] = (macro_event["need"]*macro_event["prepare_scaleup"]*macro_event["borrow_abi"]).clip(upper=macro_event["max_aid"])  
+        macro_event["aid"] = (macro_event["need"]*macro_event["prepare_scaleup"]*macro_event["borrow_abi"]).clip(upper=macro_event["max_aid"])
+        # Step 3: total need (cost) for all helped hh clipped at max_aid
     elif optionB=="unif_poor":
-        macro_event["aid"] = macro_event["need"].clip(upper=macro_event["max_aid"])		
+        macro_event["aid"] = macro_event["need"].clip(upper=macro_event["max_aid"])
     elif optionB=="max01":
         macro_event["max_aid"] = 0.01*macro_event["gdp_pc_pp"]
         macro_event["aid"] = (macro_event["need"]).clip(upper=macro_event["max_aid"]) 
@@ -258,9 +266,11 @@ def compute_response(macro_event, cats_event_iah, event_level, optionT="data", o
 
     
     if optionPDS=="unif_poor":	
-        macro_event["unif_aid"] = macro_event["aid"]/(cats_event_iah.ix[cats_event_iah.helped_cat=="helped","n"].sum(level=event_level)) 
+        macro_event["unif_aid"] = macro_event["aid"]/(cats_event_iah.ix[(cats_event_iah.helped_cat=="helped")&(cats_event_iah.affected_cat=="a"),"n"].sum(level=event_level)) 
         cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_received"] = macro_event["unif_aid"]
-        cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped'),"help_received"]=0
+        cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped')|(cats_event_iah.affected_cat=='na'),"help_received"]=0
+        # Step 4: help_received = unif_aid = aid/(N hh helped)
+
     elif optionPDS=="unif_poor_only":
         macro_event["unif_aid"] = macro_event["aid"]/(cats_event_iah.ix[(cats_event_iah.helped_cat=="helped")&(cats_event_iah.income_cat=='poor'),"n"].sum(level=event_level)) 
         cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_received"] = macro_event["unif_aid"]
@@ -327,10 +337,6 @@ def process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_l
     ##AGGREGATES LOSSES
     #Averages over return periods to get dk_{hazard} and dW_{hazard}
     dkdw_h = average_over_rp(dkdw_event,default_rp,macro_event["protection"])
-
-    #print(dkdw_h.columns)
-    #print(dkdw_h.ix['Denmark'])
-    #assert(False)
 
     #Sums over hazard dk, dW (gets one line per economy)
     dkdw = dkdw_h.sum(level=economy)
@@ -469,9 +475,6 @@ def average_over_rp(df,default_rp,protection=None):
 def calc_risk_and_resilience_from_k_w(df, is_local_welfare=True): 
     """Computes risk and resilience from dk, dw and protection. Line by line: multiple return periods or hazard is transparent to this function"""
     df=df.copy()   
-
-    #print(df.ix['Denmark'])
-    #assert(False)
  
     ############################
     #Expressing welfare losses in currency 

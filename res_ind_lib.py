@@ -471,7 +471,10 @@ def compute_response(macro_event, cats_event_iah,  optionT="data", optionPDS='no
             
     else:
         print("unrecognised optionPDS treated as no")
-                
+             
+    macro_event.to_csv('/Users/brian/Desktop/Dropbox/Bank/resilience_model/results/macro.csv')
+    cats_event_iah.to_csv('/Users/brian/Desktop/Dropbox/Bank/resilience_model/results/cats_event_iah.csv')
+        
     return macro_event, cats_event_iah
     
 
@@ -848,6 +851,4 @@ def compute_derivative(df_original,score_card_set,deriv_set ,**kwargs):
                 print("ambigous sign for "+i)
                 signs[i]=np.nan
             
-    return derivatives       
-    
-     
+    return derivatives    

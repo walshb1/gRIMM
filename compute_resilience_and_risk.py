@@ -24,7 +24,7 @@ if use_published_inputs:
 for pol_str in ['']:
     print(pol_str)
     optionFee="tax"
-    optionPDS="no"
+    optionPDS="unif_poor"
 
     if optionFee=="insurance_premium":
         optionB='unlimited'
@@ -71,13 +71,10 @@ for pol_str in ['']:
     args = dict(return_stats=True,hazard_ratios = hazard_ratios)
     #results, iah=compute_resilience(macro,cat_info,None,return_iah=True,verbose_replace=True,**args)
     results,iah = process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_local_welfare=True)
-    
-    print(results.ix['Denmark'])
 
     #Saves
     results.to_csv('output/results_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
     iah.to_csv('output/iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
-
 
     # result1=pd.read_csv("output-old/results.csv", index_col=economy)
     # iah1=pd.read_csv("output-old/iah.csv", index_col=event_level+["income_cat","affected_cat","helped_cat"])
