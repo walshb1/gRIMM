@@ -51,7 +51,7 @@ args = dict(return_stats=True,hazard_ratios = hazard_ratios)
 #args = dict()
 
 #Computes
-results, iah=compute_resilience(macro,cat_info,None,return_iah=True,optionPDS='unif_poor',optionB='unif_poor',verbose_replace=True,**args)
+results, iah=compute_resilience(macro,cat_info,None,return_iah=True,optionPDS='unif_poor',optionB='data',verbose_replace=True,**args)
 
 #Saves
 results.to_csv("results/results.csv",float_format="%.9f")

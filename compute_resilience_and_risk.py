@@ -30,7 +30,7 @@ for pol_str in ['']:
         optionB='unlimited'
         optionT='perfect'
     else:
-        optionB='unif_poor'
+        optionB='data'
         optionT='data'
 
     print('optionFee =',optionFee, 'optionPDS =', optionPDS, 'optionB =', optionB, 'optionT =', optionT)

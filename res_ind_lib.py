@@ -34,7 +34,8 @@ def compute_resilience(df_in,cat_info, infra_stocks, hazard_ratios=None, is_loca
     optionFee == "tax" (default) or "insurance_premium"
     fraction_inside=0..1 (how much aid is paid domestically)
     """
-    
+    print(optionB)
+
     #make sure to copy inputs
     macro        =    df_in.dropna().copy(deep=True)
     cat_info     = cat_info.dropna().copy(deep=True)
@@ -90,10 +91,6 @@ def compute_resilience(df_in,cat_info, infra_stocks, hazard_ratios=None, is_loca
     cat_info["social"] = unpack_social(macro,cat_info)
     cat_info["social"]+= 0.1* cat_info["axfin"]
     macro["tau_tax"], cat_info["gamma_SP"] = social_to_tx_and_gsp(cat_info)
-
-    #print(cat_info.ix['Denmark'])        
-    #print(macro.ix['Denmark'])
-    #assert(False)
 
     #RECompute consumption from k and new gamma_SP and tau_tax
     cat_info["c"]=(1-macro["tau_tax"])*macro["avg_prod_k"]*cat_info["k"]+ cat_info["gamma_SP"]*macro["tau_tax"]*macro["avg_prod_k"]*agg_to_economy_level(cat_info,"k")  
@@ -220,6 +217,7 @@ def compute_dK_dW(macro_event, cats_event, optionT="data", optionPDS='no', optio
     #adding hELPED/NOT HELPED CATEGORIES, indexed at event level 
     # !!!!!!!MIND THAT N IS 2 AT THIS LEVEL !!!!!!!!!!!!!!
     cats_event_iah = concat_categories(cats_event_ia,cats_event_ia, index= helped_cats).reset_index(helped_cats.name).sort_index()
+    cats_event_iah["help_needed"] = 0
     cats_event_iah["help_received"] = 0
     cats_event_iah["help_fee"] =0
     #baseline case (no insurance)
@@ -295,7 +293,7 @@ def compute_response(macro_event, cats_event_iah,  optionT="data", optionPDS='no
     Returns copies of macro_event and cats_event_iah updated with stuff
     TODO In general this function is ill coded and should be rewritteN
     """       
-    
+    print(optionB)
     
     macro_event    = macro_event.copy()
     # cats_event_ia = cats_event_ia.copy()
@@ -386,7 +384,9 @@ def compute_response(macro_event, cats_event_iah,  optionT="data", optionPDS='no
         elif optionPDS=="unif_poor":
             #NPV losses for POOR affected
             d = cats_event_iah.ix[(cats_event_iah.affected_cat=='a') & (cats_event_iah.income_cat=='poor')]
-            
+            # ^ THIS IS THE CULPRIT LINE! It's going to calculate need based only on poor hh, but rich hh are also getting a payout in unif_poor
+            # The pot of money will be too small when it gets distributed to rich and poor hh later
+
         #aggs need of those selected in the previous block (eg only poor) at event level 
         macro_event["need"] = macro_event["shareable"]*agg_to_event_level(d,loss_measure)
 

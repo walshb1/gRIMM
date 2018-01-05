@@ -41,8 +41,6 @@ def process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,ve
 	#recompute
     macro["gdp_pc_pp"] = macro["avg_prod_k"]*agg_to_economy_level(cat_info,"k",economy) #here we assume that gdp = consumption = prod_from_k
     cat_info["c"]=(1-macro["tau_tax"])*macro["avg_prod_k"]*cat_info["k"]+ cat_info["gamma_SP"]*macro["tau_tax"]*macro["avg_prod_k"]*agg_to_economy_level(cat_info,"k",economy)  
-    #print(cat_info.reset_index('income_cat').ix['Denmark'])
-
 
     #add finance to diversification and taxation
     cat_info["social"] = unpack_social(macro,cat_info)
@@ -235,8 +233,6 @@ def compute_response(macro_event, cats_event_iah, event_level, optionT="data", o
     # Step 2: total need (cost) for all helped hh = sum over help_needed for helped hh
 
     #actual aid reduced by capacity
-    print('optionB = ',optionB)
-
     if optionB=="data":
         macro_event["aid"] = (macro_event["need"]*macro_event["prepare_scaleup"]*macro_event["borrow_abi"]).clip(upper=macro_event["max_aid"])
         # Step 3: total need (cost) for all helped hh clipped at max_aid
