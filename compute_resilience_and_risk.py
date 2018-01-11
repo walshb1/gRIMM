@@ -20,8 +20,12 @@ if use_published_inputs:
     intermediate = model+'/orig_intermediate/' #get outputs data directory
 
 #create loop over policies
-#for pol_str in ['', '_bbb0.2', '_bbb0.5', '_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K5', '_bbbf50_1.5']:
-for pol_str in ['']:
+#for pol_str in ['']: #baseline
+#for pol_str in ['', '_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K4', '_T_rebuild_K5']: #build back faster
+#for pol_str in ['', '_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4']: #build back better
+results_policy_summary = pd.DataFrame(index=pd.read_csv(intermediate+"macro.csv", index_col='country').dropna().index)
+for pol_str in ['', '_bbbf0.2', '_bbbf0.4', '_bbbf-0.2','_bbbf-0.4','_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4','_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K4', '_T_rebuild_K5']: #build back better and faster
+
     print(pol_str)
     optionFee="tax"
     optionPDS="unif_poor"
@@ -53,7 +57,7 @@ for pol_str in ['']:
 
     #compute
     macro_event, cats_event, hazard_ratios_event, macro = process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,verbose_replace=True) #verbose_replace=True by default, replace common columns in macro_event and cats_event with those in hazard_ratios_event
-    
+
     macro_event, cats_event_ia = compute_dK(macro_event, cats_event,event_level,affected_cats) #calculate the actual vulnerability, the potential damange to capital, and consumption
 
     macro_event, cats_event_iah = calculate_response(macro_event,cats_event_ia,event_level,helped_cats,optionFee=optionFee,optionT=optionT, optionPDS=optionPDS, optionB=optionB,loss_measure="dk",fraction_inside=1, share_insured=.25)
@@ -76,6 +80,8 @@ for pol_str in ['']:
     results.to_csv('output/results_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
     iah.to_csv('output/iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
 
+    results_policy_summary[pol_str+'_dw_tot_curr'] = results['dWtot_currency']
+results_policy_summary.to_csv('output/results_policy_summary.csv')
     # result1=pd.read_csv("output-old/results.csv", index_col=economy)
     # iah1=pd.read_csv("output-old/iah.csv", index_col=event_level+["income_cat","affected_cat","helped_cat"])
     # print(((result1-results)/results).max())

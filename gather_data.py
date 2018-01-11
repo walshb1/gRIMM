@@ -42,7 +42,7 @@ max_support=0.05
 fa_threshold =  0.9
 
 #define directory
-use_published_inputs = True
+use_published_inputs = False
 
 model        = os.getcwd() #get current directory
 inputs       = model+'/inputs/' #get inputs data directory
@@ -50,7 +50,7 @@ intermediate = model+'/intermediate/' #get outputs data directory
 
 if use_published_inputs:
     inputs       = model+'/orig_inputs/' #get inputs data directory
-    intermediate = model+'/orig_intermediate/' #get outputs data directory    
+    intermediate = model+'/orig_intermediate/' #get outputs data directory
 
 if not os.path.exists(intermediate): #if the depository directory doesn't exist, create one
     os.makedirs(intermediate)
@@ -280,10 +280,10 @@ _cat_info      = cat_info.copy('deep')
 _hazard_ratios = hazard_ratios.copy('deep')
 
 # Create loop over policies
-for apol in [None, ['T_rebuild_K',1], ['T_rebuild_K',2], ['T_rebuild_K',5], ['bbb',0.2], ['bbb',0.5], ['bbbf50_', 0.5]]: #baseline
-#for apol in [None, ['T_rebuild_K',1], ['T_rebuild_K',2], ['T_rebuild_K',5]]: #for changing reconstruction time
-#for apol in [None, ['bbb',0.2], ['bbb',0.5]]:
-
+#for apol in [None, ['T_rebuild_K',1], ['T_rebuild_K',2], ['T_rebuild_K',4], ['T_rebuild_K',5]]: #build back faster
+#for apol in [['bbb',0.2], ['bbb',0.4], ['bbb',-0.2], ['bbb',-0.4]]: #build back better
+#for apol in [None, ['bbbf',0.2], ['bbbf',0.4], ['bbbf',-0.2], ['bbbf',-0.4], ['T_rebuild_K',1], ['T_rebuild_K',2], ['T_rebuild_K',4], ['T_rebuild_K',5], ['bbb',0.2], ['bbb',0.4], ['bbb',-0.2], ['bbb',-0.4]]: #build back better & faster
+for apol in [['bbb_uncor', 0.1], ['bbb_cor', 0.1]]:
     pol_opt = None
     try:
         pol_opt = apol[1]
