@@ -73,8 +73,8 @@ def process_input(pol_str,macro,cat_info,hazard_ratios,economy,event_level,defau
             macro_event[cols] =  hazard_ratios_event[cols]
     
     #Broadcast categories to event level
-    cats_event = broadcast_simple(cat_info,  event_level_index)
-    if pol_str == '_bbb_uncor0.1':
+    cats_event = broadcast_simple(cat_info,event_level_index)
+    if 'bbb' in pol_str:
         print("replacing cats_event[v] with hazard_ratios[v]")
         cats_event['v'] = hazard_ratios['v']
         assert(False)

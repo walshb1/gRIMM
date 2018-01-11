@@ -70,34 +70,35 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
         desc = "Reduce asset\nvulnerability\n(by 30%) of\npoor people\n(5% of the population)"
 
     #previously affected people see their v reduced 30%
-    elif policy_name=="bbb":
-        dv = policy_opt #reduction in v
-        c.v = c.v*(1-dv)
-        desc = "Reduce asset\nvulnerability\n(by 30%)"
-
-    elif policy_name=="bbb_uncor":
-        disaster_years = 10
-        dv = policy_opt #reduction in v
+    elif 'bbb' in policy_name:
         h = pd.merge(h.reset_index(),c['v'].reset_index(),on=['country','income_cat'])
+        
+        if policy_name=="bbb":
+            dv = policy_opt #reduction in v
+            c.v = c.v*(1-dv)
+            desc = "Reduce asset\nvulnerability\n(by 30%)"
+        
+        elif policy_name=="bbb_uncor":
+            disaster_years = 10
+            dv = policy_opt #reduction in v
 
-        for i in range(disaster_years):
-            h.loc[h.rp==1,'v'] *= h.fa*(1-dv)+(1-h.fa)
-            h.loc[h.rp!=1,'v'] *= 1-(1/h.rp.astype('int'))*(h.fa*(1-dv)+(1-h.fa))
+            for i in range(disaster_years):
+                h.loc[h.rp==1,'v'] *= h.fa*(1-dv)+(1-h.fa)
+                h.loc[h.rp!=1,'v'] *= 1-(1/h.rp.astype('int'))*(h.fa*(1-dv)+(1-h.fa))
+
+        elif policy_name=="bbb_cor":
+            disaster_years = 10
+            dv = policy_opt #reduction in v
+            for i in range(disaster_years):
+                c.v.append(c.v[-1]*(1-dv))
+
+        #build back better & faster - previously affected people see their v reduced 50%, T_rebuild is reduced too
+        elif policy_name=="bbbf":
+            m.T_rebuild_K = 3-(policy_opt*5)
+            dv = policy_opt #reduction in v
+            c.v = c.v*(dv-1)
 
         h = h.reset_index().set_index(['country','hazard','rp','income_cat']).drop('index',axis=1)
-
-    #elif policy_name=="bbb_cor":
-    #    disaster_years = 10
-    #    dv = policy_opt #reduction in v
-    #    for i in range(disaster_years):
-    #        c.v.append(c.v[-1]*(1-dv))
-    #    c.v = c.v[10]
-
-    #build back better & faster - previously affected people see their v reduced 50%, T_rebuild is reduced too
-    elif policy_name=="bbbf":
-        m.T_rebuild_K = 3-(policy_opt*5)
-        dv = policy_opt #reduction in v
-        c.v = c.v*(dv-1)
 
     #10% or nonpoor people see their v reduced 30%
     elif policy_name=="vr":
