@@ -24,7 +24,7 @@ if use_published_inputs:
 #for pol_str in ['', '_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K4', '_T_rebuild_K5']: #build back faster
 #for pol_str in ['', '_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4']: #build back better
 results_policy_summary = pd.DataFrame(index=pd.read_csv(intermediate+"macro.csv", index_col='country').dropna().index)
-for pol_str in ['', '_bbbf0.2', '_bbbf0.4', '_bbbf-0.2','_bbbf-0.4','_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4','_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K4', '_T_rebuild_K5']: #build back better and faster
+for pol_str in ['','_bbb_uncor0.1', '_bbbf0.2', '_bbbf0.4', '_bbbf-0.2','_bbbf-0.4','_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4','_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K4', '_T_rebuild_K5']: #build back better and faster
 
     print(pol_str)
     optionFee="tax"
@@ -56,7 +56,7 @@ for pol_str in ['', '_bbbf0.2', '_bbbf0.4', '_bbbf-0.2','_bbbf-0.4','_bbb0.2', '
     country_per_rg = groups["Region"].reset_index().dropna().set_index("Region").squeeze()
 
     #compute
-    macro_event, cats_event, hazard_ratios_event, macro = process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,verbose_replace=True) #verbose_replace=True by default, replace common columns in macro_event and cats_event with those in hazard_ratios_event
+    macro_event, cats_event, hazard_ratios_event, macro = process_input(pol_str,macro,cat_info,hazard_ratios,economy,event_level,default_rp,verbose_replace=True) #verbose_replace=True by default, replace common columns in macro_event and cats_event with those in hazard_ratios_event
 
     macro_event, cats_event_ia = compute_dK(macro_event, cats_event,event_level,affected_cats) #calculate the actual vulnerability, the potential damange to capital, and consumption
 

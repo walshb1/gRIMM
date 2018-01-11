@@ -78,19 +78,20 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
     elif policy_name=="bbb_uncor":
         disaster_years = 10
         dv = policy_opt #reduction in v
-        h = pd.merge(h.reset_index(),c['v'].reset_index(),on=['country','income_cat']).set_index(['country','hazard','income_cat'])
-        print(h.head())
-        for i in range(disaster_years):
-            h.v *= (1/h.rp.astype('int'))*(h.fa*(1-dv)+(1-h.fa))
+        h = pd.merge(h.reset_index(),c['v'].reset_index(),on=['country','income_cat'])
 
-        h = h.reset_index().set_index(['country','hazard','rp','income_cat'])
-
-    elif policy_name=="bbb_cor":
-        disaster_years = 10
-        dv = policy_opt #reduction in v
         for i in range(disaster_years):
-            c.v.append(c.v[-1]*(1-dv))
-        c.v = c.v[10]
+            h.loc[h.rp==1,'v'] *= h.fa*(1-dv)+(1-h.fa)
+            h.loc[h.rp!=1,'v'] *= 1-(1/h.rp.astype('int'))*(h.fa*(1-dv)+(1-h.fa))
+
+        h = h.reset_index().set_index(['country','hazard','rp','income_cat']).drop('index',axis=1)
+
+    #elif policy_name=="bbb_cor":
+    #    disaster_years = 10
+    #    dv = policy_opt #reduction in v
+    #    for i in range(disaster_years):
+    #        c.v.append(c.v[-1]*(1-dv))
+    #    c.v = c.v[10]
 
     #build back better & faster - previously affected people see their v reduced 50%, T_rebuild is reduced too
     elif policy_name=="bbbf":

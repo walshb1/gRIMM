@@ -6,7 +6,7 @@ from lib_gather_data import social_to_tx_and_gsp
 
 pd.set_option('display.width', 220)
 
-def process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,verbose_replace=True):
+def process_input(pol_str,macro,cat_info,hazard_ratios,economy,event_level,default_rp,verbose_replace=True):
     flag1=False
     flag2=False
     macro    =    macro.dropna()
@@ -74,6 +74,10 @@ def process_input(macro,cat_info,hazard_ratios,economy,event_level,default_rp,ve
     
     #Broadcast categories to event level
     cats_event = broadcast_simple(cat_info,  event_level_index)
+    if pol_str == '_bbb_uncor0.1':
+        print("replacing cats_event[v] with hazard_ratios[v]")
+        cats_event['v'] = hazard_ratios['v']
+        assert(False)
 
     #updates columns in cats with columns in hazard_ratios_event	
     # applies mh ratios to relevant columns
