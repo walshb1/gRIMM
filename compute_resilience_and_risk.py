@@ -20,11 +20,13 @@ if use_published_inputs:
     intermediate = model+'/orig_intermediate/' #get outputs data directory
 
 #create loop over policies
-#for pol_str in ['']: #baseline
 #for pol_str in ['', '_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K4', '_T_rebuild_K5']: #build back faster
 #for pol_str in ['', '_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4']: #build back better
+
 results_policy_summary = pd.DataFrame(index=pd.read_csv(intermediate+"macro.csv", index_col='country').dropna().index)
-for pol_str in ['','_bbb_uncor0.1', '_bbbf0.2', '_bbbf0.4', '_bbbf-0.2','_bbbf-0.4','_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4','_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K4', '_T_rebuild_K5']: #build back better and faster
+for pol_str in ['','_20dK0.3','_20dK0.5']:
+#for pol_str in ['_bbbf0.2', '_bbbf0.4', '_bbbf-0.2','_bbbf-0.4','_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4','_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K4', '_T_rebuild_K5']: #build back better and faster
+#for pol_str in ['','_bbb_uncor0.2', '_bbb_cor0.2']:
 
     print(pol_str)
     optionFee="tax"

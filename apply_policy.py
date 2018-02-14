@@ -1,5 +1,6 @@
 from pandas_helper import *
 #from res_ind_lib import *
+import os, time
 
 def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=True):
     """Choses a policy by name, applies it to m,c,and/or h, and returns new values as well as a policy description"""
@@ -72,14 +73,14 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
     #previously affected people see their v reduced 30%
     elif 'bbb' in policy_name:
         h = pd.merge(h.reset_index(),c['v'].reset_index(),on=['country','income_cat'])
-        
+
         if policy_name=="bbb":
             dv = policy_opt #reduction in v
             c.v = c.v*(1-dv)
             desc = "Reduce asset\nvulnerability\n(by 30%)"
-        
+
         elif policy_name=="bbb_uncor":
-            disaster_years = 10
+            disaster_years = 20
             dv = policy_opt #reduction in v
 
             for i in range(disaster_years):
@@ -87,10 +88,13 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
                 h.loc[h.rp!=1,'v'] *= 1-(1/h.rp.astype('int'))*(h.fa*(1-dv)+(1-h.fa))
 
         elif policy_name=="bbb_cor":
-            disaster_years = 10
+            disaster_years = 20
             dv = policy_opt #reduction in v
+
             for i in range(disaster_years):
-                c.v.append(c.v[-1]*(1-dv))
+                h.loc[h.rp==1,'v'] *= (1-dv)
+                h.loc[h.rp!=1,'v'] *= 1-(1/h.rp.astype('int'))*(1-dv)
+
 
         #build back better & faster - previously affected people see their v reduced 50%, T_rebuild is reduced too
         elif policy_name=="bbbf":
@@ -99,6 +103,38 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
             c.v = c.v*(dv-1)
 
         h = h.reset_index().set_index(['country','hazard','rp','income_cat']).drop('index',axis=1)
+
+
+    elif policy_name=="20dK":
+        model        = os.getcwd()
+        intermediate = model+'/intermediate/'
+        economy="country"
+        #print "OK up to here1"
+        the_bbb_file= intermediate+"K_inputs.csv"
+        #print "OK up to here1.5"
+        df_bbb= pd.read_csv(the_bbb_file).set_index(economy)
+        #print "OK up to here2"
+        df_bbb["20dKtot"]= pd.read_csv(intermediate+"K_inputs.csv").set_index(economy)["20dKtot"] #read data
+        df_bbb["K_stock"]= pd.read_csv(intermediate+"K_inputs.csv").set_index(economy)["K"]
+        #print "OK up to here3"
+        twdKtot = df_bbb["20dKtot"]
+        K_stock = df_bbb["K_stock"]
+        dv = policy_opt #reduction in v
+        c.v = (twdKtot/K_stock)*(1-dv)*c.v + (1 - twdKtot/K_stock)*c.v
+        #print K_stock
+
+    elif policy_name=="dK_rp20":
+        model        = os.getcwd()
+        intermediate = model+'/intermediate/'
+        economy="country"
+        the_bbb_file= intermediate+"K_inputs.csv"
+        df_bbb= pd.read_csv(the_bbb_file).set_index(economy)
+        df_bbb["dKtot_rp20"]= pd.read_csv(intermediate+"K_inputs.csv").set_index(economy)["dKtot_rp20"] #read data
+        df_bbb["K_stock"]= pd.read_csv(intermediate+"K_inputs.csv").set_index(economy)["K"]
+        dK_rp20 = df_bbb["dKtot_rp20"]
+        K_stock = df_bbb["K_stock"]
+        dv = policy_opt #reduction in v
+        c.v = (dK_rp20/K_stock)*(1-dv)*c.v + (1 - dK_rp20/K_stock)*c.v
 
     #10% or nonpoor people see their v reduced 30%
     elif policy_name=="vr":
