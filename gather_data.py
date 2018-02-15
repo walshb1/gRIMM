@@ -284,7 +284,7 @@ _hazard_ratios = hazard_ratios.copy('deep')
 #print "OK up to here"
 
 # Create loop over policies
-for apol in [None, ['20dK',0.3]]:
+for apol in [['bb_standard',0]]:
 #for apol in [None, ['dK_rp20',0.3], ['dK_rp20',0.5]]:
 #for apol in [None, ['T_rebuild_K',1], ['T_rebuild_K',2], ['T_rebuild_K',4], ['T_rebuild_K',5]]: #build back faster
 #for apol in [['bbb',0.2], ['bbb',0.4], ['bbb',-0.2], ['bbb',-0.4]]: #build back better

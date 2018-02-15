@@ -13,4 +13,5 @@ for i in range(disaster_years):
     v_t_corr.append(v_t_corr[-1]*(1-delta_v))
 
 print(v_t_uncorr[10])
+print(v_t_corr[10])
 #print(v_t_corr)
