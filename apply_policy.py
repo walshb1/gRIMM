@@ -97,9 +97,8 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
 
         elif policy_name=="bb_standard":
             disaster_years = 20
-            dv = policy_opt #reduction in v
 
-            c.fa *= (1-c.fa)**disaster_years
+            h.fa *= (1-h.fa)**disaster_years
 
         #build back better & faster - previously affected people see their v reduced 50%, T_rebuild is reduced too
         elif policy_name=="bbbf":
