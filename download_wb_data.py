@@ -168,13 +168,17 @@ ade1_remit[ade1_remit>.95]
 
 search_wb("Saved at a financial institution");
 
-#Findex                                 
-loan40   =get_wb_mrv('WP11651_5.8'      ,"loan40")/100 #Loan in the past year                                  
-loan60   =get_wb_mrv('WP11651_5.9'      ,"loan60")/100 #Loaan in the past year                                  
+#Findex wave one
+# loan40   =get_wb_mrv('WP11651_5.8'      ,"loan40")/100 #Loan in the past year                                  
+# loan60   =get_wb_mrv('WP11651_5.9'      ,"loan60")/100 #Loaan in the past year                                  
+# Findex wave two
+loan40 = get_wb_mrv('WP14924_8.8',"loan40")/100
+loan60 = get_wb_mrv('WP14924_8.9',"loan60")/100
+
 saved40  =get_wb_mrv('WP_time_04.8'        ,"saved40")/100 #Saved at a financial institution in the past year, bottom 40%      
 saved60  =get_wb_mrv('WP_time_04.9'        ,"saved60")/100 #Saved this year, income, top 60% (% age 15+)
 
-print(saved60.head())
+#print(saved60.head())
 
 search_wb("Urban population ")
 urbanization_rate = get_wb_mrv("SP.URB.TOTL.IN.ZS","urbanization_rate")/100
