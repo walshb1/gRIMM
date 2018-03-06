@@ -189,7 +189,7 @@ def gar_preprocessing(inputs,intermediates):
     # new_frac_destroyed = pd.DataFrame(new_frac_destroyed).query("hazard in ['tsunami', 'earthquake']").squeeze()
 
     hop = frac_value_destroyed_gar_completed.unstack()
-    hop[new_rp]=   new_frac_destroyed.clip(upper=0.50)
+    hop[new_rp]=   new_frac_destroyed.clip(upper=0.99)
     hop= hop.sort_index(axis=1)
 
     frac_value_destroyed_gar_completed = hop.stack()

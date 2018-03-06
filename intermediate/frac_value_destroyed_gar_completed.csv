@@ -6244,7 +6244,7 @@ Philippines,surge,250.0,0.007069630601694332
 Philippines,surge,500.0,0.007599554810044643
 Philippines,surge,1000.0,0.008659385588474448
 Philippines,surge,1500.0,0.008890746786748015
-Philippines,surge,2000.0,0.5
+Philippines,surge,2000.0,0.99
 Philippines,tsunami,1.0,2.3063134519386355e-05
 Philippines,tsunami,20.0,8.249419259933434e-05
 Philippines,tsunami,50.0,0.00019776029237197703
@@ -8377,7 +8377,7 @@ United States,earthquake,250.0,3.085529609904866e-05
 United States,earthquake,500.0,4.175865992990122e-05
 United States,earthquake,1000.0,5.4398288497428194e-05
 United States,earthquake,1500.0,6.386362601848059e-05
-United States,earthquake,2000.0,0.5
+United States,earthquake,2000.0,0.5157739828546285
 United States,flood,1.0,6.228363212571462e-05
 United States,flood,20.0,0.00035063087186490053
 United States,flood,50.0,0.0009002816095407165

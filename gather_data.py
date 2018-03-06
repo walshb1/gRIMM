@@ -216,7 +216,7 @@ fa_guessed_gar.columns = ['fa']
 # merge v with hazard_ratios
 fa_guessed_gar = pd.merge(fa_guessed_gar.reset_index(),vr.reset_index(),on=economy)
 fa_guessed_gar = pd.merge(fa_guessed_gar.reset_index(),vp.reset_index(),on=economy).drop('index',axis=1)
-fa_guessed_gar.columns = ['country','hazard','rp','fa','poor','nonpoor']
+fa_guessed_gar.columns = ['country','hazard','rp','fa','nonpoor','poor']
 
 # stack and get columns right
 try: fa_guessed_gar = fa_guessed_gar.reset_index().set_index(event_level+['fa']).drop(['index'],axis=1).stack()
@@ -261,6 +261,8 @@ fa_with_pe.loc[fa_with_pe['income_cat']=='nonpoor','fa'] = fa_with_pe.loc[fa_wit
 
 fa_with_pe = fa_with_pe.reset_index().set_index(event_level+['income_cat'])
 fa_guessed_gar = fa_guessed_gar.reset_index().set_index(event_level+['income_cat'])
+
+fa_guessed_gar['fa'].update(fa_with_pe['fa'])
 
 ###gathers hazard ratios
 hazard_ratios = pd.DataFrame(fa_guessed_gar)
