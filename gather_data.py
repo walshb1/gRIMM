@@ -42,15 +42,14 @@ max_support=0.05
 fa_threshold =  0.9
 
 #define directory
-use_published_inputs = False
+use_2016_inputs = False
+year_str = ''
+if use_2016_inputs: year_str = 'orig_'
 
 model        = os.getcwd() #get current directory
-inputs       = model+'/inputs/' #get inputs data directory
-intermediate = model+'/intermediate/' #get outputs data directory
+inputs       = model+'/'+year_str+'inputs/' #get inputs data directory
+intermediate = model+'/'+year_str+'intermediate/' #get outputs data directory
 
-if use_published_inputs:
-    inputs       = model+'/orig_inputs/' #get inputs data directory
-    intermediate = model+'/orig_intermediate/' #get outputs data directory
 
 if not os.path.exists(intermediate): #if the depository directory doesn't exist, create one
     os.makedirs(intermediate)
