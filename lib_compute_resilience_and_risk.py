@@ -74,10 +74,9 @@ def process_input(pol_str,macro,cat_info,hazard_ratios,economy,event_level,defau
 
     #Broadcast categories to event level
     cats_event = broadcast_simple(cat_info,event_level_index)
-    if 'bbb' in pol_str:
-        print("replacing cats_event[v] with hazard_ratios[v]")
-        cats_event['v'] = hazard_ratios['v']
-
+    cats_event['v'] = hazard_ratios['v']
+    print("pulling 'v' into cats_event from hazard_ratios")
+        
     #updates columns in cats with columns in hazard_ratios_event
     # applies mh ratios to relevant columns
     cols_c = [c for c in cats_event if c in hazard_ratios_event] #columns that are both in cats_event and hazard_ratios_event
