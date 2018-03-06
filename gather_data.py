@@ -11,9 +11,21 @@ import warnings
 warnings.filterwarnings("always",category=UserWarning)
 from lib_gar_preprocess import *
 
+#define directory
+use_published_inputs = False
+
+vers_dir = ''
+if use_published_inputs: vers_dir = 'orig_'
+
+model        = os.getcwd() #get current directory
+inputs       = model+'/'+vers_dir+'inputs/' #get inputs data directory
+intermediate = model+'/'+vers_dir+'intermediate/' #get outputs data directory
+
+if not os.path.exists(intermediate): #if the depository directory doesn't exist, create one
+    os.makedirs(intermediate)
 
 # Run GAR preprocessing
-#gar_preprocessing()
+gar_preprocessing(inputs,intermediate)
 
 debug = False
 
@@ -32,28 +44,14 @@ income_cats   = pd.Index(["poor","nonpoor"],name="income_cat")	#categories of ho
 affected_cats = pd.Index(["a", "na"]            ,name="affected_cat")	#categories for social protection
 helped_cats   = pd.Index(["helped","not_helped"],name="helped_cat")
 
-poverty_head=0.2
-reconstruction_time=3.0
-reduction_vul=0.2
-inc_elast=1.5
-discount_rate=0.06
-asset_loss_covered=0.8
-max_support=0.05
-fa_threshold =  0.9
-
-#define directory
-use_published_inputs = False
-
-model        = os.getcwd() #get current directory
-inputs       = model+'/inputs/' #get inputs data directory
-intermediate = model+'/intermediate/' #get outputs data directory
-
-if use_published_inputs:
-    inputs       = model+'/orig_inputs/' #get inputs data directory
-    intermediate = model+'/orig_intermediate/' #get outputs data directory
-
-if not os.path.exists(intermediate): #if the depository directory doesn't exist, create one
-    os.makedirs(intermediate)
+inc_elast    = 1.5
+max_support  = 0.05
+poverty_head = 0.2
+reduction_vul = 0.2
+fa_threshold  = 0.9
+discount_rate = 0.06
+asset_loss_covered = 0.8
+reconstruction_time = 3.0
 
 #Country dictionaries
 any_to_wb=pd.read_csv(inputs+"any_name_to_wb_name.csv",index_col="any",squeeze=True)	#Names to WB names
@@ -84,11 +82,13 @@ df["max_increased_spending"] = max_support # 5% of GDP in post-disaster support 
 ###Social transfer Data from EUsilc (European Union Survey of Income and Living Conditions) and other countries.
 silc=pd.read_csv(inputs+"social_ratios.csv") #XXX: there is data from ASPIRE in social_ratios. Use fillna instead to update df.
 silc=silc.set_index(silc.cc.replace({"EL":"GR","UK":"GB"}).replace(iso2_iso3).replace(iso3_to_wb)) #Change indexes with wold bank names. UK and greece have differnt codes in Europe than ISO2. The first replace is to change EL to GR, and change UK to GB. The second one is to change iso2 to iso3, and the third one is to change iso3 to the wb
-df.ix[silc.index,["social_p","social_r"]]  = silc[["social_p","social_r"]] #Update social transfer from EUsilc.
-where=(isnull(df.social_r)&~isnull(df.social_p))|(isnull(df.social_p)&~isnull(df.social_r)) #shows the country where social_p and social_r are not both NaN.
-print("social_p and social_r are not both NaN for " + "; ".join(df.loc[where].index))
-df.loc[isnull(df.social_r),['social_p','social_r']]=np.nan
-df.loc[isnull(df.social_p),['social_p','social_r']]=np.nan
+try:
+    df.ix[silc.index,["social_p","social_r"]]  = silc[["social_p","social_r"]] #Update social transfer from EUsilc.
+    where=(isnull(df.social_r)&~isnull(df.social_p))|(isnull(df.social_p)&~isnull(df.social_r)) #shows the country where social_p and social_r are not both NaN.
+    print("social_p and social_r are not both NaN for " + "; ".join(df.loc[where].index))
+    df.loc[isnull(df.social_r),['social_p','social_r']]=np.nan
+    df.loc[isnull(df.social_p),['social_p','social_r']]=np.nan
+except:pass
 
 ###Guess social transfer
 guessed_social=pd.read_csv(inputs+"df_social_transfers_statistics.csv", index_col=0)[["social_p_est","social_r_est"]]
@@ -157,10 +157,10 @@ k_data=k_data.reset_index().set_index("country")
 df["avg_prod_k"]=k_data["prod_from_k"]/k_data["k"]	#\mu in the technical paper -- average productivity of capital
 
 #####
-#for SIDS, adding capital data from GAR
-sids_k = pd.read_csv("intermediate/avg_prod_k_with_gar_for_sids.csv").rename(columns={"Unnamed: 0":"country"}).set_index("country")
-df = df.fillna(sids_k)
-df.dropna().shape
+##for SIDS, adding capital data from GAR
+#sids_k = pd.read_csv("intermediate/avg_prod_k_with_gar_for_sids.csv").rename(columns={"Unnamed: 0":"country"}).set_index("country")
+#df = df.fillna(sids_k)
+#df.dropna().shape
 #####
 
 ##Hazards data
@@ -185,6 +185,7 @@ agg_cat_to_v = pd.read_csv(inputs+"aggregate_category_to_vulnerability.csv", sep
 p=(share.cumsum(axis=1).add(-df["pov_head"],axis=0)).clip(lower=0)
 poor=(share-p).clip(lower=0)
 rich=share-poor
+
 vp_unshaved=((poor*agg_cat_to_v).sum(axis=1, skipna=False)/df["pov_head"] )
 vr_unshaved=(rich*agg_cat_to_v).sum(axis=1, skipna=False)/(1-df["pov_head"])
 v_unshaved =  vp_unshaved*df.share1 + vr_unshaved*(1-df.share1)
@@ -197,8 +198,15 @@ v = v_unshaved.copy()
 ###apply \delta_K = f_a * V, and use destroyed capital from GAR data, and fa_threshold to recalculate vulnerability
 frac_value_destroyed_gar = pd.read_csv(intermediate+"frac_value_destroyed_gar_completed.csv", index_col=["country", "hazard", "rp"], squeeze=True);#\delta_K, Generated by pre_process\ GAR.ipynb
 
+print('\n\n\n',frac_value_destroyed_gar.loc['Philippines'])
+
 fa_guessed_gar = (frac_value_destroyed_gar/broadcast_simple(v_unshaved,frac_value_destroyed_gar.index)).dropna()	#fa is the fraction of asset affected. broadcast_simple, substitute the value in frac_value_destroyed_gar by values in v_unshaved. Here it assumes that vulnerability for all types of disasters are the same. fa_guessed_gar = exposure/vulnerability
 fa_guessed_gar.name  = "fa"
+
+print('\n\n\n',fa_guessed_gar.loc['Philippines'])
+print(vp.loc['Philippines'])
+print(vr.loc['Philippines'])
+
 excess=fa_guessed_gar[fa_guessed_gar>fa_threshold].max(level="country")
 for c in excess.index:
     r = (excess/fa_threshold)[c]
@@ -207,8 +215,12 @@ for c in excess.index:
     vp.ix[c] *= r
     vr.ix[c] *= r
     v.ix[c] *=r
+
 vp = vp.clip(upper=.99)
 vr = vr.clip(upper=.99)
+
+print(vp.loc['Philippines'])
+print(vr.loc['Philippines'])
 
 ###Exposure bias from PEB
 data = pd.read_excel(inputs+"PEB_flood_povmaps.xlsx")[["iso","peb"]].dropna()	#Exposure bias from WB povmaps study
@@ -232,13 +244,19 @@ fa_hazard_cat.update(fa_with_pe) #updates fa_guessed_gar where necessary
 hazard_ratios = pd.DataFrame(fa_hazard_cat)
 print(hazard_ratios.head(2))
 hazard_ratios = pd.merge(hazard_ratios.reset_index(),df['shew'].reset_index(),on=['country']).set_index(event_level+['income_cat'])
+
 #hazard_ratios["shew"]=broadcast_simple(df.shew, index=hazard_ratios.index)
 hazard_ratios["shew"]=hazard_ratios.shew.unstack("hazard").assign(earthquake=0).stack("hazard").reset_index().set_index(event_level+[ "income_cat"]) #shew at 0 for earthquake
+
+
 if not no_protection:
     #protection at 0 for earthquake and wind
     hazard_ratios["protection"]=1
     hazard_ratios["protection"]=hazard_ratios.protection.unstack("hazard").assign(earthquake=1, wind=1).stack("hazard").reset_index().set_index(event_level)
-hazard_ratios= hazard_ratios.drop("Finland") #because Finland has fa=0 everywhere.
+
+try:
+    hazard_ratios= hazard_ratios.drop("Finland") #because Finland has fa=0 everywhere.
+except:pass
 
 ##Protection
 if protection_from_flopros: #in this code, this protection is overwritten by no_protection
@@ -272,6 +290,8 @@ cat_info["fa"] =hazard_ratios.fa.mean(level=["country","income_cat"])
 #Vulnerability
 cat_info["v"] = concat_categories(vp,vr, index=income_cats)
 
+print(cat_info.loc['Philippines'])
+
 #access to early warnings
 cat_info["shew"] = hazard_ratios.shew.drop("earthquake", level="hazard").mean(level=["country","income_cat"])
 
@@ -280,11 +300,8 @@ _cat_info      = cat_info.copy('deep')
 _hazard_ratios = hazard_ratios.copy('deep')
 
 #######
-
-#print "OK up to here"
-
 # Create loop over policies
-for apol in [['bb_standard',0]]:
+for apol in [None]:
 #for apol in [None, ['dK_rp20',0.3], ['dK_rp20',0.5]]:
 #for apol in [None, ['T_rebuild_K',1], ['T_rebuild_K',2], ['T_rebuild_K',4], ['T_rebuild_K',5]]: #build back faster
 #for apol in [['bbb',0.2], ['bbb',0.4], ['bbb',-0.2], ['bbb',-0.4]]: #build back better
@@ -321,3 +338,6 @@ for apol in [['bb_standard',0]]:
     df_in.to_csv(intermediate+"/macro"+pol_str+".csv",encoding="utf-8", header=True)
     cat_info.to_csv(intermediate+"/cat_info"+pol_str+".csv",encoding="utf-8", header=True)
     hazard_ratios.to_csv(intermediate+"/hazard_ratios"+pol_str+".csv",encoding="utf-8", header=True)
+
+    print(cat_info.sample(10))
+    print(hazard_ratios.sample(10))

@@ -6244,7 +6244,7 @@ Philippines,surge,250.0,0.007069630601694332
 Philippines,surge,500.0,0.007599554810044643
 Philippines,surge,1000.0,0.008659385588474448
 Philippines,surge,1500.0,0.008890746786748015
-Philippines,surge,2000.0,1.7861651165566326
+Philippines,surge,2000.0,0.5
 Philippines,tsunami,1.0,2.3063134519386355e-05
 Philippines,tsunami,20.0,8.249419259933434e-05
 Philippines,tsunami,50.0,0.00019776029237197703
@@ -6614,6 +6614,7 @@ San Marino,wind,500.0,0.0
 San Marino,wind,1000.0,0.0
 San Marino,wind,1500.0,0.0
 San Marino,wind,2000.0,0.0
+Sao Tome and Principe,earthquake,1.0,1.6533064890048178e-05
 Sao Tome and Principe,earthquake,20.0,5.1820794271446745e-05
 Sao Tome and Principe,earthquake,50.0,0.00019315023319357424
 Sao Tome and Principe,earthquake,100.0,0.0003674565411975315
@@ -6621,6 +6622,8 @@ Sao Tome and Principe,earthquake,250.0,0.0007631789701794885
 Sao Tome and Principe,earthquake,500.0,0.0013756065388420408
 Sao Tome and Principe,earthquake,1000.0,0.002845432703632167
 Sao Tome and Principe,earthquake,1500.0,0.004527253026805483
+Sao Tome and Principe,earthquake,2000.0,6.776263578034403e-18
+Sao Tome and Principe,surge,1.0,0.0
 Sao Tome and Principe,surge,20.0,0.0
 Sao Tome and Principe,surge,50.0,0.0
 Sao Tome and Principe,surge,100.0,0.0
@@ -6628,6 +6631,8 @@ Sao Tome and Principe,surge,250.0,0.0
 Sao Tome and Principe,surge,500.0,0.0
 Sao Tome and Principe,surge,1000.0,0.0
 Sao Tome and Principe,surge,1500.0,0.0
+Sao Tome and Principe,surge,2000.0,0.0
+Sao Tome and Principe,tsunami,1.0,0.0
 Sao Tome and Principe,tsunami,20.0,0.0
 Sao Tome and Principe,tsunami,50.0,0.0
 Sao Tome and Principe,tsunami,100.0,0.0
@@ -6635,6 +6640,8 @@ Sao Tome and Principe,tsunami,250.0,0.0
 Sao Tome and Principe,tsunami,500.0,0.0
 Sao Tome and Principe,tsunami,1000.0,0.0
 Sao Tome and Principe,tsunami,1500.0,0.0
+Sao Tome and Principe,tsunami,2000.0,0.0
+Sao Tome and Principe,wind,1.0,0.0
 Sao Tome and Principe,wind,20.0,0.0
 Sao Tome and Principe,wind,50.0,0.0
 Sao Tome and Principe,wind,100.0,0.0
@@ -6642,6 +6649,7 @@ Sao Tome and Principe,wind,250.0,0.0
 Sao Tome and Principe,wind,500.0,0.0
 Sao Tome and Principe,wind,1000.0,0.0
 Sao Tome and Principe,wind,1500.0,0.0
+Sao Tome and Principe,wind,2000.0,0.0
 Saudi Arabia,earthquake,1.0,6.139764940365034e-05
 Saudi Arabia,earthquake,20.0,0.00011789373406431247
 Saudi Arabia,earthquake,50.0,0.0002499042691298297
@@ -8369,7 +8377,7 @@ United States,earthquake,250.0,3.085529609904866e-05
 United States,earthquake,500.0,4.175865992990122e-05
 United States,earthquake,1000.0,5.4398288497428194e-05
 United States,earthquake,1500.0,6.386362601848059e-05
-United States,earthquake,2000.0,0.5157739828546285
+United States,earthquake,2000.0,0.5
 United States,flood,1.0,6.228363212571462e-05
 United States,flood,20.0,0.00035063087186490053
 United States,flood,50.0,0.0009002816095407165
