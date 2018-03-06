@@ -11,9 +11,20 @@ import warnings
 warnings.filterwarnings("always",category=UserWarning)
 from lib_gar_preprocess import *
 
+#define directory
+use_2016_inputs = False
+year_str = ''
+if use_2016_inputs: year_str = 'orig_'
+
+model        = os.getcwd() #get current directory
+inputs       = model+'/'+year_str+'inputs/' #get inputs data directory
+intermediate = model+'/'+year_str+'intermediate/' #get outputs data directory
+
+if not os.path.exists(intermediate): os.makedirs(intermediate)
+# ^ if the depository directory doesn't exist, create one
 
 # Run GAR preprocessing
-gar_preprocessing()
+gar_preprocessing(inputs,intermediate)
 
 debug = False
 
@@ -40,19 +51,6 @@ discount_rate=0.06
 asset_loss_covered=0.8
 max_support=0.05
 fa_threshold =  0.9
-
-#define directory
-use_2016_inputs = False
-year_str = ''
-if use_2016_inputs: year_str = 'orig_'
-
-model        = os.getcwd() #get current directory
-inputs       = model+'/'+year_str+'inputs/' #get inputs data directory
-intermediate = model+'/'+year_str+'intermediate/' #get outputs data directory
-
-
-if not os.path.exists(intermediate): #if the depository directory doesn't exist, create one
-    os.makedirs(intermediate)
 
 #Country dictionaries
 any_to_wb=pd.read_csv(inputs+"any_name_to_wb_name.csv",index_col="any",squeeze=True)	#Names to WB names

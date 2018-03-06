@@ -9971,96 +9971,96 @@ Peru,wind,1500.0,nonpoor,0.0,0.6000000000000001
 Peru,wind,1500.0,poor,0.0,0.6000000000000001
 Peru,wind,2000.0,nonpoor,0.0,0.6000000000000001
 Peru,wind,2000.0,poor,0.0,0.6000000000000001
-Philippines,earthquake,1.0,nonpoor,0.00042787123543420726,0.0
-Philippines,earthquake,1.0,poor,0.00042787123543420726,0.0
-Philippines,earthquake,20.0,nonpoor,0.0021976695553122282,0.0
-Philippines,earthquake,20.0,poor,0.0021976695553122282,0.0
-Philippines,earthquake,50.0,nonpoor,0.004378612939662633,0.0
-Philippines,earthquake,50.0,poor,0.004378612939662633,0.0
-Philippines,earthquake,100.0,nonpoor,0.006817603281439459,0.0
-Philippines,earthquake,100.0,poor,0.006817603281439459,0.0
-Philippines,earthquake,250.0,nonpoor,0.011487804394899352,0.0
-Philippines,earthquake,250.0,poor,0.011487804394899352,0.0
-Philippines,earthquake,500.0,nonpoor,0.016941264898920564,0.0
-Philippines,earthquake,500.0,poor,0.016941264898920564,0.0
-Philippines,earthquake,1000.0,nonpoor,0.02465003003725901,0.0
-Philippines,earthquake,1000.0,poor,0.02465003003725901,0.0
-Philippines,earthquake,1500.0,nonpoor,0.029944689679034825,0.0
-Philippines,earthquake,1500.0,poor,0.029944689679034825,0.0
-Philippines,earthquake,2000.0,nonpoor,-2.18519989264613e-16,0.0
-Philippines,earthquake,2000.0,poor,-2.18519989264613e-16,0.0
-Philippines,flood,1.0,nonpoor,0.00024201784662997904,0.6000000000000001
-Philippines,flood,1.0,poor,0.00023865067366124362,0.6000000000000001
-Philippines,flood,20.0,nonpoor,0.0015134006187618857,0.6000000000000001
-Philippines,flood,20.0,poor,0.0014923448093440224,0.6000000000000001
-Philippines,flood,50.0,nonpoor,0.00329922687198312,0.6000000000000001
-Philippines,flood,50.0,poor,0.0032533250193067273,0.6000000000000001
-Philippines,flood,100.0,nonpoor,0.0055946694756430475,0.6000000000000001
-Philippines,flood,100.0,poor,0.0055168313323420036,0.6000000000000001
-Philippines,flood,250.0,nonpoor,0.024495355266272313,0.6000000000000001
-Philippines,flood,250.0,poor,0.024154553547470696,0.6000000000000001
-Philippines,flood,500.0,nonpoor,0.02731837987696459,0.6000000000000001
-Philippines,flood,500.0,poor,0.026938301665575502,0.6000000000000001
-Philippines,flood,1000.0,nonpoor,0.0321222324268566,0.6000000000000001
-Philippines,flood,1000.0,poor,0.03167531863835193,0.6000000000000001
-Philippines,flood,1500.0,nonpoor,0.034031448392972896,0.6000000000000001
-Philippines,flood,1500.0,poor,0.033557971851009734,0.6000000000000001
+Philippines,earthquake,1.0,nonpoor,0.0015284973502211424,0.0
+Philippines,earthquake,1.0,poor,0.0015284973502211424,0.0
+Philippines,earthquake,20.0,nonpoor,0.007850801394834458,0.0
+Philippines,earthquake,20.0,poor,0.007850801394834458,0.0
+Philippines,earthquake,50.0,nonpoor,0.015641851383457774,0.0
+Philippines,earthquake,50.0,poor,0.015641851383457774,0.0
+Philippines,earthquake,100.0,nonpoor,0.024354730319658385,0.0
+Philippines,earthquake,100.0,poor,0.024354730319658385,0.0
+Philippines,earthquake,250.0,nonpoor,0.04103823095199039,0.0
+Philippines,earthquake,250.0,poor,0.04103823095199039,0.0
+Philippines,earthquake,500.0,nonpoor,0.060519792785594474,0.0
+Philippines,earthquake,500.0,poor,0.060519792785594474,0.0
+Philippines,earthquake,1000.0,nonpoor,0.08805804754925048,0.0
+Philippines,earthquake,1000.0,poor,0.08805804754925048,0.0
+Philippines,earthquake,1500.0,nonpoor,0.10697232026161087,0.0
+Philippines,earthquake,1500.0,poor,0.10697232026161087,0.0
+Philippines,earthquake,2000.0,nonpoor,-7.806255641895632e-16,0.0
+Philippines,earthquake,2000.0,poor,-7.806255641895632e-16,0.0
+Philippines,flood,1.0,nonpoor,0.0008645676704692436,0.6000000000000001
+Philippines,flood,1.0,poor,0.0008525390166729082,0.6000000000000001
+Philippines,flood,20.0,nonpoor,0.005406366785215408,0.6000000000000001
+Philippines,flood,20.0,poor,0.005331148480649303,0.6000000000000001
+Philippines,flood,50.0,nonpoor,0.011785927900685007,0.6000000000000001
+Philippines,flood,50.0,poor,0.011621951324613218,0.6000000000000001
+Philippines,flood,100.0,nonpoor,0.0199860069121156,0.6000000000000001
+Philippines,flood,100.0,poor,0.019707943359511877,0.6000000000000001
+Philippines,flood,250.0,nonpoor,0.08750549818855483,0.6000000000000001
+Philippines,flood,250.0,poor,0.08628804190498285,0.6000000000000001
+Philippines,flood,500.0,nonpoor,0.09759027435415364,0.6000000000000001
+Philippines,flood,500.0,poor,0.09623250946866078,0.6000000000000001
+Philippines,flood,1000.0,nonpoor,0.11475122205355114,0.6000000000000001
+Philippines,flood,1000.0,poor,0.11315469841528068,0.6000000000000001
+Philippines,flood,1500.0,nonpoor,0.12157157197085093,0.6000000000000001
+Philippines,flood,1500.0,poor,0.11988015740532601,0.6000000000000001
 Philippines,flood,2000.0,nonpoor,0.0,0.6000000000000001
 Philippines,flood,2000.0,poor,0.0,0.6000000000000001
-Philippines,surge,1.0,nonpoor,0.0017723529646088828,0.6000000000000001
-Philippines,surge,1.0,poor,0.0017476943740272826,0.6000000000000001
-Philippines,surge,20.0,nonpoor,0.002215441205761103,0.6000000000000001
-Philippines,surge,20.0,poor,0.002184617967534103,0.6000000000000001
-Philippines,surge,50.0,nonpoor,0.0027793099569570737,0.6000000000000001
-Philippines,surge,50.0,poor,0.0027406416624940165,0.6000000000000001
-Philippines,surge,100.0,nonpoor,0.003411482144419872,0.6000000000000001
-Philippines,surge,100.0,poor,0.0033640184940322347,0.6000000000000001
-Philippines,surge,250.0,nonpoor,0.0035721342506497564,0.6000000000000001
-Philippines,surge,250.0,poor,0.0035224354616680024,0.6000000000000001
-Philippines,surge,500.0,nonpoor,0.0038398937025287466,0.6000000000000001
-Philippines,surge,500.0,poor,0.00378646959989329,0.6000000000000001
-Philippines,surge,1000.0,nonpoor,0.004375403694042952,0.6000000000000001
-Philippines,surge,1000.0,poor,0.004314529088095352,0.6000000000000001
-Philippines,surge,1500.0,nonpoor,0.004492305595597229,0.6000000000000001
-Philippines,surge,1500.0,poor,0.004429804543797026,0.6000000000000001
-Philippines,surge,2000.0,nonpoor,0.9025113120675088,0.6000000000000001
-Philippines,surge,2000.0,poor,0.8899547517299653,0.6000000000000001
-Philippines,tsunami,1.0,nonpoor,1.1620885927647441e-05,0.6000000000000001
-Philippines,tsunami,1.0,poor,1.1620885927647441e-05,0.6000000000000001
-Philippines,tsunami,20.0,nonpoor,4.1566578952415056e-05,0.6000000000000001
-Philippines,tsunami,20.0,poor,4.1566578952415056e-05,0.6000000000000001
-Philippines,tsunami,50.0,nonpoor,9.964603019338841e-05,0.6000000000000001
-Philippines,tsunami,50.0,poor,9.964603019338841e-05,0.6000000000000001
-Philippines,tsunami,100.0,nonpoor,0.00027022275669193494,0.6000000000000001
-Philippines,tsunami,100.0,poor,0.00027022275669193494,0.6000000000000001
-Philippines,tsunami,250.0,nonpoor,0.0013211719822001735,0.6000000000000001
-Philippines,tsunami,250.0,poor,0.0013211719822001735,0.6000000000000001
-Philippines,tsunami,500.0,nonpoor,0.0027180827682986757,0.6000000000000001
-Philippines,tsunami,500.0,poor,0.0027180827682986757,0.6000000000000001
-Philippines,tsunami,1000.0,nonpoor,0.0050217439893339095,0.6000000000000001
-Philippines,tsunami,1000.0,poor,0.0050217439893339095,0.6000000000000001
-Philippines,tsunami,1500.0,nonpoor,0.007924898906468397,0.6000000000000001
-Philippines,tsunami,1500.0,poor,0.007924898906468397,0.6000000000000001
-Philippines,tsunami,2000.0,nonpoor,6.828749664519156e-18,0.6000000000000001
-Philippines,tsunami,2000.0,poor,6.828749664519156e-18,0.6000000000000001
-Philippines,wind,1.0,nonpoor,0.0030269525128662836,0.6000000000000001
-Philippines,wind,1.0,poor,0.0030269525128662836,0.6000000000000001
-Philippines,wind,20.0,nonpoor,0.011959221125148006,0.6000000000000001
-Philippines,wind,20.0,poor,0.011959221125148006,0.6000000000000001
-Philippines,wind,50.0,nonpoor,0.016308834332691386,0.6000000000000001
-Philippines,wind,50.0,poor,0.016308834332691386,0.6000000000000001
-Philippines,wind,100.0,nonpoor,0.019454660927887817,0.6000000000000001
-Philippines,wind,100.0,poor,0.019454660927887817,0.6000000000000001
-Philippines,wind,250.0,nonpoor,0.023848053688118737,0.6000000000000001
-Philippines,wind,250.0,poor,0.023848053688118737,0.6000000000000001
-Philippines,wind,500.0,nonpoor,0.025957684216041048,0.6000000000000001
-Philippines,wind,500.0,poor,0.025957684216041048,0.6000000000000001
-Philippines,wind,1000.0,nonpoor,0.028791303765691313,0.6000000000000001
-Philippines,wind,1000.0,poor,0.028791303765691313,0.6000000000000001
-Philippines,wind,1500.0,nonpoor,0.031624923315341585,0.6000000000000001
-Philippines,wind,1500.0,poor,0.031624923315341585,0.6000000000000001
-Philippines,wind,2000.0,nonpoor,8.74079957058452e-16,0.6000000000000001
-Philippines,wind,2000.0,poor,8.74079957058452e-16,0.6000000000000001
+Philippines,surge,1.0,nonpoor,0.006331430079220236,0.6000000000000001
+Philippines,surge,1.0,poor,0.006243341450579625,0.6000000000000001
+Philippines,surge,20.0,nonpoor,0.007914287599025292,0.6000000000000001
+Philippines,surge,20.0,poor,0.007804176813224528,0.6000000000000001
+Philippines,surge,50.0,nonpoor,0.009928612986430482,0.6000000000000001
+Philippines,surge,50.0,poor,0.009790477069057177,0.6000000000000001
+Philippines,surge,100.0,nonpoor,0.012186940804237186,0.6000000000000001
+Philippines,surge,100.0,poor,0.012017384970983511,0.6000000000000001
+Philippines,surge,250.0,nonpoor,0.012760843180335523,0.6000000000000001
+Philippines,surge,250.0,poor,0.012583302693906888,0.6000000000000001
+Philippines,surge,500.0,nonpoor,0.013717368365484678,0.6000000000000001
+Philippines,surge,500.0,poor,0.01352651982846309,0.6000000000000001
+Philippines,surge,1000.0,nonpoor,0.0156303868983051,0.6000000000000001
+Philippines,surge,1000.0,poor,0.015412922703049635,0.6000000000000001
+Philippines,surge,1500.0,nonpoor,0.016047999095535875,0.6000000000000001
+Philippines,surge,1500.0,poor,0.015824724698588633,0.6000000000000001
+Philippines,surge,2000.0,nonpoor,0.9025113120675086,0.6000000000000001
+Philippines,surge,2000.0,poor,0.8899547517299652,0.6000000000000001
+Philippines,tsunami,1.0,nonpoor,4.151364213489545e-05,0.6000000000000001
+Philippines,tsunami,1.0,poor,4.151364213489545e-05,0.6000000000000001
+Philippines,tsunami,20.0,nonpoor,0.00014848954667880183,0.6000000000000001
+Philippines,tsunami,20.0,poor,0.00014848954667880183,0.6000000000000001
+Philippines,tsunami,50.0,nonpoor,0.0003559685262695587,0.6000000000000001
+Philippines,tsunami,50.0,poor,0.0003559685262695587,0.6000000000000001
+Philippines,tsunami,100.0,nonpoor,0.0009653249234058092,0.6000000000000001
+Philippines,tsunami,100.0,poor,0.0009653249234058092,0.6000000000000001
+Philippines,tsunami,250.0,nonpoor,0.004719662615155861,0.6000000000000001
+Philippines,tsunami,250.0,poor,0.004719662615155861,0.6000000000000001
+Philippines,tsunami,500.0,nonpoor,0.009709889249297558,0.6000000000000001
+Philippines,tsunami,500.0,poor,0.009709889249297558,0.6000000000000001
+Philippines,tsunami,1000.0,nonpoor,0.017939327876052343,0.6000000000000001
+Philippines,tsunami,1000.0,poor,0.017939327876052343,0.6000000000000001
+Philippines,tsunami,1500.0,nonpoor,0.028310355957943307,0.6000000000000001
+Philippines,tsunami,1500.0,poor,0.028310355957943307,0.6000000000000001
+Philippines,tsunami,2000.0,nonpoor,2.439454888092385e-17,0.6000000000000001
+Philippines,tsunami,2000.0,poor,2.439454888092385e-17,0.6000000000000001
+Philippines,wind,1.0,nonpoor,0.010813273975910394,0.6000000000000001
+Philippines,wind,1.0,poor,0.010813273975910394,0.6000000000000001
+Philippines,wind,20.0,nonpoor,0.04272228718985306,0.6000000000000001
+Philippines,wind,20.0,poor,0.04272228718985306,0.6000000000000001
+Philippines,wind,50.0,nonpoor,0.05826054195350905,0.6000000000000001
+Philippines,wind,50.0,poor,0.05826054195350905,0.6000000000000001
+Philippines,wind,100.0,nonpoor,0.06949847340766102,0.6000000000000001
+Philippines,wind,100.0,poor,0.06949847340766102,0.6000000000000001
+Philippines,wind,250.0,nonpoor,0.08519312319097487,0.6000000000000001
+Philippines,wind,250.0,poor,0.08519312319097487,0.6000000000000001
+Philippines,wind,500.0,nonpoor,0.09272942010657044,0.6000000000000001
+Philippines,wind,500.0,poor,0.09272942010657044,0.6000000000000001
+Philippines,wind,1000.0,nonpoor,0.10285204489292689,0.6000000000000001
+Philippines,wind,1000.0,poor,0.10285204489292689,0.6000000000000001
+Philippines,wind,1500.0,nonpoor,0.11297466967928335,0.6000000000000001
+Philippines,wind,1500.0,poor,0.11297466967928335,0.6000000000000001
+Philippines,wind,2000.0,nonpoor,3.1225022567582528e-15,0.6000000000000001
+Philippines,wind,2000.0,poor,3.1225022567582528e-15,0.6000000000000001
 Poland,earthquake,1.0,nonpoor,0.00046657994726595996,0.0
 Poland,earthquake,1.0,poor,0.00046657994726595996,0.0
 Poland,earthquake,20.0,nonpoor,0.002861296920545574,0.0
@@ -10511,6 +10511,78 @@ Rwanda,wind,1500.0,nonpoor,0.0,0.8
 Rwanda,wind,1500.0,poor,0.0,0.8
 Rwanda,wind,2000.0,nonpoor,0.0,0.8
 Rwanda,wind,2000.0,poor,0.0,0.8
+Sao Tome and Principe,earthquake,1.0,nonpoor,4.36823350261786e-05,0.0
+Sao Tome and Principe,earthquake,1.0,poor,4.36823350261786e-05,0.0
+Sao Tome and Principe,earthquake,20.0,nonpoor,0.00013691673695967794,0.0
+Sao Tome and Principe,earthquake,20.0,poor,0.00013691673695967794,0.0
+Sao Tome and Principe,earthquake,50.0,nonpoor,0.0005103260195769815,0.0
+Sao Tome and Principe,earthquake,50.0,poor,0.0005103260195769815,0.0
+Sao Tome and Principe,earthquake,100.0,nonpoor,0.0009708641348049893,0.0
+Sao Tome and Principe,earthquake,100.0,poor,0.0009708641348049893,0.0
+Sao Tome and Principe,earthquake,250.0,nonpoor,0.0020164101261334394,0.0
+Sao Tome and Principe,earthquake,250.0,poor,0.0020164101261334394,0.0
+Sao Tome and Principe,earthquake,500.0,nonpoor,0.0036345170174750877,0.0
+Sao Tome and Principe,earthquake,500.0,poor,0.0036345170174750877,0.0
+Sao Tome and Principe,earthquake,1000.0,nonpoor,0.007517973556695045,0.0
+Sao Tome and Principe,earthquake,1000.0,poor,0.007517973556695045,0.0
+Sao Tome and Principe,earthquake,1500.0,nonpoor,0.011961544019840953,0.0
+Sao Tome and Principe,earthquake,1500.0,poor,0.011961544019840953,0.0
+Sao Tome and Principe,earthquake,2000.0,nonpoor,1.7903698909423922e-17,0.0
+Sao Tome and Principe,earthquake,2000.0,poor,1.7903698909423922e-17,0.0
+Sao Tome and Principe,surge,1.0,nonpoor,0.0,0.0
+Sao Tome and Principe,surge,1.0,poor,0.0,0.0
+Sao Tome and Principe,surge,20.0,nonpoor,0.0,0.0
+Sao Tome and Principe,surge,20.0,poor,0.0,0.0
+Sao Tome and Principe,surge,50.0,nonpoor,0.0,0.0
+Sao Tome and Principe,surge,50.0,poor,0.0,0.0
+Sao Tome and Principe,surge,100.0,nonpoor,0.0,0.0
+Sao Tome and Principe,surge,100.0,poor,0.0,0.0
+Sao Tome and Principe,surge,250.0,nonpoor,0.0,0.0
+Sao Tome and Principe,surge,250.0,poor,0.0,0.0
+Sao Tome and Principe,surge,500.0,nonpoor,0.0,0.0
+Sao Tome and Principe,surge,500.0,poor,0.0,0.0
+Sao Tome and Principe,surge,1000.0,nonpoor,0.0,0.0
+Sao Tome and Principe,surge,1000.0,poor,0.0,0.0
+Sao Tome and Principe,surge,1500.0,nonpoor,0.0,0.0
+Sao Tome and Principe,surge,1500.0,poor,0.0,0.0
+Sao Tome and Principe,surge,2000.0,nonpoor,0.0,0.0
+Sao Tome and Principe,surge,2000.0,poor,0.0,0.0
+Sao Tome and Principe,tsunami,1.0,nonpoor,0.0,0.0
+Sao Tome and Principe,tsunami,1.0,poor,0.0,0.0
+Sao Tome and Principe,tsunami,20.0,nonpoor,0.0,0.0
+Sao Tome and Principe,tsunami,20.0,poor,0.0,0.0
+Sao Tome and Principe,tsunami,50.0,nonpoor,0.0,0.0
+Sao Tome and Principe,tsunami,50.0,poor,0.0,0.0
+Sao Tome and Principe,tsunami,100.0,nonpoor,0.0,0.0
+Sao Tome and Principe,tsunami,100.0,poor,0.0,0.0
+Sao Tome and Principe,tsunami,250.0,nonpoor,0.0,0.0
+Sao Tome and Principe,tsunami,250.0,poor,0.0,0.0
+Sao Tome and Principe,tsunami,500.0,nonpoor,0.0,0.0
+Sao Tome and Principe,tsunami,500.0,poor,0.0,0.0
+Sao Tome and Principe,tsunami,1000.0,nonpoor,0.0,0.0
+Sao Tome and Principe,tsunami,1000.0,poor,0.0,0.0
+Sao Tome and Principe,tsunami,1500.0,nonpoor,0.0,0.0
+Sao Tome and Principe,tsunami,1500.0,poor,0.0,0.0
+Sao Tome and Principe,tsunami,2000.0,nonpoor,0.0,0.0
+Sao Tome and Principe,tsunami,2000.0,poor,0.0,0.0
+Sao Tome and Principe,wind,1.0,nonpoor,0.0,0.0
+Sao Tome and Principe,wind,1.0,poor,0.0,0.0
+Sao Tome and Principe,wind,20.0,nonpoor,0.0,0.0
+Sao Tome and Principe,wind,20.0,poor,0.0,0.0
+Sao Tome and Principe,wind,50.0,nonpoor,0.0,0.0
+Sao Tome and Principe,wind,50.0,poor,0.0,0.0
+Sao Tome and Principe,wind,100.0,nonpoor,0.0,0.0
+Sao Tome and Principe,wind,100.0,poor,0.0,0.0
+Sao Tome and Principe,wind,250.0,nonpoor,0.0,0.0
+Sao Tome and Principe,wind,250.0,poor,0.0,0.0
+Sao Tome and Principe,wind,500.0,nonpoor,0.0,0.0
+Sao Tome and Principe,wind,500.0,poor,0.0,0.0
+Sao Tome and Principe,wind,1000.0,nonpoor,0.0,0.0
+Sao Tome and Principe,wind,1000.0,poor,0.0,0.0
+Sao Tome and Principe,wind,1500.0,nonpoor,0.0,0.0
+Sao Tome and Principe,wind,1500.0,poor,0.0,0.0
+Sao Tome and Principe,wind,2000.0,nonpoor,0.0,0.0
+Sao Tome and Principe,wind,2000.0,poor,0.0,0.0
 Senegal,earthquake,1.0,nonpoor,1.6503731032224597e-06,0.0
 Senegal,earthquake,1.0,poor,1.6503731032224597e-06,0.0
 Senegal,earthquake,20.0,nonpoor,2.0629663790280737e-06,0.0
@@ -13193,58 +13265,58 @@ United Kingdom,wind,1500.0,nonpoor,5.356165811103314e-05,1.0
 United Kingdom,wind,1500.0,poor,5.356165811103314e-05,1.0
 United Kingdom,wind,2000.0,nonpoor,0.0,1.0
 United Kingdom,wind,2000.0,poor,0.0,1.0
-United States,earthquake,1.0,nonpoor,8.781542738933756e-06,0.0
-United States,earthquake,1.0,poor,8.781542738933756e-06,0.0
-United States,earthquake,20.0,nonpoor,1.0976928423667193e-05,0.0
-United States,earthquake,20.0,poor,1.0976928423667193e-05,0.0
-United States,earthquake,50.0,nonpoor,2.185759029704868e-05,0.0
-United States,earthquake,50.0,poor,2.185759029704868e-05,0.0
-United States,earthquake,100.0,nonpoor,3.3571291427357955e-05,0.0
-United States,earthquake,100.0,poor,3.3571291427357955e-05,0.0
-United States,earthquake,250.0,nonpoor,5.38409602117731e-05,0.0
-United States,earthquake,250.0,poor,5.38409602117731e-05,0.0
-United States,earthquake,500.0,nonpoor,7.286678891576402e-05,0.0
-United States,earthquake,500.0,poor,7.286678891576402e-05,0.0
-United States,earthquake,1000.0,nonpoor,9.492231340696451e-05,0.0
-United States,earthquake,1000.0,poor,9.492231340696451e-05,0.0
-United States,earthquake,1500.0,nonpoor,0.00011143885757578544,0.0
-United States,earthquake,1500.0,poor,0.00011143885757578544,0.0
-United States,earthquake,2000.0,nonpoor,0.9000000000000001,0.0
-United States,earthquake,2000.0,poor,0.9000000000000001,0.0
-United States,flood,1.0,nonpoor,0.00010626860095117454,0.8
-United States,flood,1.0,poor,0.00011833482946931132,0.8
-United States,flood,20.0,nonpoor,0.0005982479012811106,0.8
-United States,flood,20.0,poor,0.000666175735304918,0.8
-United States,flood,50.0,nonpoor,0.001536064353389953,0.8
-United States,flood,50.0,poor,0.0017104762054391102,0.8
-United States,flood,100.0,nonpoor,0.0029751972664300804,0.8
-United States,flood,100.0,poor,0.003313014926415793,0.8
-United States,flood,250.0,nonpoor,0.006696830982645566,0.8
-United States,flood,250.0,poor,0.007457220149913009,0.8
-United States,flood,500.0,nonpoor,0.009065183312676339,0.8
-United States,flood,500.0,poor,0.010094486158771104,0.8
-United States,flood,1000.0,nonpoor,0.010587277350067351,0.8
-United States,flood,1000.0,poor,0.011789405793910331,0.8
-United States,flood,1500.0,nonpoor,0.011885750941226762,0.8
-United States,flood,1500.0,poor,0.013235314082952835,0.8
+United States,earthquake,1.0,nonpoor,9.05858254813601e-06,0.0
+United States,earthquake,1.0,poor,9.05858254813601e-06,0.0
+United States,earthquake,20.0,nonpoor,1.1323228185170012e-05,0.0
+United States,earthquake,20.0,poor,1.1323228185170012e-05,0.0
+United States,earthquake,50.0,nonpoor,2.2547152806226957e-05,0.0
+United States,earthquake,50.0,poor,2.2547152806226957e-05,0.0
+United States,earthquake,100.0,nonpoor,3.463039737812371e-05,0.0
+United States,earthquake,100.0,poor,3.463039737812371e-05,0.0
+United States,earthquake,250.0,nonpoor,5.553953297828759e-05,0.0
+United States,earthquake,250.0,poor,5.553953297828759e-05,0.0
+United States,earthquake,500.0,nonpoor,7.51655878738222e-05,0.0
+United States,earthquake,500.0,poor,7.51655878738222e-05,0.0
+United States,earthquake,1000.0,nonpoor,9.791691929537076e-05,0.0
+United States,earthquake,1000.0,poor,9.791691929537076e-05,0.0
+United States,earthquake,1500.0,nonpoor,0.00011495452683326507,0.0
+United States,earthquake,1500.0,poor,0.00011495452683326507,0.0
+United States,earthquake,2000.0,nonpoor,0.9,0.0
+United States,earthquake,2000.0,poor,0.9,0.0
+United States,flood,1.0,nonpoor,0.00010962115912995291,0.8
+United States,flood,1.0,poor,0.00012206805261161992,0.8
+United States,flood,20.0,nonpoor,0.000617121405556362,0.8
+United States,flood,20.0,poor,0.0006871922245586567,0.8
+United States,flood,50.0,nonpoor,0.0015845240589379109,0.8
+United States,flood,50.0,poor,0.001764438250114803,0.8
+United States,flood,100.0,nonpoor,0.003069058687769692,0.8
+United States,flood,100.0,poor,0.0034175338077086143,0.8
+United States,flood,250.0,nonpoor,0.006908102376846758,0.8
+United States,flood,250.0,poor,0.007692480275488844,0.8
+United States,flood,500.0,nonpoor,0.00935117140497278,0.8
+United States,flood,500.0,poor,0.010412946661960583,0.8
+United States,flood,1000.0,nonpoor,0.010921284412861668,0.8
+United States,flood,1000.0,poor,0.012161337563629129,0.8
+United States,flood,1500.0,nonpoor,0.012260722204349353,0.8
+United States,flood,1500.0,poor,0.013652861317793077,0.8
 United States,flood,2000.0,nonpoor,0.0,0.8
 United States,flood,2000.0,poor,0.0,0.8
-United States,surge,1.0,nonpoor,0.00020878231742480397,0.8
-United States,surge,1.0,poor,0.00023248842750854654,0.8
-United States,surge,20.0,nonpoor,0.0008524606438889445,0.8
-United States,surge,20.0,poor,0.0009492529686190682,0.8
-United States,surge,50.0,nonpoor,0.001509482804100583,0.8
-United States,surge,50.0,poor,0.0016808764640852843,0.8
-United States,surge,100.0,nonpoor,0.0027106003048988983,0.8
-United States,surge,100.0,poor,0.0030183744019275072,0.8
-United States,surge,250.0,nonpoor,0.0039810436458135425,0.8
-United States,surge,250.0,poor,0.004433069756453062,0.8
-United States,surge,500.0,nonpoor,0.0042588049142652335,0.8
-United States,surge,500.0,poor,0.00474236932416368,0.8
-United States,surge,1000.0,nonpoor,0.004814327451168614,0.8
-United States,surge,1000.0,poor,0.005360968459584913,0.8
-United States,surge,1500.0,nonpoor,0.00522132159914814,0.8
-United States,surge,1500.0,poor,0.0058141746057568475,0.8
+United States,surge,1.0,nonpoor,0.00021536897481562087,0.8
+United States,surge,1.0,poor,0.0002398229644473852,0.8
+United States,surge,20.0,nonpoor,0.0008793540430508441,0.8
+United States,surge,20.0,poor,0.000979199968722473,0.8
+United States,surge,50.0,nonpoor,0.0015571039158430611,0.8
+United States,surge,50.0,poor,0.0017339046971357438,0.8
+United States,surge,100.0,nonpoor,0.0027961142303693505,0.8
+United States,surge,100.0,poor,0.003113597974057215,0.8
+United States,surge,250.0,nonpoor,0.004106637474238724,0.8
+United States,surge,250.0,poor,0.004572924089116387,0.8
+United States,surge,500.0,nonpoor,0.004393161545662888,0.8
+United States,surge,500.0,poor,0.004891981428983027,0.8
+United States,surge,1000.0,nonpoor,0.004966209688511215,0.8
+United States,surge,1000.0,poor,0.005530096108716306,0.8
+United States,surge,1500.0,nonpoor,0.005386043673915068,0.8
+United States,surge,1500.0,poor,0.005997599986846896,0.8
 United States,surge,2000.0,nonpoor,0.0,0.8
 United States,surge,2000.0,poor,0.0,0.8
 United States,tsunami,1.0,nonpoor,0.0,0.8
@@ -13265,24 +13337,24 @@ United States,tsunami,1500.0,nonpoor,0.0,0.8
 United States,tsunami,1500.0,poor,0.0,0.8
 United States,tsunami,2000.0,nonpoor,0.0,0.8
 United States,tsunami,2000.0,poor,0.0,0.8
-United States,wind,1.0,nonpoor,0.00044140268040292695,0.8
-United States,wind,1.0,poor,0.00044140268040292695,0.8
-United States,wind,20.0,nonpoor,0.0026079320145904954,0.8
-United States,wind,20.0,poor,0.0026079320145904954,0.8
-United States,wind,50.0,nonpoor,0.005268835413326322,0.8
-United States,wind,50.0,poor,0.005268835413326322,0.8
-United States,wind,100.0,nonpoor,0.006922004360390629,0.8
-United States,wind,100.0,poor,0.006922004360390629,0.8
-United States,wind,250.0,nonpoor,0.008346864316141211,0.8
-United States,wind,250.0,poor,0.008346864316141211,0.8
-United States,wind,500.0,nonpoor,0.009338398664185437,0.8
-United States,wind,500.0,poor,0.009338398664185437,0.8
-United States,wind,1000.0,nonpoor,0.010069971706266554,0.8
-United States,wind,1000.0,poor,0.010069971706266554,0.8
-United States,wind,1500.0,nonpoor,0.01080154443063628,0.8
-United States,wind,1500.0,poor,0.01080154443063628,0.8
-United States,wind,2000.0,nonpoor,1.891878977369782e-16,0.8
-United States,wind,2000.0,poor,1.891878977369782e-16,0.8
+United States,wind,1.0,nonpoor,0.00045532803702825255,0.8
+United States,wind,1.0,poor,0.00045532803702825255,0.8
+United States,wind,20.0,nonpoor,0.0026902069643588693,0.8
+United States,wind,20.0,poor,0.0026902069643588693,0.8
+United States,wind,50.0,nonpoor,0.005435056452273659,0.8
+United States,wind,50.0,poor,0.005435056452273659,0.8
+United States,wind,100.0,nonpoor,0.007140379516591559,0.8
+United States,wind,100.0,poor,0.007140379516591559,0.8
+United States,wind,250.0,nonpoor,0.008610190905366653,0.8
+United States,wind,250.0,poor,0.008610190905366653,0.8
+United States,wind,500.0,nonpoor,0.00963300614502253,0.8
+United States,wind,500.0,poor,0.00963300614502253,0.8
+United States,wind,1000.0,nonpoor,0.010387658828349038,0.8
+United States,wind,1000.0,poor,0.010387658828349038,0.8
+United States,wind,1500.0,nonpoor,0.011142311183941008,0.8
+United States,wind,1500.0,poor,0.011142311183941008,0.8
+United States,wind,2000.0,nonpoor,1.951563910473908e-16,0.8
+United States,wind,2000.0,poor,1.951563910473908e-16,0.8
 Uruguay,earthquake,1.0,nonpoor,0.0,0.0
 Uruguay,earthquake,1.0,poor,0.0,0.0
 Uruguay,earthquake,20.0,nonpoor,0.0,0.0
