@@ -25,6 +25,8 @@ if use_published_inputs:
 
 results_policy_summary = pd.DataFrame(index=pd.read_csv(intermediate+"macro.csv", index_col='country').dropna().index)
 for pol_str in ['']:#,'_20dK0.4','_dK_rp200.4']:
+#for pol_str in ['_bbbf0.2', '_bbbf0.4', '_bbbf-0.2','_bbbf-0.4','_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4','_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K4', '_T_rebuild_K5']: #build back better and faster
+#for pol_str in ['','_bbb_uncor0.2', '_bbb_cor0.2']:
 
     print(pol_str)
     optionFee="tax"
@@ -67,7 +69,7 @@ for pol_str in ['']:#,'_20dK0.4','_dK_rp200.4']:
     #optionPDS: unif_poor, no, "prop", "prop_nonpoor"
 
     macro_event.to_csv('output/macro_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
-    cats_event_iah.to_csv('output/cats_event_iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv', header=True)
+    cats_event_iah.to_csv('output/cats_event_iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
 
     out = compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_iah=True)
 
