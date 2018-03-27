@@ -1,7 +1,7 @@
 from pandas_helper import *
-import numpy as np
 #from res_ind_lib import *
 import os, time
+import numpy as np
 
 def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=True):
     """Choses a policy by name, applies it to m,c,and/or h, and returns new values as well as a policy description"""
@@ -71,14 +71,6 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
 
         desc = "Reduce asset\nvulnerability\n(by 30%) of\npoor people\n(5% of the population)"
 
-        #Borrow abi
-    elif policy_name=="bbb_incl":
-            m.borrow_abi = policy_opt
-
-        #reconstruction to X years
-    elif policy_name=="bbb_fast":
-            m.T_rebuild_K = policy_opt
-
     #previously affected people see their v reduced 30%
     elif 'bbb' in policy_name:
         #h = pd.merge(h.reset_index(),c['v'].reset_index(),on=['country','income_cat'])
@@ -106,12 +98,12 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
 
         elif policy_name=="bbb_standard":
             disaster_years = 50
-
             h.fa *= (1-h.fa)**disaster_years
 
-        elif policy_name=='bbb_50yrstand':
+        elif policy_name=='bbb_50yearstandard':
             n_years = 20
             h = h.reset_index()
+            
             #h['p_annual_occur'] = (1./h.rp)
             #h['exp_val'] = n_years*h['p_annual_occur']
             # ^ expectation value of binomial dist is np
@@ -186,7 +178,7 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
         c.v = c.v.unstack().assign(nonpoor=lambda x:(x.nonpoor*(1-dv*f/n))).stack().clip(lower=0)
         desc = "Reduce asset\nvulnerability\n(by 30%) of\nnonpoor people\n(5% of the population)"
 
-    #10% of poor people see their fA reduced 10%
+    #10% or poor people see their fA reduced 10%
     elif policy_name=="fap":
         n = 0.2
         dfa = .05 #reduction in fa
@@ -201,7 +193,7 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
 
 
 
-    #10% of NONpoor people see their fA reduced 10%
+    #10% or NONpoor people see their fA reduced 10%
     elif policy_name=="far":
         n = 0.8
         dfa =.05 #fractionof nat pop would get the reduction

@@ -24,9 +24,8 @@ if use_published_inputs:
 #for pol_str in ['', '_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4']: #build back better
 
 results_policy_summary = pd.DataFrame(index=pd.read_csv(intermediate+"macro.csv", index_col='country').dropna().index)
-for pol_str in ['']:#,'_20dK0.4','_dK_rp200.4']:
-#for pol_str in ['_bbbf0.2', '_bbbf0.4', '_bbbf-0.2','_bbbf-0.4','_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4','_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K4', '_T_rebuild_K5']: #build back better and faster
-#for pol_str in ['','_bbb_uncor0.2', '_bbb_cor0.2']:
+for pol_str in ['','_bbb_incl1','_bbb_fast1','_bbb_fast2','_bbb_fast4','_bbb_fast5','_bbb_50yrstand1']:
+    ['bbb_incl',1], ['bbb_fast',1], ['bbb_fast',2], ['bbb_fast',4], ['bbb_fast',5], ['bbb_50yrstand',1]
 
     print(pol_str)
     optionFee="tax"
@@ -88,3 +87,4 @@ results_policy_summary.to_csv('output/results_policy_summary.csv')
     # iah1=pd.read_csv("output-old/iah.csv", index_col=event_level+["income_cat","affected_cat","helped_cat"])
     # print(((result1-results)/results).max())
     # print(((iah1-iah.reset_index().set_index(event_level+["income_cat","affected_cat","helped_cat"]))/iah1).max())
+print (model)
