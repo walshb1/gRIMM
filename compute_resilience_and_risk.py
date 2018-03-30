@@ -24,9 +24,8 @@ if use_published_inputs:
 #for pol_str in ['', '_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4']: #build back better
 
 results_policy_summary = pd.DataFrame(index=pd.read_csv(intermediate+"macro.csv", index_col='country').dropna().index)
-for pol_str in ['']:#,'_20dK0.4','_dK_rp200.4']:
-#for pol_str in ['_bbbf0.2', '_bbbf0.4', '_bbbf-0.2','_bbbf-0.4','_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4','_T_rebuild_K1', '_T_rebuild_K2', '_T_rebuild_K4', '_T_rebuild_K5']: #build back better and faster
-#for pol_str in ['','_bbb_uncor0.2', '_bbb_cor0.2']:
+#for pol_str in ['']:
+for pol_str in ['','_bbb_incl1','_bbb_fast1','_bbb_fast2','_bbb_fast4','_bbb_fast5','_bbb_50yrstand1']:
 
     print(pol_str)
     optionFee="tax"

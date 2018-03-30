@@ -67,12 +67,20 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
         dv = .3 #reduction in v
         f =.05 #fractionof nat pop would get the reduction
         c.v = c.v.unstack().assign(poor=lambda df:(df.poor*(1-dv*f/n))).stack().clip(lower=0)
-
         desc = "Reduce asset\nvulnerability\n(by 30%) of\npoor people\n(5% of the population)"
+
+    #Borrow abi
+    elif policy_name=="bbb_incl":
+        m.borrow_abi = policy_opt
+
+    #reconstruction to X years
+    elif policy_name=="bbb_fast":
+        m.T_rebuild_K = policy_opt
+
 
     #previously affected people see their v reduced 30%
     elif 'bbb' in policy_name:
-        h = pd.merge(h.reset_index(),c['v'].reset_index(),on=['country','income_cat'])
+        #h = pd.merge(h.reset_index(),c['v'].reset_index(),on=['country','income_cat'])
 
         if policy_name=="bbb":
             dv = policy_opt #reduction in v
@@ -97,8 +105,35 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
 
         elif policy_name=="bb_standard":
             disaster_years = 20
-
             h.fa *= (1-h.fa)**disaster_years
+
+        elif policy_name=='bbb_50yrstand':
+            n_years = 20
+            h = h.reset_index()
+            #h['p_annual_occur'] = (1./h.rp)
+            #h['exp_val'] = n_years*h['p_annual_occur']
+            # ^ expectation value of binomial dist is np
+            #h['fa_scale_fac'] = (1.-h['fa'])**h['exp_val']
+            #h['cum_fa_scale_fac'] = h.groupby(['country','hazard','income_cat'])['fa_scale_fac'].transform('prod')
+            # These 2 approaches (above and below) produce near-identical (within 0.1%) results.
+            #h['dfa_1yr'] = (1.-h.fa/h.rp)
+            # scale_fac on fa, including probability that the event occurs in a single year
+            # --> but this doesn't include the fact that fa is going down each year...
+
+            h['tmp_fa'] = h['fa'].copy()
+            for iyr in range(n_years): h['tmp_fa'] *= (1.-h['tmp_fa']/h['rp'])
+            # calculate scale fac on fa after n_years
+            # --> updates tmp_fa each step of the way, so this is recursive
+
+            h['dfa'] = h['tmp_fa']/h['fa']
+            h['cum_dfa'] = h.groupby(['country','hazard','income_cat'])['dfa'].transform('prod')
+            # cum_scale_fac includes all rps and their probabilities...
+            # --> If a hh is affected by the 1-year or the 2000-year event, it rebuilds in such a way that it is invulnerable to the 50-year event
+
+            h.loc[h.rp<=50,'fa'] *= h.loc[h.rp<=50,'cum_dfa']
+
+            h = h.drop(['dfa','tmp_fa','cum_dfa'],axis=1)
+            #print(h.head())
 
         #build back better & faster - previously affected people see their v reduced 50%, T_rebuild is reduced too
         elif policy_name=="bbbf":
