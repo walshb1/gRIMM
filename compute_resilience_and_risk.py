@@ -26,6 +26,10 @@ if use_published_inputs:
 #for pol_str in ['', '_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4']: #build back better
 
 results_policy_summary = pd.DataFrame(index=pd.read_csv(intermediate+"macro.csv", index_col='country').dropna().index)
+<<<<<<< HEAD
+=======
+#for pol_str in ['']:
+>>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 for pol_str in ['','_bbb_incl1','_bbb_fast1','_bbb_fast2','_bbb_fast4','_bbb_fast5','_bbb_50yrstand1']:
 
     print(pol_str)

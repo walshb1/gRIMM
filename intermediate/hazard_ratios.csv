@@ -287,6 +287,24 @@ Antigua and Barbuda,earthquake,1500.0,nonpoor,0.9000000000000001,0.2247414624325
 Antigua and Barbuda,earthquake,1500.0,poor,0.9000000000000001,0.3099882240448331,0.0
 Antigua and Barbuda,earthquake,2000.0,nonpoor,0.0,0.21750000000000005,0.0
 Antigua and Barbuda,earthquake,2000.0,poor,0.0,0.3,0.0
+Antigua and Barbuda,flood,1.0,nonpoor,0.0,0.21750000000000005,0.4
+Antigua and Barbuda,flood,1.0,poor,0.0,0.3,0.4
+Antigua and Barbuda,flood,20.0,nonpoor,0.0,0.21750000000000005,0.4
+Antigua and Barbuda,flood,20.0,poor,0.0,0.3,0.4
+Antigua and Barbuda,flood,50.0,nonpoor,0.0,0.21750000000000005,0.4
+Antigua and Barbuda,flood,50.0,poor,0.0,0.3,0.4
+Antigua and Barbuda,flood,100.0,nonpoor,0.0,0.21750000000000005,0.4
+Antigua and Barbuda,flood,100.0,poor,0.0,0.3,0.4
+Antigua and Barbuda,flood,250.0,nonpoor,0.0,0.21750000000000005,0.4
+Antigua and Barbuda,flood,250.0,poor,0.0,0.3,0.4
+Antigua and Barbuda,flood,500.0,nonpoor,0.0,0.21750000000000005,0.4
+Antigua and Barbuda,flood,500.0,poor,0.0,0.3,0.4
+Antigua and Barbuda,flood,1000.0,nonpoor,0.0,0.21750000000000005,0.4
+Antigua and Barbuda,flood,1000.0,poor,0.0,0.3,0.4
+Antigua and Barbuda,flood,1500.0,nonpoor,0.0,0.21750000000000005,0.4
+Antigua and Barbuda,flood,1500.0,poor,0.0,0.3,0.4
+Antigua and Barbuda,flood,2000.0,nonpoor,0.0,0.21750000000000005,0.4
+Antigua and Barbuda,flood,2000.0,poor,0.0,0.3,0.4
 Antigua and Barbuda,surge,1.0,nonpoor,0.023001023582204003,0.21750000000000005,0.4
 Antigua and Barbuda,surge,1.0,poor,0.02561266619544816,0.3,0.4
 Antigua and Barbuda,surge,20.0,nonpoor,0.3179049592197386,0.21750000000000005,0.4
@@ -2609,6 +2627,27 @@ Comoros,earthquake,1500.0,nonpoor,0.08750125123977588,0.5424472127146907,0.0
 Comoros,earthquake,1500.0,poor,0.08750125123977588,0.3,0.0
 Comoros,earthquake,2000.0,nonpoor,0.0,0.5424472127146907,0.0
 Comoros,earthquake,2000.0,poor,0.0,0.3,0.0
+<<<<<<< HEAD
+=======
+Comoros,flood,1.0,nonpoor,0.0,0.5424472127146907,0.6000000000000001
+Comoros,flood,1.0,poor,0.0,0.3,0.6000000000000001
+Comoros,flood,20.0,nonpoor,0.0,0.5424472127146907,0.6000000000000001
+Comoros,flood,20.0,poor,0.0,0.3,0.6000000000000001
+Comoros,flood,50.0,nonpoor,0.0,0.5424472127146907,0.6000000000000001
+Comoros,flood,50.0,poor,0.0,0.3,0.6000000000000001
+Comoros,flood,100.0,nonpoor,0.0,0.5424472127146907,0.6000000000000001
+Comoros,flood,100.0,poor,0.0,0.3,0.6000000000000001
+Comoros,flood,250.0,nonpoor,0.0,0.5424472127146907,0.6000000000000001
+Comoros,flood,250.0,poor,0.0,0.3,0.6000000000000001
+Comoros,flood,500.0,nonpoor,0.0,0.5424472127146907,0.6000000000000001
+Comoros,flood,500.0,poor,0.0,0.3,0.6000000000000001
+Comoros,flood,1000.0,nonpoor,0.0,0.5424472127146907,0.6000000000000001
+Comoros,flood,1000.0,poor,0.0,0.3,0.6000000000000001
+Comoros,flood,1500.0,nonpoor,0.0,0.5424472127146907,0.6000000000000001
+Comoros,flood,1500.0,poor,0.0,0.3,0.6000000000000001
+Comoros,flood,2000.0,nonpoor,0.0,0.5424472127146907,0.6000000000000001
+Comoros,flood,2000.0,poor,0.0,0.3,0.6000000000000001
+>>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 Comoros,surge,1.0,nonpoor,0.00018873107558442268,0.5424472127146907,0.6000000000000001
 Comoros,surge,1.0,poor,0.00021016047491867842,0.3,0.6000000000000001
 Comoros,surge,20.0,nonpoor,0.001457574170071063,0.5424472127146907,0.6000000000000001
@@ -3491,6 +3530,27 @@ Dominica,earthquake,1500.0,nonpoor,0.9,0.3772089545055828,0.0
 Dominica,earthquake,1500.0,poor,0.9,0.3842536039106105,0.0
 Dominica,earthquake,2000.0,nonpoor,0.0,0.2945,0.0
 Dominica,earthquake,2000.0,poor,0.0,0.2999999999999999,0.0
+<<<<<<< HEAD
+=======
+Dominica,flood,1.0,nonpoor,0.0,0.2945,0.0
+Dominica,flood,1.0,poor,0.0,0.2999999999999999,0.0
+Dominica,flood,20.0,nonpoor,0.0,0.2945,0.0
+Dominica,flood,20.0,poor,0.0,0.2999999999999999,0.0
+Dominica,flood,50.0,nonpoor,0.0,0.2945,0.0
+Dominica,flood,50.0,poor,0.0,0.2999999999999999,0.0
+Dominica,flood,100.0,nonpoor,0.0,0.2945,0.0
+Dominica,flood,100.0,poor,0.0,0.2999999999999999,0.0
+Dominica,flood,250.0,nonpoor,0.0,0.2945,0.0
+Dominica,flood,250.0,poor,0.0,0.2999999999999999,0.0
+Dominica,flood,500.0,nonpoor,0.0,0.2945,0.0
+Dominica,flood,500.0,poor,0.0,0.2999999999999999,0.0
+Dominica,flood,1000.0,nonpoor,0.0,0.2945,0.0
+Dominica,flood,1000.0,poor,0.0,0.2999999999999999,0.0
+Dominica,flood,1500.0,nonpoor,0.0,0.2945,0.0
+Dominica,flood,1500.0,poor,0.0,0.2999999999999999,0.0
+Dominica,flood,2000.0,nonpoor,0.0,0.2945,0.0
+Dominica,flood,2000.0,poor,0.0,0.2999999999999999,0.0
+>>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 Dominica,surge,1.0,nonpoor,0.02857588091494773,0.2945,0.0
 Dominica,surge,1.0,poor,0.03182051861734153,0.2999999999999999,0.0
 Dominica,surge,20.0,nonpoor,0.29815573019494446,0.2945,0.0
@@ -4103,6 +4163,27 @@ Fiji,earthquake,1500.0,nonpoor,0.10427424255340018,0.27999999999999997,0.0
 Fiji,earthquake,1500.0,poor,0.10427424255340018,0.3,0.0
 Fiji,earthquake,2000.0,nonpoor,0.0,0.27999999999999997,0.0
 Fiji,earthquake,2000.0,poor,0.0,0.3,0.0
+<<<<<<< HEAD
+=======
+Fiji,flood,1.0,nonpoor,0.0,0.27999999999999997,1.0
+Fiji,flood,1.0,poor,0.0,0.3,1.0
+Fiji,flood,20.0,nonpoor,0.0,0.27999999999999997,1.0
+Fiji,flood,20.0,poor,0.0,0.3,1.0
+Fiji,flood,50.0,nonpoor,0.0,0.27999999999999997,1.0
+Fiji,flood,50.0,poor,0.0,0.3,1.0
+Fiji,flood,100.0,nonpoor,0.0,0.27999999999999997,1.0
+Fiji,flood,100.0,poor,0.0,0.3,1.0
+Fiji,flood,250.0,nonpoor,0.0,0.27999999999999997,1.0
+Fiji,flood,250.0,poor,0.0,0.3,1.0
+Fiji,flood,500.0,nonpoor,0.0,0.27999999999999997,1.0
+Fiji,flood,500.0,poor,0.0,0.3,1.0
+Fiji,flood,1000.0,nonpoor,0.0,0.27999999999999997,1.0
+Fiji,flood,1000.0,poor,0.0,0.3,1.0
+Fiji,flood,1500.0,nonpoor,0.0,0.27999999999999997,1.0
+Fiji,flood,1500.0,poor,0.0,0.3,1.0
+Fiji,flood,2000.0,nonpoor,0.0,0.27999999999999997,1.0
+Fiji,flood,2000.0,poor,0.0,0.3,1.0
+>>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 Fiji,surge,1.0,nonpoor,0.015653080719924623,0.27999999999999997,1.0
 Fiji,surge,1.0,poor,0.014648951517446614,0.3,1.0
 Fiji,surge,20.0,nonpoor,0.2011677006538361,0.27999999999999997,1.0
@@ -5435,6 +5516,24 @@ Iceland,earthquake,1500.0,nonpoor,0.1886432837569072,0.25887037499999993,0.0
 Iceland,earthquake,1500.0,poor,0.1886432837569072,0.3000000000000001,0.0
 Iceland,earthquake,2000.0,nonpoor,0.0,0.25887037499999993,0.0
 Iceland,earthquake,2000.0,poor,0.0,0.3000000000000001,0.0
+Iceland,flood,1.0,nonpoor,0.0,0.25887037499999993,0.0
+Iceland,flood,1.0,poor,0.0,0.3000000000000001,0.0
+Iceland,flood,20.0,nonpoor,0.0,0.25887037499999993,0.0
+Iceland,flood,20.0,poor,0.0,0.3000000000000001,0.0
+Iceland,flood,50.0,nonpoor,0.0,0.25887037499999993,0.0
+Iceland,flood,50.0,poor,0.0,0.3000000000000001,0.0
+Iceland,flood,100.0,nonpoor,0.0,0.25887037499999993,0.0
+Iceland,flood,100.0,poor,0.0,0.3000000000000001,0.0
+Iceland,flood,250.0,nonpoor,0.0,0.25887037499999993,0.0
+Iceland,flood,250.0,poor,0.0,0.3000000000000001,0.0
+Iceland,flood,500.0,nonpoor,0.0,0.25887037499999993,0.0
+Iceland,flood,500.0,poor,0.0,0.3000000000000001,0.0
+Iceland,flood,1000.0,nonpoor,0.0,0.25887037499999993,0.0
+Iceland,flood,1000.0,poor,0.0,0.3000000000000001,0.0
+Iceland,flood,1500.0,nonpoor,0.0,0.25887037499999993,0.0
+Iceland,flood,1500.0,poor,0.0,0.3000000000000001,0.0
+Iceland,flood,2000.0,nonpoor,0.0,0.25887037499999993,0.0
+Iceland,flood,2000.0,poor,0.0,0.3000000000000001,0.0
 Iceland,surge,1.0,nonpoor,0.0,0.25887037499999993,0.0
 Iceland,surge,1.0,poor,0.0,0.3000000000000001,0.0
 Iceland,surge,20.0,nonpoor,0.0,0.25887037499999993,0.0
@@ -6587,6 +6686,27 @@ Kiribati,earthquake,1500.0,nonpoor,0.0,0.5444999999999998,0.0
 Kiribati,earthquake,1500.0,poor,0.0,0.3,0.0
 Kiribati,earthquake,2000.0,nonpoor,0.0,0.5444999999999998,0.0
 Kiribati,earthquake,2000.0,poor,0.0,0.3,0.0
+<<<<<<< HEAD
+=======
+Kiribati,flood,1.0,nonpoor,0.0,0.5444999999999998,0.0
+Kiribati,flood,1.0,poor,0.0,0.3,0.0
+Kiribati,flood,20.0,nonpoor,0.0,0.5444999999999998,0.0
+Kiribati,flood,20.0,poor,0.0,0.3,0.0
+Kiribati,flood,50.0,nonpoor,0.0,0.5444999999999998,0.0
+Kiribati,flood,50.0,poor,0.0,0.3,0.0
+Kiribati,flood,100.0,nonpoor,0.0,0.5444999999999998,0.0
+Kiribati,flood,100.0,poor,0.0,0.3,0.0
+Kiribati,flood,250.0,nonpoor,0.0,0.5444999999999998,0.0
+Kiribati,flood,250.0,poor,0.0,0.3,0.0
+Kiribati,flood,500.0,nonpoor,0.0,0.5444999999999998,0.0
+Kiribati,flood,500.0,poor,0.0,0.3,0.0
+Kiribati,flood,1000.0,nonpoor,0.0,0.5444999999999998,0.0
+Kiribati,flood,1000.0,poor,0.0,0.3,0.0
+Kiribati,flood,1500.0,nonpoor,0.0,0.5444999999999998,0.0
+Kiribati,flood,1500.0,poor,0.0,0.3,0.0
+Kiribati,flood,2000.0,nonpoor,0.0,0.5444999999999998,0.0
+Kiribati,flood,2000.0,poor,0.0,0.3,0.0
+>>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 Kiribati,surge,1.0,nonpoor,0.0,0.5444999999999998,0.0
 Kiribati,surge,1.0,poor,0.0,0.3,0.0
 Kiribati,surge,20.0,nonpoor,0.0,0.5444999999999998,0.0
@@ -7829,6 +7949,27 @@ Maldives,earthquake,1500.0,nonpoor,0.0,0.5444999999999998,0.0
 Maldives,earthquake,1500.0,poor,0.0,0.3,0.0
 Maldives,earthquake,2000.0,nonpoor,0.0,0.5444999999999998,0.0
 Maldives,earthquake,2000.0,poor,0.0,0.3,0.0
+<<<<<<< HEAD
+=======
+Maldives,flood,1.0,nonpoor,0.0,0.5444999999999998,0.4
+Maldives,flood,1.0,poor,0.0,0.3,0.4
+Maldives,flood,20.0,nonpoor,0.0,0.5444999999999998,0.4
+Maldives,flood,20.0,poor,0.0,0.3,0.4
+Maldives,flood,50.0,nonpoor,0.0,0.5444999999999998,0.4
+Maldives,flood,50.0,poor,0.0,0.3,0.4
+Maldives,flood,100.0,nonpoor,0.0,0.5444999999999998,0.4
+Maldives,flood,100.0,poor,0.0,0.3,0.4
+Maldives,flood,250.0,nonpoor,0.0,0.5444999999999998,0.4
+Maldives,flood,250.0,poor,0.0,0.3,0.4
+Maldives,flood,500.0,nonpoor,0.0,0.5444999999999998,0.4
+Maldives,flood,500.0,poor,0.0,0.3,0.4
+Maldives,flood,1000.0,nonpoor,0.0,0.5444999999999998,0.4
+Maldives,flood,1000.0,poor,0.0,0.3,0.4
+Maldives,flood,1500.0,nonpoor,0.0,0.5444999999999998,0.4
+Maldives,flood,1500.0,poor,0.0,0.3,0.4
+Maldives,flood,2000.0,nonpoor,0.0,0.5444999999999998,0.4
+Maldives,flood,2000.0,poor,0.0,0.3,0.4
+>>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 Maldives,surge,1.0,nonpoor,0.0,0.5444999999999998,0.4
 Maldives,surge,1.0,poor,0.0,0.3,0.4
 Maldives,surge,20.0,nonpoor,0.0,0.5444999999999998,0.4
@@ -7991,6 +8132,24 @@ Marshall Islands,earthquake,1500.0,nonpoor,0.0,0.26392675,0.0
 Marshall Islands,earthquake,1500.0,poor,0.0,0.2999999999999999,0.0
 Marshall Islands,earthquake,2000.0,nonpoor,0.0,0.26392675,0.0
 Marshall Islands,earthquake,2000.0,poor,0.0,0.2999999999999999,0.0
+Marshall Islands,flood,1.0,nonpoor,0.0,0.26392675,0.4
+Marshall Islands,flood,1.0,poor,0.0,0.2999999999999999,0.4
+Marshall Islands,flood,20.0,nonpoor,0.0,0.26392675,0.4
+Marshall Islands,flood,20.0,poor,0.0,0.2999999999999999,0.4
+Marshall Islands,flood,50.0,nonpoor,0.0,0.26392675,0.4
+Marshall Islands,flood,50.0,poor,0.0,0.2999999999999999,0.4
+Marshall Islands,flood,100.0,nonpoor,0.0,0.26392675,0.4
+Marshall Islands,flood,100.0,poor,0.0,0.2999999999999999,0.4
+Marshall Islands,flood,250.0,nonpoor,0.0,0.26392675,0.4
+Marshall Islands,flood,250.0,poor,0.0,0.2999999999999999,0.4
+Marshall Islands,flood,500.0,nonpoor,0.0,0.26392675,0.4
+Marshall Islands,flood,500.0,poor,0.0,0.2999999999999999,0.4
+Marshall Islands,flood,1000.0,nonpoor,0.0,0.26392675,0.4
+Marshall Islands,flood,1000.0,poor,0.0,0.2999999999999999,0.4
+Marshall Islands,flood,1500.0,nonpoor,0.0,0.26392675,0.4
+Marshall Islands,flood,1500.0,poor,0.0,0.2999999999999999,0.4
+Marshall Islands,flood,2000.0,nonpoor,0.0,0.26392675,0.4
+Marshall Islands,flood,2000.0,poor,0.0,0.2999999999999999,0.4
 Marshall Islands,surge,1.0,nonpoor,0.0,0.26392675,0.4
 Marshall Islands,surge,1.0,poor,0.0,0.2999999999999999,0.4
 Marshall Islands,surge,20.0,nonpoor,0.0,0.26392675,0.4
@@ -8153,6 +8312,24 @@ Mauritius,earthquake,1500.0,nonpoor,0.0,0.3,0.0
 Mauritius,earthquake,1500.0,poor,0.0,0.2999999999999999,0.0
 Mauritius,earthquake,2000.0,nonpoor,0.0,0.3,0.0
 Mauritius,earthquake,2000.0,poor,0.0,0.2999999999999999,0.0
+Mauritius,flood,1.0,nonpoor,0.0,0.3,0.8
+Mauritius,flood,1.0,poor,0.0,0.2999999999999999,0.8
+Mauritius,flood,20.0,nonpoor,0.0,0.3,0.8
+Mauritius,flood,20.0,poor,0.0,0.2999999999999999,0.8
+Mauritius,flood,50.0,nonpoor,0.0,0.3,0.8
+Mauritius,flood,50.0,poor,0.0,0.2999999999999999,0.8
+Mauritius,flood,100.0,nonpoor,0.0,0.3,0.8
+Mauritius,flood,100.0,poor,0.0,0.2999999999999999,0.8
+Mauritius,flood,250.0,nonpoor,0.0,0.3,0.8
+Mauritius,flood,250.0,poor,0.0,0.2999999999999999,0.8
+Mauritius,flood,500.0,nonpoor,0.0,0.3,0.8
+Mauritius,flood,500.0,poor,0.0,0.2999999999999999,0.8
+Mauritius,flood,1000.0,nonpoor,0.0,0.3,0.8
+Mauritius,flood,1000.0,poor,0.0,0.2999999999999999,0.8
+Mauritius,flood,1500.0,nonpoor,0.0,0.3,0.8
+Mauritius,flood,1500.0,poor,0.0,0.2999999999999999,0.8
+Mauritius,flood,2000.0,nonpoor,0.0,0.3,0.8
+Mauritius,flood,2000.0,poor,0.0,0.2999999999999999,0.8
 Mauritius,surge,1.0,nonpoor,0.0017898985481715794,0.3,0.8
 Mauritius,surge,1.0,poor,0.0019931319088558183,0.2999999999999999,0.8
 Mauritius,surge,20.0,nonpoor,0.014490721466479424,0.3,0.8
@@ -8315,6 +8492,27 @@ Mexico,wind,2000.0,poor,0.0,0.3,0.8
 "Micronesia, Fed. Sts.",earthquake,1500.0,poor,0.010757748106130918,0.3,0.0
 "Micronesia, Fed. Sts.",earthquake,2000.0,nonpoor,2.552012683504703e-17,0.5444999999999998,0.0
 "Micronesia, Fed. Sts.",earthquake,2000.0,poor,2.552012683504703e-17,0.3,0.0
+<<<<<<< HEAD
+=======
+"Micronesia, Fed. Sts.",flood,1.0,nonpoor,0.0,0.5444999999999998,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,1.0,poor,0.0,0.3,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,20.0,nonpoor,0.0,0.5444999999999998,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,20.0,poor,0.0,0.3,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,50.0,nonpoor,0.0,0.5444999999999998,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,50.0,poor,0.0,0.3,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,100.0,nonpoor,0.0,0.5444999999999998,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,100.0,poor,0.0,0.3,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,250.0,nonpoor,0.0,0.5444999999999998,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,250.0,poor,0.0,0.3,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,500.0,nonpoor,0.0,0.5444999999999998,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,500.0,poor,0.0,0.3,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,1000.0,nonpoor,0.0,0.5444999999999998,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,1000.0,poor,0.0,0.3,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,1500.0,nonpoor,0.0,0.5444999999999998,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,1500.0,poor,0.0,0.3,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,2000.0,nonpoor,0.0,0.5444999999999998,0.6000000000000001
+"Micronesia, Fed. Sts.",flood,2000.0,poor,0.0,0.3,0.6000000000000001
+>>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 "Micronesia, Fed. Sts.",surge,1.0,nonpoor,0.001082890576624439,0.5444999999999998,0.6000000000000001
 "Micronesia, Fed. Sts.",surge,1.0,poor,0.0012058469818159478,0.3,0.6000000000000001
 "Micronesia, Fed. Sts.",surge,20.0,nonpoor,0.002527262354151663,0.5444999999999998,0.6000000000000001
@@ -9467,6 +9665,27 @@ Norway,earthquake,1500.0,nonpoor,0.0,0.1595312411807868,0.0
 Norway,earthquake,1500.0,poor,0.0,0.3,0.0
 Norway,earthquake,2000.0,nonpoor,0.06218488538326844,0.1595312411807868,0.0
 Norway,earthquake,2000.0,poor,0.06218488538326844,0.3,0.0
+<<<<<<< HEAD
+=======
+Norway,flood,1.0,nonpoor,0.0,0.1595312411807868,0.8
+Norway,flood,1.0,poor,0.0,0.3,0.8
+Norway,flood,20.0,nonpoor,0.0,0.1595312411807868,0.8
+Norway,flood,20.0,poor,0.0,0.3,0.8
+Norway,flood,50.0,nonpoor,0.0,0.1595312411807868,0.8
+Norway,flood,50.0,poor,0.0,0.3,0.8
+Norway,flood,100.0,nonpoor,0.0,0.1595312411807868,0.8
+Norway,flood,100.0,poor,0.0,0.3,0.8
+Norway,flood,250.0,nonpoor,0.0,0.1595312411807868,0.8
+Norway,flood,250.0,poor,0.0,0.3,0.8
+Norway,flood,500.0,nonpoor,0.0,0.1595312411807868,0.8
+Norway,flood,500.0,poor,0.0,0.3,0.8
+Norway,flood,1000.0,nonpoor,0.0,0.1595312411807868,0.8
+Norway,flood,1000.0,poor,0.0,0.3,0.8
+Norway,flood,1500.0,nonpoor,0.0,0.1595312411807868,0.8
+Norway,flood,1500.0,poor,0.0,0.3,0.8
+Norway,flood,2000.0,nonpoor,0.0,0.1595312411807868,0.8
+Norway,flood,2000.0,poor,0.0,0.3,0.8
+>>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 Norway,surge,1.0,nonpoor,0.0,0.1595312411807868,0.8
 Norway,surge,1.0,poor,0.0,0.3,0.8
 Norway,surge,20.0,nonpoor,0.0,0.1595312411807868,0.8
@@ -10529,6 +10748,27 @@ Sao Tome and Principe,earthquake,1500.0,nonpoor,0.010372093883866266,0.448999999
 Sao Tome and Principe,earthquake,1500.0,poor,0.010372093883866266,0.3000000000000001,0.0
 Sao Tome and Principe,earthquake,2000.0,nonpoor,1.5524655148950252e-17,0.44899999999999995,0.0
 Sao Tome and Principe,earthquake,2000.0,poor,1.5524655148950252e-17,0.3000000000000001,0.0
+<<<<<<< HEAD
+=======
+Sao Tome and Principe,flood,1.0,nonpoor,0.0,0.44899999999999995,0.0
+Sao Tome and Principe,flood,1.0,poor,0.0,0.3000000000000001,0.0
+Sao Tome and Principe,flood,20.0,nonpoor,0.0,0.44899999999999995,0.0
+Sao Tome and Principe,flood,20.0,poor,0.0,0.3000000000000001,0.0
+Sao Tome and Principe,flood,50.0,nonpoor,0.0,0.44899999999999995,0.0
+Sao Tome and Principe,flood,50.0,poor,0.0,0.3000000000000001,0.0
+Sao Tome and Principe,flood,100.0,nonpoor,0.0,0.44899999999999995,0.0
+Sao Tome and Principe,flood,100.0,poor,0.0,0.3000000000000001,0.0
+Sao Tome and Principe,flood,250.0,nonpoor,0.0,0.44899999999999995,0.0
+Sao Tome and Principe,flood,250.0,poor,0.0,0.3000000000000001,0.0
+Sao Tome and Principe,flood,500.0,nonpoor,0.0,0.44899999999999995,0.0
+Sao Tome and Principe,flood,500.0,poor,0.0,0.3000000000000001,0.0
+Sao Tome and Principe,flood,1000.0,nonpoor,0.0,0.44899999999999995,0.0
+Sao Tome and Principe,flood,1000.0,poor,0.0,0.3000000000000001,0.0
+Sao Tome and Principe,flood,1500.0,nonpoor,0.0,0.44899999999999995,0.0
+Sao Tome and Principe,flood,1500.0,poor,0.0,0.3000000000000001,0.0
+Sao Tome and Principe,flood,2000.0,nonpoor,0.0,0.44899999999999995,0.0
+Sao Tome and Principe,flood,2000.0,poor,0.0,0.3000000000000001,0.0
+>>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 Sao Tome and Principe,surge,1.0,nonpoor,0.0,0.44899999999999995,0.0
 Sao Tome and Principe,surge,1.0,poor,0.0,0.3000000000000001,0.0
 Sao Tome and Principe,surge,20.0,nonpoor,0.0,0.44899999999999995,0.0
@@ -10781,6 +11021,24 @@ Seychelles,earthquake,1500.0,nonpoor,0.0,0.3,0.0
 Seychelles,earthquake,1500.0,poor,0.0,0.2999999999999999,0.0
 Seychelles,earthquake,2000.0,nonpoor,0.0,0.3,0.0
 Seychelles,earthquake,2000.0,poor,0.0,0.2999999999999999,0.0
+Seychelles,flood,1.0,nonpoor,0.0,0.3,0.8
+Seychelles,flood,1.0,poor,0.0,0.2999999999999999,0.8
+Seychelles,flood,20.0,nonpoor,0.0,0.3,0.8
+Seychelles,flood,20.0,poor,0.0,0.2999999999999999,0.8
+Seychelles,flood,50.0,nonpoor,0.0,0.3,0.8
+Seychelles,flood,50.0,poor,0.0,0.2999999999999999,0.8
+Seychelles,flood,100.0,nonpoor,0.0,0.3,0.8
+Seychelles,flood,100.0,poor,0.0,0.2999999999999999,0.8
+Seychelles,flood,250.0,nonpoor,0.0,0.3,0.8
+Seychelles,flood,250.0,poor,0.0,0.2999999999999999,0.8
+Seychelles,flood,500.0,nonpoor,0.0,0.3,0.8
+Seychelles,flood,500.0,poor,0.0,0.2999999999999999,0.8
+Seychelles,flood,1000.0,nonpoor,0.0,0.3,0.8
+Seychelles,flood,1000.0,poor,0.0,0.2999999999999999,0.8
+Seychelles,flood,1500.0,nonpoor,0.0,0.3,0.8
+Seychelles,flood,1500.0,poor,0.0,0.2999999999999999,0.8
+Seychelles,flood,2000.0,nonpoor,0.0,0.3,0.8
+Seychelles,flood,2000.0,poor,0.0,0.2999999999999999,0.8
 Seychelles,surge,1.0,nonpoor,0.0,0.3,0.8
 Seychelles,surge,1.0,poor,0.0,0.2999999999999999,0.8
 Seychelles,surge,20.0,nonpoor,0.0,0.3,0.8
@@ -11123,6 +11381,27 @@ Solomon Islands,earthquake,1500.0,nonpoor,0.12327676514025653,0.474081625,0.0
 Solomon Islands,earthquake,1500.0,poor,0.12327676514025653,0.3,0.0
 Solomon Islands,earthquake,2000.0,nonpoor,0.0,0.474081625,0.0
 Solomon Islands,earthquake,2000.0,poor,0.0,0.3,0.0
+<<<<<<< HEAD
+=======
+Solomon Islands,flood,1.0,nonpoor,0.0,0.474081625,0.6000000000000001
+Solomon Islands,flood,1.0,poor,0.0,0.3,0.6000000000000001
+Solomon Islands,flood,20.0,nonpoor,0.0,0.474081625,0.6000000000000001
+Solomon Islands,flood,20.0,poor,0.0,0.3,0.6000000000000001
+Solomon Islands,flood,50.0,nonpoor,0.0,0.474081625,0.6000000000000001
+Solomon Islands,flood,50.0,poor,0.0,0.3,0.6000000000000001
+Solomon Islands,flood,100.0,nonpoor,0.0,0.474081625,0.6000000000000001
+Solomon Islands,flood,100.0,poor,0.0,0.3,0.6000000000000001
+Solomon Islands,flood,250.0,nonpoor,0.0,0.474081625,0.6000000000000001
+Solomon Islands,flood,250.0,poor,0.0,0.3,0.6000000000000001
+Solomon Islands,flood,500.0,nonpoor,0.0,0.474081625,0.6000000000000001
+Solomon Islands,flood,500.0,poor,0.0,0.3,0.6000000000000001
+Solomon Islands,flood,1000.0,nonpoor,0.0,0.474081625,0.6000000000000001
+Solomon Islands,flood,1000.0,poor,0.0,0.3,0.6000000000000001
+Solomon Islands,flood,1500.0,nonpoor,0.0,0.474081625,0.6000000000000001
+Solomon Islands,flood,1500.0,poor,0.0,0.3,0.6000000000000001
+Solomon Islands,flood,2000.0,nonpoor,0.0,0.474081625,0.6000000000000001
+Solomon Islands,flood,2000.0,poor,0.0,0.3,0.6000000000000001
+>>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 Solomon Islands,surge,1.0,nonpoor,0.0057681642315986215,0.474081625,0.6000000000000001
 Solomon Islands,surge,1.0,poor,0.006423108280223009,0.3,0.6000000000000001
 Solomon Islands,surge,20.0,nonpoor,0.07305386107905573,0.474081625,0.6000000000000001
@@ -11555,6 +11834,27 @@ St. Lucia,earthquake,1500.0,nonpoor,0.6738886433249672,0.27099999999999996,0.0
 St. Lucia,earthquake,1500.0,poor,0.6738886433249672,0.2999999999999999,0.0
 St. Lucia,earthquake,2000.0,nonpoor,0.0,0.27099999999999996,0.0
 St. Lucia,earthquake,2000.0,poor,0.0,0.2999999999999999,0.0
+<<<<<<< HEAD
+=======
+St. Lucia,flood,1.0,nonpoor,0.0,0.27099999999999996,0.6000000000000001
+St. Lucia,flood,1.0,poor,0.0,0.2999999999999999,0.6000000000000001
+St. Lucia,flood,20.0,nonpoor,0.0,0.27099999999999996,0.6000000000000001
+St. Lucia,flood,20.0,poor,0.0,0.2999999999999999,0.6000000000000001
+St. Lucia,flood,50.0,nonpoor,0.0,0.27099999999999996,0.6000000000000001
+St. Lucia,flood,50.0,poor,0.0,0.2999999999999999,0.6000000000000001
+St. Lucia,flood,100.0,nonpoor,0.0,0.27099999999999996,0.6000000000000001
+St. Lucia,flood,100.0,poor,0.0,0.2999999999999999,0.6000000000000001
+St. Lucia,flood,250.0,nonpoor,0.0,0.27099999999999996,0.6000000000000001
+St. Lucia,flood,250.0,poor,0.0,0.2999999999999999,0.6000000000000001
+St. Lucia,flood,500.0,nonpoor,0.0,0.27099999999999996,0.6000000000000001
+St. Lucia,flood,500.0,poor,0.0,0.2999999999999999,0.6000000000000001
+St. Lucia,flood,1000.0,nonpoor,0.0,0.27099999999999996,0.6000000000000001
+St. Lucia,flood,1000.0,poor,0.0,0.2999999999999999,0.6000000000000001
+St. Lucia,flood,1500.0,nonpoor,0.0,0.27099999999999996,0.6000000000000001
+St. Lucia,flood,1500.0,poor,0.0,0.2999999999999999,0.6000000000000001
+St. Lucia,flood,2000.0,nonpoor,0.0,0.27099999999999996,0.6000000000000001
+St. Lucia,flood,2000.0,poor,0.0,0.2999999999999999,0.6000000000000001
+>>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 St. Lucia,surge,1.0,nonpoor,0.009081704798630272,0.27099999999999996,0.6000000000000001
 St. Lucia,surge,1.0,poor,0.010112883570663605,0.2999999999999999,0.6000000000000001
 St. Lucia,surge,20.0,nonpoor,0.13685672494945955,0.27099999999999996,0.6000000000000001
@@ -11627,6 +11927,27 @@ St. Vincent and the Grenadines,earthquake,1500.0,nonpoor,0.6104591396320104,0.28
 St. Vincent and the Grenadines,earthquake,1500.0,poor,0.6104591396320104,0.3,0.0
 St. Vincent and the Grenadines,earthquake,2000.0,nonpoor,0.0,0.2895,0.0
 St. Vincent and the Grenadines,earthquake,2000.0,poor,0.0,0.3,0.0
+<<<<<<< HEAD
+=======
+St. Vincent and the Grenadines,flood,1.0,nonpoor,0.0,0.2895,0.0
+St. Vincent and the Grenadines,flood,1.0,poor,0.0,0.3,0.0
+St. Vincent and the Grenadines,flood,20.0,nonpoor,0.0,0.2895,0.0
+St. Vincent and the Grenadines,flood,20.0,poor,0.0,0.3,0.0
+St. Vincent and the Grenadines,flood,50.0,nonpoor,0.0,0.2895,0.0
+St. Vincent and the Grenadines,flood,50.0,poor,0.0,0.3,0.0
+St. Vincent and the Grenadines,flood,100.0,nonpoor,0.0,0.2895,0.0
+St. Vincent and the Grenadines,flood,100.0,poor,0.0,0.3,0.0
+St. Vincent and the Grenadines,flood,250.0,nonpoor,0.0,0.2895,0.0
+St. Vincent and the Grenadines,flood,250.0,poor,0.0,0.3,0.0
+St. Vincent and the Grenadines,flood,500.0,nonpoor,0.0,0.2895,0.0
+St. Vincent and the Grenadines,flood,500.0,poor,0.0,0.3,0.0
+St. Vincent and the Grenadines,flood,1000.0,nonpoor,0.0,0.2895,0.0
+St. Vincent and the Grenadines,flood,1000.0,poor,0.0,0.3,0.0
+St. Vincent and the Grenadines,flood,1500.0,nonpoor,0.0,0.2895,0.0
+St. Vincent and the Grenadines,flood,1500.0,poor,0.0,0.3,0.0
+St. Vincent and the Grenadines,flood,2000.0,nonpoor,0.0,0.2895,0.0
+St. Vincent and the Grenadines,flood,2000.0,poor,0.0,0.3,0.0
+>>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 St. Vincent and the Grenadines,surge,1.0,nonpoor,0.008303459411807872,0.2895,0.0
 St. Vincent and the Grenadines,surge,1.0,poor,0.00924627260269556,0.3,0.0
 St. Vincent and the Grenadines,surge,20.0,nonpoor,0.07411871739699877,0.2895,0.0
@@ -12599,6 +12920,24 @@ Tonga,earthquake,1500.0,nonpoor,0.5680109259429765,0.2999999999999999,0.0
 Tonga,earthquake,1500.0,poor,0.5680109259429765,0.2999999999999999,0.0
 Tonga,earthquake,2000.0,nonpoor,-2.891205793294679e-15,0.2999999999999999,0.0
 Tonga,earthquake,2000.0,poor,-2.891205793294679e-15,0.2999999999999999,0.0
+Tonga,flood,1.0,nonpoor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,1.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,20.0,nonpoor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,20.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,50.0,nonpoor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,50.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,100.0,nonpoor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,100.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,250.0,nonpoor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,250.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,500.0,nonpoor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,500.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,1000.0,nonpoor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,1000.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,1500.0,nonpoor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,1500.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,2000.0,nonpoor,0.0,0.2999999999999999,0.6000000000000001
+Tonga,flood,2000.0,poor,0.0,0.2999999999999999,0.6000000000000001
 Tonga,surge,1.0,nonpoor,0.0,0.2999999999999999,0.6000000000000001
 Tonga,surge,1.0,poor,0.0,0.2999999999999999,0.6000000000000001
 Tonga,surge,20.0,nonpoor,0.0,0.2999999999999999,0.6000000000000001
@@ -12941,6 +13280,27 @@ Tuvalu,earthquake,1500.0,nonpoor,0.0,0.2919999999999999,0.0
 Tuvalu,earthquake,1500.0,poor,0.0,0.3,0.0
 Tuvalu,earthquake,2000.0,nonpoor,0.0,0.2919999999999999,0.0
 Tuvalu,earthquake,2000.0,poor,0.0,0.3,0.0
+<<<<<<< HEAD
+=======
+Tuvalu,flood,1.0,nonpoor,0.0,0.2919999999999999,0.0
+Tuvalu,flood,1.0,poor,0.0,0.3,0.0
+Tuvalu,flood,20.0,nonpoor,0.0,0.2919999999999999,0.0
+Tuvalu,flood,20.0,poor,0.0,0.3,0.0
+Tuvalu,flood,50.0,nonpoor,0.0,0.2919999999999999,0.0
+Tuvalu,flood,50.0,poor,0.0,0.3,0.0
+Tuvalu,flood,100.0,nonpoor,0.0,0.2919999999999999,0.0
+Tuvalu,flood,100.0,poor,0.0,0.3,0.0
+Tuvalu,flood,250.0,nonpoor,0.0,0.2919999999999999,0.0
+Tuvalu,flood,250.0,poor,0.0,0.3,0.0
+Tuvalu,flood,500.0,nonpoor,0.0,0.2919999999999999,0.0
+Tuvalu,flood,500.0,poor,0.0,0.3,0.0
+Tuvalu,flood,1000.0,nonpoor,0.0,0.2919999999999999,0.0
+Tuvalu,flood,1000.0,poor,0.0,0.3,0.0
+Tuvalu,flood,1500.0,nonpoor,0.0,0.2919999999999999,0.0
+Tuvalu,flood,1500.0,poor,0.0,0.3,0.0
+Tuvalu,flood,2000.0,nonpoor,0.0,0.2919999999999999,0.0
+Tuvalu,flood,2000.0,poor,0.0,0.3,0.0
+>>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 Tuvalu,surge,1.0,nonpoor,0.0,0.2919999999999999,0.0
 Tuvalu,surge,1.0,poor,0.0,0.3,0.0
 Tuvalu,surge,20.0,nonpoor,0.0,0.2919999999999999,0.0
@@ -13553,6 +13913,24 @@ Vanuatu,earthquake,1500.0,nonpoor,0.3274249777888442,0.26599999999999996,0.0
 Vanuatu,earthquake,1500.0,poor,0.3274249777888442,0.2999999999999999,0.0
 Vanuatu,earthquake,2000.0,nonpoor,0.0,0.26599999999999996,0.0
 Vanuatu,earthquake,2000.0,poor,0.0,0.2999999999999999,0.0
+Vanuatu,flood,1.0,nonpoor,0.0,0.26599999999999996,0.6000000000000001
+Vanuatu,flood,1.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Vanuatu,flood,20.0,nonpoor,0.0,0.26599999999999996,0.6000000000000001
+Vanuatu,flood,20.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Vanuatu,flood,50.0,nonpoor,0.0,0.26599999999999996,0.6000000000000001
+Vanuatu,flood,50.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Vanuatu,flood,100.0,nonpoor,0.0,0.26599999999999996,0.6000000000000001
+Vanuatu,flood,100.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Vanuatu,flood,250.0,nonpoor,0.0,0.26599999999999996,0.6000000000000001
+Vanuatu,flood,250.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Vanuatu,flood,500.0,nonpoor,0.0,0.26599999999999996,0.6000000000000001
+Vanuatu,flood,500.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Vanuatu,flood,1000.0,nonpoor,0.0,0.26599999999999996,0.6000000000000001
+Vanuatu,flood,1000.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Vanuatu,flood,1500.0,nonpoor,0.0,0.26599999999999996,0.6000000000000001
+Vanuatu,flood,1500.0,poor,0.0,0.2999999999999999,0.6000000000000001
+Vanuatu,flood,2000.0,nonpoor,0.0,0.26599999999999996,0.6000000000000001
+Vanuatu,flood,2000.0,poor,0.0,0.2999999999999999,0.6000000000000001
 Vanuatu,surge,1.0,nonpoor,0.027548017983134603,0.26599999999999996,0.6000000000000001
 Vanuatu,surge,1.0,poor,0.030675947373669875,0.2999999999999999,0.6000000000000001
 Vanuatu,surge,20.0,nonpoor,0.08056072143042219,0.26599999999999996,0.6000000000000001

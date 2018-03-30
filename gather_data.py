@@ -321,6 +321,10 @@ _hazard_ratios = hazard_ratios.copy('deep')
 #print "OK up to here"
 
 # Create loop over policies
+<<<<<<< HEAD
+=======
+#for apol in [None]:
+>>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 for apol in [None, ['bbb_incl',1], ['bbb_fast',1], ['bbb_fast',2], ['bbb_fast',4], ['bbb_fast',5], ['bbb_50yrstand',1]]:
 
     pol_opt = None
