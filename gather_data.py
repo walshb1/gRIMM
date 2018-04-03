@@ -16,8 +16,7 @@ use_2016_inputs = False
 year_str = ''
 if use_2016_inputs: year_str = 'orig_'
 
-#model        = os.getcwd() #get current directory
-model        = os.path.abspath('C:/Users/wb433125/OneDrive - WBG/gRIMM/gRIMM')
+model        = os.getcwd() #get current directory
 inputs       = model+'/'+year_str+'inputs/' #get inputs data directory
 intermediate = model+'/'+year_str+'intermediate/' #get outputs data directory
 
@@ -321,10 +320,7 @@ _hazard_ratios = hazard_ratios.copy('deep')
 #print "OK up to here"
 
 # Create loop over policies
-<<<<<<< HEAD
-=======
 #for apol in [None]:
->>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 for apol in [None, ['bbb_incl',1], ['bbb_fast',1], ['bbb_fast',2], ['bbb_fast',4], ['bbb_fast',5], ['bbb_50yrstand',1]]:
 
     pol_opt = None
@@ -358,4 +354,3 @@ for apol in [None, ['bbb_incl',1], ['bbb_fast',1], ['bbb_fast',2], ['bbb_fast',4
     df_in.to_csv(intermediate+"/macro"+pol_str+".csv",encoding="utf-8", header=True)
     cat_info.to_csv(intermediate+"/cat_info"+pol_str+".csv",encoding="utf-8", header=True)
     hazard_ratios.to_csv(intermediate+"/hazard_ratios"+pol_str+".csv",encoding="utf-8", header=True)
-print (model)

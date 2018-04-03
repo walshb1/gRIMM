@@ -11,11 +11,9 @@ import pandas as pd
 #define directory
 use_published_inputs = False
 
-#model        = os.getcwd() #get current directory
-model        = os.path.abspath('C:/Users/wb433125/OneDrive - WBG/gRIMM/gRIMM')
+model        = os.getcwd() #get current directory
 inputs       = model+'/inputs/' #get inputs data directory
 intermediate = model+'/intermediate/' #get outputs data directory
-output      = model+'/output/'
 
 if use_published_inputs:
     inputs       = model+'/orig_inputs/' #get inputs data directory
@@ -26,10 +24,7 @@ if use_published_inputs:
 #for pol_str in ['', '_bbb0.2', '_bbb0.4', '_bbb-0.2', '_bbb-0.4']: #build back better
 
 results_policy_summary = pd.DataFrame(index=pd.read_csv(intermediate+"macro.csv", index_col='country').dropna().index)
-<<<<<<< HEAD
-=======
 #for pol_str in ['']:
->>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 for pol_str in ['','_bbb_incl1','_bbb_fast1','_bbb_fast2','_bbb_fast4','_bbb_fast5','_bbb_50yrstand1']:
 
     print(pol_str)
@@ -72,8 +67,8 @@ for pol_str in ['','_bbb_incl1','_bbb_fast1','_bbb_fast2','_bbb_fast4','_bbb_fas
     #optionB:one_per_affected, one_per_helped, one, unlimited, data, unif_poor, max01, max05
     #optionPDS: unif_poor, no, "prop", "prop_nonpoor"
 
-    macro_event.to_csv(output+'macro_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
-    cats_event_iah.to_csv(output+'cats_event_iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
+    macro_event.to_csv('output/macro_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
+    cats_event_iah.to_csv('output/cats_event_iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
 
     out = compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_iah=True)
 
@@ -83,13 +78,12 @@ for pol_str in ['','_bbb_incl1','_bbb_fast1','_bbb_fast2','_bbb_fast4','_bbb_fas
     results,iah = process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_local_welfare=True)
 
     #Saves
-    results.to_csv(output+'results_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
-    iah.to_csv(output+'iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
+    results.to_csv('output/results_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
+    iah.to_csv('output/iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
 
     results_policy_summary[pol_str+'_dw_tot_curr'] = results['dWtot_currency']
-results_policy_summary.to_csv(output+'results_policy_summary.csv')
+results_policy_summary.to_csv('output/results_policy_summary.csv')
     # result1=pd.read_csv("output-old/results.csv", index_col=economy)
     # iah1=pd.read_csv("output-old/iah.csv", index_col=event_level+["income_cat","affected_cat","helped_cat"])
     # print(((result1-results)/results).max())
     # print(((iah1-iah.reset_index().set_index(event_level+["income_cat","affected_cat","helped_cat"]))/iah1).max())
-print (model)

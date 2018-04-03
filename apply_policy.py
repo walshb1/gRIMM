@@ -1,5 +1,4 @@
 from pandas_helper import *
-import numpy as np
 #from res_ind_lib import *
 import os, time
 
@@ -70,15 +69,6 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
         c.v = c.v.unstack().assign(poor=lambda df:(df.poor*(1-dv*f/n))).stack().clip(lower=0)
         desc = "Reduce asset\nvulnerability\n(by 30%) of\npoor people\n(5% of the population)"
 
-<<<<<<< HEAD
-        #Borrow abi
-    elif policy_name=="bbb_incl":
-            m.borrow_abi = policy_opt
-
-        #reconstruction to X years
-    elif policy_name=="bbb_fast":
-            m.T_rebuild_K = policy_opt
-=======
     #Borrow abi
     elif policy_name=="bbb_incl":
         m.borrow_abi = policy_opt
@@ -87,7 +77,6 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
     elif policy_name=="bbb_fast":
         m.T_rebuild_K = policy_opt
 
->>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
 
     #previously affected people see their v reduced 30%
     elif 'bbb' in policy_name:
@@ -114,14 +103,8 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
                 h.loc[h.rp==1,'v'] *= (1-dv)
                 h.loc[h.rp!=1,'v'] *= 1-(1/h.rp.astype('int'))*(1-dv)
 
-<<<<<<< HEAD
-        elif policy_name=="bbb_standard":
-            disaster_years = 50
-
-=======
         elif policy_name=="bb_standard":
             disaster_years = 20
->>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
             h.fa *= (1-h.fa)**disaster_years
 
         elif policy_name=='bbb_50yrstand':
@@ -133,10 +116,6 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
             #h['fa_scale_fac'] = (1.-h['fa'])**h['exp_val']
             #h['cum_fa_scale_fac'] = h.groupby(['country','hazard','income_cat'])['fa_scale_fac'].transform('prod')
             # These 2 approaches (above and below) produce near-identical (within 0.1%) results.
-<<<<<<< HEAD
-
-=======
->>>>>>> be79f95aa1eb374fc2bcedcc40494eb85234ca78
             #h['dfa_1yr'] = (1.-h.fa/h.rp)
             # scale_fac on fa, including probability that the event occurs in a single year
             # --> but this doesn't include the fact that fa is going down each year...
@@ -204,7 +183,7 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
         c.v = c.v.unstack().assign(nonpoor=lambda x:(x.nonpoor*(1-dv*f/n))).stack().clip(lower=0)
         desc = "Reduce asset\nvulnerability\n(by 30%) of\nnonpoor people\n(5% of the population)"
 
-    #10% of poor people see their fA reduced 10%
+    #10% or poor people see their fA reduced 10%
     elif policy_name=="fap":
         n = 0.2
         dfa = .05 #reduction in fa
@@ -219,7 +198,7 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
 
 
 
-    #10% of NONpoor people see their fA reduced 10%
+    #10% or NONpoor people see their fA reduced 10%
     elif policy_name=="far":
         n = 0.8
         dfa =.05 #fractionof nat pop would get the reduction
