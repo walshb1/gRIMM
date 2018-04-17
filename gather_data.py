@@ -151,6 +151,9 @@ which_countries["catDDO"]=1
 df = pd.merge ( df.reset_index() , which_countries.reset_index() , on = "country" , how="outer").set_index("country")
 df.loc[df.catDDO==1,"borrow_abi"]=1
 #df.loc[df.catDDO==1,"prepare_scaleup"]=1
+
+if True: df['borrow_abi'] = 2
+
 df = df.drop(["catDDO"],axis =1 )
 
 print(df)
@@ -327,7 +330,7 @@ _hazard_ratios = hazard_ratios.copy('deep')
 
 # Create loop over policies
 #for apol in [None]:
-for apol in [None, ['bbb_incl',1], ['bbb_fast',1], ['bbb_fast',2], ['bbb_fast',4], ['bbb_fast',5], ['bbb_50yrstand',1]]:
+for apol in [None, ['borrow_abi',2], ['bbb_incl',1], ['bbb_fast',1], ['bbb_fast',2], ['bbb_fast',4], ['bbb_fast',5], ['bbb_50yrstand',1]]:
 
     pol_opt = None
     try:

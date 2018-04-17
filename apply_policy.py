@@ -15,6 +15,10 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
     if policy_name is None:
         desc = "Baseline"
 
+    elif policy_name == 'borrow_abi': 
+        m.borrow_abi = 2
+        desc = 'Increase borrow_abi to 2 for all countries'
+
     # Pov reduction
     elif policy_name=="kp":
         c.k = c.k.unstack().assign(poor=lambda df:df.poor*1.1).stack()
