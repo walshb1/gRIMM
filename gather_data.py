@@ -13,6 +13,8 @@ from lib_gar_preprocess import *
 
 #define directory
 use_2016_inputs = False
+constant_fa =True
+
 year_str = ''
 if use_2016_inputs: year_str = 'orig_'
 
@@ -213,6 +215,7 @@ fa_guessed_gar = ((frac_value_destroyed_gar/broadcast_simple(v_unshaved,frac_val
 # Now we will change this to event-specific vulnerabilities...
 fa_guessed_gar.columns = ['fa']
 
+
 # merge v with hazard_ratios
 fa_guessed_gar = pd.merge(fa_guessed_gar.reset_index(),vr.reset_index(),on=economy)
 fa_guessed_gar = pd.merge(fa_guessed_gar.reset_index(),vp.reset_index(),on=economy).drop('index',axis=1)
@@ -263,6 +266,12 @@ fa_with_pe = fa_with_pe.reset_index().set_index(event_level+['income_cat'])
 fa_guessed_gar = fa_guessed_gar.reset_index().set_index(event_level+['income_cat'])
 
 fa_guessed_gar['fa'].update(fa_with_pe['fa'])
+if constant_fa:
+    if use_2016_inputs: fa_guessed_gar.to_csv(inputs+'constant_fa.csv',header=True)
+    else: fa_guessed_gar = pd.read_csv('orig_inputs/constant_fa.csv',index_col=['country','hazard','rp','income_cat'])
+    
+    print(fa_guessed_gar.head())
+    assert(False)
 
 ###gathers hazard ratios
 hazard_ratios = pd.DataFrame(fa_guessed_gar)
