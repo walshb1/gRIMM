@@ -118,10 +118,12 @@ df[["shew","prepare_scaleup","finance_pre"]]=df[["shew","prepare_scaleup","finan
 #df["income_group"]=pd.read_csv(inputs+"income_groups.csv",header=4,index_col=2)["Income group"].dropna()
 
 ###Country Ratings
-the_credit_rating_file=inputs+"cred_rat.csv"
+the_credit_rating_file=inputs+"credit_ratings_scrapy.csv"
 nb_weeks=(time.time()-os.stat(the_credit_rating_file).st_mtime )/(3600*24*7)
 if nb_weeks>3:
     warnings.warn("Credit ratings are "+str(int(nb_weeks))+" weeks old. Get new ones at http://www.tradingeconomics.com/country-list/rating")
+    assert(False)
+
 ratings_raw=pd.read_csv(the_credit_rating_file,dtype="str", encoding="utf8").dropna(how="all") #drop rows where only all columns are NaN.
 ratings_raw=ratings_raw.rename(columns={"Unnamed: 0": "country_in_ratings"})[["country_in_ratings","S&P","Moody's","Fitch"]]	#Rename "Unnamed: 0" to "country_in_ratings" and pick only columns with country_in_ratings, S&P, Moody's and Fitch.
 ratings_raw.country_in_ratings= ratings_raw.country_in_ratings.str.strip().replace(["Congo"],["Congo, Dem. Rep."])	#The creidt rating sources calls DR Congo just Congo. Here str.strip() is needed to remove any space in the raw data. In the raw data, Congo has some spaces after "o". If not used str.strip(), nothing is replaced.
