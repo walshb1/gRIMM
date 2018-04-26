@@ -332,7 +332,7 @@ _hazard_ratios = hazard_ratios.copy('deep')
 
 # Create loop over policies
 #for apol in [None]:
-for apol in [None, ['borrow_abi',2], ['bbb_incl',1], ['bbb_fast',1], ['bbb_fast',2], ['bbb_fast',4], ['bbb_fast',5], ['bbb_50yrstand',1]]:
+for apol in [None, ['borrow_abi',2], 'unif_poor', ['bbb_incl',1], ['bbb_fast',1], ['bbb_fast',2], ['bbb_fast',4], ['bbb_fast',5], ['bbb_50yrstand',1]]:
 
     pol_opt = None
     try:
