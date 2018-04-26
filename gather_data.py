@@ -118,8 +118,8 @@ df[["shew","prepare_scaleup","finance_pre"]]=df[["shew","prepare_scaleup","finan
 #df["income_group"]=pd.read_csv(inputs+"income_groups.csv",header=4,index_col=2)["Income group"].dropna()
 
 ###Country Ratings
-#the_credit_rating_file=inputs+"credit_ratings_scrapy.csv"
-the_credit_rating_file=inputs+"cred_rat.csv"
+the_credit_rating_file=inputs+"credit_ratings_scrapy.csv"
+#the_credit_rating_file=inputs+"cred_rat.csv"
 nb_weeks=(time.time()-os.stat(the_credit_rating_file).st_mtime )/(3600*24*7)
 if nb_weeks>3:
     warnings.warn("Credit ratings are "+str(int(nb_weeks))+" weeks old. Get new ones at http://www.tradingeconomics.com/country-list/rating")
