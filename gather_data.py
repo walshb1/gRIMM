@@ -12,7 +12,8 @@ warnings.filterwarnings("always",category=UserWarning)
 from lib_gar_preprocess import *
 
 #define directory
-use_2016_inputs = False
+use_2016_inputs = True
+use_2016_ratings = True
 constant_fa =True
 
 year_str = ''
@@ -119,7 +120,8 @@ df[["shew","prepare_scaleup","finance_pre"]]=df[["shew","prepare_scaleup","finan
 
 ###Country Ratings
 the_credit_rating_file=inputs+"credit_ratings_scrapy.csv"
-#the_credit_rating_file=inputs+"cred_rat.csv"
+if use_2016_inputs or use_2016_ratings: the_credit_rating_file=inputs+"cred_rat.csv"
+
 nb_weeks=(time.time()-os.stat(the_credit_rating_file).st_mtime )/(3600*24*7)
 if nb_weeks>3:
     warnings.warn("Credit ratings are "+str(int(nb_weeks))+" weeks old. Get new ones at http://www.tradingeconomics.com/country-list/rating")

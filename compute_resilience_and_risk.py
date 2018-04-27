@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 #define directory
-use_published_inputs = False
+use_published_inputs = True
 
 model        = os.getcwd() #get current directory
 inputs       = model+'/inputs/' #get inputs data directory
