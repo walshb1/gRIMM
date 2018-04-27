@@ -275,7 +275,8 @@ fa_guessed_gar = fa_guessed_gar.reset_index().set_index(event_level+['income_cat
 fa_guessed_gar['fa'].update(fa_with_pe['fa'])
 if constant_fa:
     if use_2016_inputs: fa_guessed_gar.to_csv(inputs+'constant_fa.csv',header=True)
-    else: fa_guessed_gar['fa'] = pd.read_csv('orig_inputs/constant_fa.csv',index_col=['country','hazard','rp','income_cat'])['fa']
+    else: 
+        fa_guessed_gar['fa'].update(pd.read_csv('orig_inputs/constant_fa.csv',index_col=['country','hazard','rp','income_cat'])['fa'])
 
 ###gathers hazard ratios
 hazard_ratios = pd.DataFrame(fa_guessed_gar)
