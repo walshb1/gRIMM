@@ -12,8 +12,8 @@ warnings.filterwarnings("always",category=UserWarning)
 from lib_gar_preprocess import *
 
 #define directory
-use_2016_inputs = True
-use_2016_ratings = True
+use_2016_inputs = False
+use_2016_ratings = False
 constant_fa =True
 
 year_str = ''
