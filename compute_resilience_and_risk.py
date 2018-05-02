@@ -25,7 +25,7 @@ if use_published_inputs:
 
 results_policy_summary = pd.DataFrame(index=pd.read_csv(intermediate+"macro.csv", index_col='country').dropna().index)
 #for pol_str in ['']:
-for pol_str in ['','_bbb_incl1','_bbb_fast1','_bbb_fast2','_bbb_fast4','_bbb_fast5','_bbb_50yrstand1']:
+for pol_str in ['','_bbb_complete1','_bbb_incl1','_bbb_fast1','_bbb_fast2','_bbb_fast4','_bbb_fast5','_bbb_50yrstand1']:
 
     print(pol_str)
     optionFee="tax"

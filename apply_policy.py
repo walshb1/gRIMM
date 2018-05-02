@@ -15,7 +15,7 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
     if policy_name is None:
         desc = "Baseline"
 
-    elif policy_name == 'borrow_abi': 
+    elif policy_name == 'borrow_abi':
         m.borrow_abi = 2
         desc = 'Increase borrow_abi to 2 for all countries'
 
@@ -139,6 +139,21 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
             h = h.drop(['dfa','tmp_fa','cum_dfa'],axis=1)
             #print(h.head())
 
+        elif policy_name=='bbb_complete':
+            m.borrow_abi = 1
+            m.T_rebuild_K = policy_opt
+            n_years = 20
+            h = h.reset_index()
+
+            h['tmp_fa'] = h['fa'].copy()
+            for iyr in range(n_years): h['tmp_fa'] *= (1.-h['tmp_fa']/h['rp'])
+
+            h['dfa'] = h['tmp_fa']/h['fa']
+            h['cum_dfa'] = h.groupby(['country','hazard','income_cat'])['dfa'].transform('prod')
+            h.loc[h.rp<=50,'fa'] *= h.loc[h.rp<=50,'cum_dfa']
+
+            h = h.drop(['dfa','tmp_fa','cum_dfa'],axis=1)
+            #print(h.head())
         #build back better & faster - previously affected people see their v reduced 50%, T_rebuild is reduced too
         elif policy_name=="bbbf":
             m.T_rebuild_K = 3-(policy_opt*5)

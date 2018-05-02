@@ -60,7 +60,7 @@ any_to_wb=pd.read_csv(inputs+"any_name_to_wb_name.csv",index_col="any") #Names t
 
 for _c in any_to_wb.index:
     __c = _c.replace(' ','')
-    if __c != _c: 
+    if __c != _c:
         try: any_to_wb.loc[__c] = any_to_wb.loc[_c,'wb_name']
         except: pass
 
@@ -285,7 +285,7 @@ fa_guessed_gar = fa_guessed_gar.reset_index().set_index(event_level+['income_cat
 fa_guessed_gar['fa'].update(fa_with_pe['fa'])
 if constant_fa:
     if use_2016_inputs: fa_guessed_gar.to_csv(inputs+'constant_fa.csv',header=True)
-    else: 
+    else:
         fa_guessed_gar['fa'].update(pd.read_csv('orig_inputs/constant_fa.csv',index_col=['country','hazard','rp','income_cat'])['fa'])
 
 ###gathers hazard ratios
@@ -345,7 +345,7 @@ _hazard_ratios = hazard_ratios.copy('deep')
 
 # Create loop over policies
 #for apol in [None]:
-for apol in [None, ['borrow_abi',2], 'unif_poor', ['bbb_incl',1], ['bbb_fast',1], ['bbb_fast',2], ['bbb_fast',4], ['bbb_fast',5], ['bbb_50yrstand',1]]:
+for apol in [None, ['bbb_complete',1],['borrow_abi',2], 'unif_poor', ['bbb_incl',1], ['bbb_fast',1], ['bbb_fast',2], ['bbb_fast',4], ['bbb_fast',5], ['bbb_50yrstand',1]]:
 
     pol_opt = None
     try:
