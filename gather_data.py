@@ -56,7 +56,16 @@ max_support=0.05
 fa_threshold =  0.9
 
 #Country dictionaries
-any_to_wb=pd.read_csv(inputs+"any_name_to_wb_name.csv",index_col="any",squeeze=True)	#Names to WB names
+any_to_wb=pd.read_csv(inputs+"any_name_to_wb_name.csv",index_col="any") #Names to WB names
+
+for _c in any_to_wb.index:
+    __c = _c.replace(' ','')
+    if __c != _c: 
+        try: any_to_wb.loc[__c] = any_to_wb.loc[_c,'wb_name']
+        except: pass
+
+any_to_wb = any_to_wb.squeeze()
+
 iso3_to_wb=pd.read_csv(inputs+"iso3_to_wb_name.csv").set_index("iso3").squeeze()	#iso3 to wb country name table
 iso2_iso3=pd.read_csv(inputs+"names_to_iso.csv", usecols=["iso2","iso3"]).drop_duplicates().set_index("iso2").squeeze() #iso2 to iso3 table
 
@@ -131,6 +140,7 @@ ratings_raw=pd.read_csv(the_credit_rating_file,dtype="str", encoding="utf8").dro
 ratings_raw=ratings_raw.rename(columns={"Unnamed: 0": "country_in_ratings"})[["country_in_ratings","S&P","Moody's","Fitch"]]	#Rename "Unnamed: 0" to "country_in_ratings" and pick only columns with country_in_ratings, S&P, Moody's and Fitch.
 ratings_raw.country_in_ratings= ratings_raw.country_in_ratings.str.strip().replace(["Congo"],["Congo, Dem. Rep."])	#The creidt rating sources calls DR Congo just Congo. Here str.strip() is needed to remove any space in the raw data. In the raw data, Congo has some spaces after "o". If not used str.strip(), nothing is replaced.
 ratings_raw["country"]= replace_with_warning(ratings_raw.country_in_ratings.apply(str.strip),any_to_wb)	#change country name to wb's name
+
 ratings_raw=ratings_raw.set_index("country")
 ratings_raw=ratings_raw.applymap(mystriper)	#mystriper is a function in lib_gather_data. To lower case and strips blanks.
 
@@ -142,7 +152,7 @@ ratings["Moody's"].replace(rat_disc["moodys"].values,rat_disc["moodys_score"].va
 ratings["Fitch"].replace(rat_disc["fitch"].values,rat_disc["fitch_score"].values,inplace=True)
 ratings["rating"]=ratings.mean(axis=1)/100 #axis=1 is the average across columns, axis=0 is to average across rows. .mean ignores NaN
 df["rating"] = ratings["rating"]
-if debug:
+if True:
     print("some bad rating occurs for" + "; ".join(df.loc[isnull(df.rating)].index))
 df["rating"].fillna(0,inplace=True)  #assumes no rating is bad rating
 
