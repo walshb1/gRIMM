@@ -76,6 +76,7 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
     #Borrow abi
     elif policy_name=="bbb_incl":
         m.borrow_abi = policy_opt
+        m.prepare_scaleup = policy_opt
 
     #reconstruction to X years
     elif policy_name=="bbb_fast":

@@ -161,6 +161,7 @@ df["borrow_abi"]=(df["rating"]+df["finance_pre"])/2 # Ability and willingness to
 
 ###If contingent finance instrument then borrow_abo = 1
 contingent_file=inputs+"contingent_finance_countries.csv"
+if use_2016_inputs: contingent_file=inputs+"contingent_finance_countries_orig.csv"
 which_countries=pd.read_csv(contingent_file,dtype="str", encoding="utf8").set_index("country")
 which_countries["catDDO"]=1
 df = pd.merge ( df.reset_index() , which_countries.reset_index() , on = "country" , how="outer").set_index("country")
