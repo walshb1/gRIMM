@@ -32,7 +32,7 @@ gar_preprocessing(inputs,intermediate)
 debug = False
 
 #Options and parameters
-protection_from_flopros=True #FLOPROS is an evolving global database of flood protection standards. It will be used in Protection.
+protection_from_flopros=True #FLOPROS is an evolving global database of flood potection standards. It will be used in Protection.
 no_protection=True #Used in Protection.
 use_GLOFRIS_flood=False  #else uses GAR (True does not work i think)
 use_guessed_social=True #else keeps nans
@@ -361,7 +361,7 @@ for apol in [None, ['bbb_complete',1],['borrow_abi',2], 'unif_poor', ['bbb_incl'
     # clean up and save out
     if drop_unused_data:
         cat_info= cat_info.drop([i for i in ["social"] if i in cat_info.columns],axis=1, errors="ignore").dropna()
-        df_in = df.drop([i for i in ["social_p", "social_r","share1","pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"] if i in df.columns],axis=1, errors="ignore").dropna()
+        df_in = df.drop([i for i in ["social_p", "social_r",'share1_orig',"pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"] if i in df.columns],axis=1, errors="ignore").dropna()
     else :
         df_in = df.dropna()
     df_in = df_in.drop([ "shew"],axis=1, errors="ignore").dropna()
