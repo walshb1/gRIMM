@@ -12,8 +12,8 @@ warnings.filterwarnings("always",category=UserWarning)
 from lib_gar_preprocess import *
 
 #define directory
-use_2016_inputs = True
-use_2016_ratings = True
+use_2016_inputs = False
+use_2016_ratings = False
 constant_fa =True
 
 year_str = ''
@@ -78,7 +78,7 @@ if nb_weeks>20:
     warnings.warn("World bank data are "+str(int(nb_weeks))+" weeks old. You may want to download them again.")
 df=pd.read_csv(the_file).set_index(economy)
 df["urbanization_rate"]=pd.read_csv(inputs+"wb_data.csv").set_index(economy)["urbanization_rate"]
-df=df.drop([i for i in ["plgp","unemp","bashs","ophe", "axhealth"] if i in df.columns],axis=1)	## Drops here the data not used, to avoid it counting as missing data. What are included are:gdp_pc_pp, pop, share1, axfin_p, axfin_r, social_p, social_r, urbanization_rat.
+df=df.drop([i for i in ["plgp","unemp","bashs","ophe", "axhealth",'share1_orig'] if i in df.columns],axis=1)	## Drops here the data not used, to avoid it counting as missing data. What are included are:gdp_pc_pp, pop, share1, axfin_p, axfin_r, social_p, social_r, urbanization_rat.
 
 ###Define parameters
 df["pov_head"]=poverty_head #poverty head
@@ -361,7 +361,7 @@ for apol in [None, ['bbb_complete',1],['borrow_abi',2], 'unif_poor', ['bbb_incl'
     # clean up and save out
     if drop_unused_data:
         cat_info= cat_info.drop([i for i in ["social"] if i in cat_info.columns],axis=1, errors="ignore").dropna()
-        df_in = df.drop([i for i in ["social_p", "social_r",'share1_orig',"pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"] if i in df.columns],axis=1, errors="ignore").dropna()
+        df_in = df.drop([i for i in ["social_p", "social_r","pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"] if i in df.columns],axis=1, errors="ignore").dropna()
     else :
         df_in = df.dropna()
     df_in = df_in.drop([ "shew"],axis=1, errors="ignore").dropna()
