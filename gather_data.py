@@ -32,7 +32,7 @@ gar_preprocessing(inputs,intermediate)
 debug = False
 
 #Options and parameters
-protection_from_flopros=True #FLOPROS is an evolving global database of flood protection standards. It will be used in Protection.
+protection_from_flopros=True #FLOPROS is an evolving global database of flood potection standards. It will be used in Protection.
 no_protection=True #Used in Protection.
 use_GLOFRIS_flood=False  #else uses GAR (True does not work i think)
 use_guessed_social=True #else keeps nans
@@ -78,7 +78,7 @@ if nb_weeks>20:
     warnings.warn("World bank data are "+str(int(nb_weeks))+" weeks old. You may want to download them again.")
 df=pd.read_csv(the_file).set_index(economy)
 df["urbanization_rate"]=pd.read_csv(inputs+"wb_data.csv").set_index(economy)["urbanization_rate"]
-df=df.drop([i for i in ["plgp","unemp","bashs","ophe", "axhealth"] if i in df.columns],axis=1)	## Drops here the data not used, to avoid it counting as missing data. What are included are:gdp_pc_pp, pop, share1, axfin_p, axfin_r, social_p, social_r, urbanization_rat.
+df=df.drop([i for i in ["plgp","unemp","bashs","ophe", "axhealth",'share1_orig'] if i in df.columns],axis=1)	## Drops here the data not used, to avoid it counting as missing data. What are included are:gdp_pc_pp, pop, share1, axfin_p, axfin_r, social_p, social_r, urbanization_rat.
 
 ###Define parameters
 df["pov_head"]=poverty_head #poverty head
@@ -161,6 +161,7 @@ df["borrow_abi"]=(df["rating"]+df["finance_pre"])/2 # Ability and willingness to
 
 ###If contingent finance instrument then borrow_abo = 1
 contingent_file=inputs+"contingent_finance_countries.csv"
+if use_2016_inputs: contingent_file=inputs+"Contingent_finance_countries_orig.csv"
 which_countries=pd.read_csv(contingent_file,dtype="str", encoding="utf8").set_index("country")
 which_countries["catDDO"]=1
 df = pd.merge ( df.reset_index() , which_countries.reset_index() , on = "country" , how="outer").set_index("country")
@@ -360,7 +361,7 @@ for apol in [None, ['bbb_complete',1],['borrow_abi',2], 'unif_poor', ['bbb_incl'
     # clean up and save out
     if drop_unused_data:
         cat_info= cat_info.drop([i for i in ["social"] if i in cat_info.columns],axis=1, errors="ignore").dropna()
-        df_in = df.drop([i for i in ["social_p", "social_r","share1","pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"] if i in df.columns],axis=1, errors="ignore").dropna()
+        df_in = df.drop([i for i in ["social_p", "social_r","pov_head", "pe","vp","vr", "axfin_p",  "axfin_r","rating","finance_pre"] if i in df.columns],axis=1, errors="ignore").dropna()
     else :
         df_in = df.dropna()
     df_in = df_in.drop([ "shew"],axis=1, errors="ignore").dropna()

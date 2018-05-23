@@ -141,13 +141,6 @@ American Samoa,earthquake,250.0,0.01092468751456884
 American Samoa,earthquake,500.0,0.020217664945169363
 American Samoa,earthquake,1000.0,0.03298126382421043
 American Samoa,earthquake,1500.0,0.042025599718206255
-American Samoa,flood,20.0,0.0
-American Samoa,flood,50.0,0.0
-American Samoa,flood,100.0,0.0
-American Samoa,flood,250.0,0.0
-American Samoa,flood,500.0,0.0
-American Samoa,flood,1000.0,0.0
-American Samoa,flood,1500.0,0.0
 American Samoa,surge,20.0,0.0
 American Samoa,surge,50.0,0.0
 American Samoa,surge,100.0,0.0
@@ -178,15 +171,6 @@ Andorra,earthquake,500.0,0.00043666819778921814
 Andorra,earthquake,1000.0,0.0010093478014472092
 Andorra,earthquake,1500.0,0.0016703155106691403
 Andorra,earthquake,2000.0,3.3881317890172014e-18
-Andorra,flood,1.0,0.0
-Andorra,flood,20.0,0.0
-Andorra,flood,50.0,0.0
-Andorra,flood,100.0,0.0
-Andorra,flood,250.0,0.0
-Andorra,flood,500.0,0.0
-Andorra,flood,1000.0,0.0
-Andorra,flood,1500.0,0.0
-Andorra,flood,2000.0,0.0
 Andorra,surge,1.0,0.0
 Andorra,surge,20.0,0.0
 Andorra,surge,50.0,0.0
@@ -268,15 +252,6 @@ Anguilla,earthquake,500.0,0.26826236054239416
 Anguilla,earthquake,1000.0,0.3427861018421806
 Anguilla,earthquake,1500.0,0.3816655420706739
 Anguilla,earthquake,2000.0,0.0
-Anguilla,flood,1.0,0.0
-Anguilla,flood,20.0,0.0
-Anguilla,flood,50.0,0.0
-Anguilla,flood,100.0,0.0
-Anguilla,flood,250.0,0.0
-Anguilla,flood,500.0,0.0
-Anguilla,flood,1000.0,0.0
-Anguilla,flood,1500.0,0.0
-Anguilla,flood,2000.0,0.0
 Anguilla,surge,1.0,0.005588508299226534
 Anguilla,surge,20.0,0.09239788514331665
 Anguilla,surge,50.0,0.1474414670893915
@@ -313,15 +288,6 @@ Antigua and Barbuda,earthquake,500.0,0.1506578726573325
 Antigua and Barbuda,earthquake,1000.0,0.18171604640347497
 Antigua and Barbuda,earthquake,1500.0,0.2030575536694
 Antigua and Barbuda,earthquake,2000.0,0.0
-Antigua and Barbuda,flood,1.0,0.0
-Antigua and Barbuda,flood,20.0,0.0
-Antigua and Barbuda,flood,50.0,0.0
-Antigua and Barbuda,flood,100.0,0.0
-Antigua and Barbuda,flood,250.0,0.0
-Antigua and Barbuda,flood,500.0,0.0
-Antigua and Barbuda,flood,1000.0,0.0
-Antigua and Barbuda,flood,1500.0,0.0
-Antigua and Barbuda,flood,2000.0,0.0
 Antigua and Barbuda,surge,1.0,0.005136318051256592
 Antigua and Barbuda,surge,20.0,0.07099079633515468
 Antigua and Barbuda,surge,50.0,0.13336444371285333
@@ -448,15 +414,6 @@ Aruba,earthquake,500.0,0.2110966195178565
 Aruba,earthquake,1000.0,0.3159007697505326
 Aruba,earthquake,1500.0,0.37041859253954823
 Aruba,earthquake,2000.0,-4.3368086899420177e-16
-Aruba,flood,1.0,0.0
-Aruba,flood,20.0,0.0
-Aruba,flood,50.0,0.0
-Aruba,flood,100.0,0.0
-Aruba,flood,250.0,0.0
-Aruba,flood,500.0,0.0
-Aruba,flood,1000.0,0.0
-Aruba,flood,1500.0,0.0
-Aruba,flood,2000.0,0.0
 Aruba,surge,1.0,0.001204655074153466
 Aruba,surge,20.0,0.010536086686166716
 Aruba,surge,50.0,0.0575090522572839
@@ -628,15 +585,6 @@ Azerbaijan,wind,2000.0,0.0
 "Bahamas, The",earthquake,1000.0,0.0
 "Bahamas, The",earthquake,1500.0,0.0
 "Bahamas, The",earthquake,2000.0,0.0
-"Bahamas, The",flood,1.0,0.0
-"Bahamas, The",flood,20.0,0.0
-"Bahamas, The",flood,50.0,0.0
-"Bahamas, The",flood,100.0,0.0
-"Bahamas, The",flood,250.0,0.0
-"Bahamas, The",flood,500.0,0.0
-"Bahamas, The",flood,1000.0,0.0
-"Bahamas, The",flood,1500.0,0.0
-"Bahamas, The",flood,2000.0,0.0
 "Bahamas, The",surge,1.0,0.01856048258816889
 "Bahamas, The",surge,20.0,0.20862982224874685
 "Bahamas, The",surge,50.0,0.2732717292217289
@@ -673,15 +621,6 @@ Bahrain,earthquake,500.0,0.0033132372974696385
 Bahrain,earthquake,1000.0,0.005260910311778402
 Bahrain,earthquake,1500.0,0.006724829232002937
 Bahrain,earthquake,2000.0,0.0
-Bahrain,flood,1.0,0.0
-Bahrain,flood,20.0,0.0
-Bahrain,flood,50.0,0.0
-Bahrain,flood,100.0,0.0
-Bahrain,flood,250.0,0.0
-Bahrain,flood,500.0,0.0
-Bahrain,flood,1000.0,0.0
-Bahrain,flood,1500.0,0.0
-Bahrain,flood,2000.0,0.0
 Bahrain,surge,1.0,0.0
 Bahrain,surge,20.0,0.0
 Bahrain,surge,50.0,0.0
@@ -763,15 +702,6 @@ Barbados,earthquake,500.0,0.14094539236989279
 Barbados,earthquake,1000.0,0.198213229793752
 Barbados,earthquake,1500.0,0.22805186478110642
 Barbados,earthquake,2000.0,0.0
-Barbados,flood,1.0,0.0
-Barbados,flood,20.0,0.0
-Barbados,flood,50.0,0.0
-Barbados,flood,100.0,0.0
-Barbados,flood,250.0,0.0
-Barbados,flood,500.0,0.0
-Barbados,flood,1000.0,0.0
-Barbados,flood,1500.0,0.0
-Barbados,flood,2000.0,0.0
 Barbados,surge,1.0,0.001254864979211467
 Barbados,surge,20.0,0.009017917572044313
 Barbados,surge,50.0,0.04558045096712143
@@ -988,15 +918,6 @@ Bermuda,earthquake,500.0,0.0
 Bermuda,earthquake,1000.0,0.0
 Bermuda,earthquake,1500.0,0.0
 Bermuda,earthquake,2000.0,0.0
-Bermuda,flood,1.0,0.0
-Bermuda,flood,20.0,0.0
-Bermuda,flood,50.0,0.0
-Bermuda,flood,100.0,0.0
-Bermuda,flood,250.0,0.0
-Bermuda,flood,500.0,0.0
-Bermuda,flood,1000.0,0.0
-Bermuda,flood,1500.0,0.0
-Bermuda,flood,2000.0,0.0
 Bermuda,surge,1.0,0.0
 Bermuda,surge,20.0,0.0
 Bermuda,surge,50.0,0.0
@@ -1573,15 +1494,6 @@ Cape Verde,earthquake,500.0,0.0
 Cape Verde,earthquake,1000.0,0.0
 Cape Verde,earthquake,1500.0,0.0
 Cape Verde,earthquake,2000.0,0.0
-Cape Verde,flood,1.0,0.0
-Cape Verde,flood,20.0,0.0
-Cape Verde,flood,50.0,0.0
-Cape Verde,flood,100.0,0.0
-Cape Verde,flood,250.0,0.0
-Cape Verde,flood,500.0,0.0
-Cape Verde,flood,1000.0,0.0
-Cape Verde,flood,1500.0,0.0
-Cape Verde,flood,2000.0,0.0
 Cape Verde,surge,1.0,0.0
 Cape Verde,surge,20.0,0.0
 Cape Verde,surge,50.0,0.0
@@ -1618,15 +1530,6 @@ Cayman Islands,earthquake,500.0,0.04079714473762659
 Cayman Islands,earthquake,1000.0,0.06819241924566549
 Cayman Islands,earthquake,1500.0,0.08676845884337557
 Cayman Islands,earthquake,2000.0,1.0842021724855044e-16
-Cayman Islands,flood,1.0,0.0
-Cayman Islands,flood,20.0,0.0
-Cayman Islands,flood,50.0,0.0
-Cayman Islands,flood,100.0,0.0
-Cayman Islands,flood,250.0,0.0
-Cayman Islands,flood,500.0,0.0
-Cayman Islands,flood,1000.0,0.0
-Cayman Islands,flood,1500.0,0.0
-Cayman Islands,flood,2000.0,0.0
 Cayman Islands,surge,1.0,0.0040474756424954605
 Cayman Islands,surge,20.0,0.048785192476528606
 Cayman Islands,surge,50.0,0.10655211637088016
@@ -1888,15 +1791,6 @@ Comoros,earthquake,500.0,0.014178131179267112
 Comoros,earthquake,1000.0,0.031448525390214144
 Comoros,earthquake,1500.0,0.046510160292818375
 Comoros,earthquake,2000.0,0.0
-Comoros,flood,1.0,0.0
-Comoros,flood,20.0,0.0
-Comoros,flood,50.0,0.0
-Comoros,flood,100.0,0.0
-Comoros,flood,250.0,0.0
-Comoros,flood,500.0,0.0
-Comoros,flood,1000.0,0.0
-Comoros,flood,1500.0,0.0
-Comoros,flood,2000.0,0.0
 Comoros,surge,1.0,0.00010259567046270645
 Comoros,surge,20.0,0.0007923485772785279
 Comoros,surge,50.0,0.0032395136522361057
@@ -2383,15 +2277,6 @@ Dominica,earthquake,500.0,0.25160507707328617
 Dominica,earthquake,1000.0,0.3098069962622168
 Dominica,earthquake,1500.0,0.3397289860646765
 Dominica,earthquake,2000.0,0.0
-Dominica,flood,1.0,0.0
-Dominica,flood,20.0,0.0
-Dominica,flood,50.0,0.0
-Dominica,flood,100.0,0.0
-Dominica,flood,250.0,0.0
-Dominica,flood,500.0,0.0
-Dominica,flood,1000.0,0.0
-Dominica,flood,1500.0,0.0
-Dominica,flood,2000.0,0.0
 Dominica,surge,1.0,0.008612814075090286
 Dominica,surge,20.0,0.08986459165458545
 Dominica,surge,50.0,0.16985709636379773
@@ -2788,15 +2673,6 @@ Faeroe Islands,earthquake,500.0,0.0
 Faeroe Islands,earthquake,1000.0,0.0
 Faeroe Islands,earthquake,1500.0,0.0
 Faeroe Islands,earthquake,2000.0,0.0
-Faeroe Islands,flood,1.0,0.0
-Faeroe Islands,flood,20.0,0.0
-Faeroe Islands,flood,50.0,0.0
-Faeroe Islands,flood,100.0,0.0
-Faeroe Islands,flood,250.0,0.0
-Faeroe Islands,flood,500.0,0.0
-Faeroe Islands,flood,1000.0,0.0
-Faeroe Islands,flood,1500.0,0.0
-Faeroe Islands,flood,2000.0,0.0
 Faeroe Islands,surge,1.0,0.0
 Faeroe Islands,surge,20.0,0.0
 Faeroe Islands,surge,50.0,0.0
@@ -2833,15 +2709,6 @@ Fiji,earthquake,500.0,0.013220119263676432
 Fiji,earthquake,1000.0,0.02258231786362458
 Fiji,earthquake,1500.0,0.02935528476363322
 Fiji,earthquake,2000.0,0.0
-Fiji,flood,1.0,0.0
-Fiji,flood,20.0,0.0
-Fiji,flood,50.0,0.0
-Fiji,flood,100.0,0.0
-Fiji,flood,250.0,0.0
-Fiji,flood,500.0,0.0
-Fiji,flood,1000.0,0.0
-Fiji,flood,1500.0,0.0
-Fiji,flood,2000.0,0.0
 Fiji,surge,1.0,0.004350118793656858
 Fiji,surge,20.0,0.05590614467202489
 Fiji,surge,50.0,0.07073891625615764
@@ -2878,15 +2745,6 @@ Finland,earthquake,500.0,0.0
 Finland,earthquake,1000.0,0.0
 Finland,earthquake,1500.0,0.0
 Finland,earthquake,2000.0,0.0
-Finland,flood,1.0,0.0
-Finland,flood,20.0,0.0
-Finland,flood,50.0,0.0
-Finland,flood,100.0,0.0
-Finland,flood,250.0,0.0
-Finland,flood,500.0,0.0
-Finland,flood,1000.0,0.0
-Finland,flood,1500.0,0.0
-Finland,flood,2000.0,0.0
 Finland,surge,1.0,0.0
 Finland,surge,20.0,0.0
 Finland,surge,50.0,0.0
@@ -2968,15 +2826,6 @@ French Polynesia,earthquake,500.0,0.0
 French Polynesia,earthquake,1000.0,0.0
 French Polynesia,earthquake,1500.0,0.0
 French Polynesia,earthquake,2000.0,0.0
-French Polynesia,flood,1.0,0.0
-French Polynesia,flood,20.0,0.0
-French Polynesia,flood,50.0,0.0
-French Polynesia,flood,100.0,0.0
-French Polynesia,flood,250.0,0.0
-French Polynesia,flood,500.0,0.0
-French Polynesia,flood,1000.0,0.0
-French Polynesia,flood,1500.0,0.0
-French Polynesia,flood,2000.0,0.0
 French Polynesia,surge,1.0,0.0
 French Polynesia,surge,20.0,0.0
 French Polynesia,surge,50.0,0.0
@@ -3283,15 +3132,6 @@ Grenada,earthquake,500.0,0.1384531953026659
 Grenada,earthquake,1000.0,0.1952122816725049
 Grenada,earthquake,1500.0,0.222715538811205
 Grenada,earthquake,2000.0,-8.673617379884035e-16
-Grenada,flood,1.0,0.0
-Grenada,flood,20.0,0.0
-Grenada,flood,50.0,0.0
-Grenada,flood,100.0,0.0
-Grenada,flood,250.0,0.0
-Grenada,flood,500.0,0.0
-Grenada,flood,1000.0,0.0
-Grenada,flood,1500.0,0.0
-Grenada,flood,2000.0,0.0
 Grenada,surge,1.0,0.0009054108821441966
 Grenada,surge,20.0,0.004375918998101932
 Grenada,surge,50.0,0.024048816297377318
@@ -3598,15 +3438,6 @@ Honduras,wind,2000.0,0.0
 "Hong Kong SAR, China",earthquake,1000.0,0.0
 "Hong Kong SAR, China",earthquake,1500.0,0.0
 "Hong Kong SAR, China",earthquake,2000.0,0.012655392541158024
-"Hong Kong SAR, China",flood,1.0,0.0
-"Hong Kong SAR, China",flood,20.0,0.0
-"Hong Kong SAR, China",flood,50.0,0.0
-"Hong Kong SAR, China",flood,100.0,0.0
-"Hong Kong SAR, China",flood,250.0,0.0
-"Hong Kong SAR, China",flood,500.0,0.0
-"Hong Kong SAR, China",flood,1000.0,0.0
-"Hong Kong SAR, China",flood,1500.0,0.0
-"Hong Kong SAR, China",flood,2000.0,0.0
 "Hong Kong SAR, China",surge,1.0,0.00045268640298248136
 "Hong Kong SAR, China",surge,20.0,0.004520215029678576
 "Hong Kong SAR, China",surge,50.0,0.006831632081660081
@@ -3688,15 +3519,6 @@ Iceland,earthquake,500.0,0.028387183483820518
 Iceland,earthquake,1000.0,0.04080241989677388
 Iceland,earthquake,1500.0,0.04958676387679192
 Iceland,earthquake,2000.0,0.0
-Iceland,flood,1.0,0.0
-Iceland,flood,20.0,0.0
-Iceland,flood,50.0,0.0
-Iceland,flood,100.0,0.0
-Iceland,flood,250.0,0.0
-Iceland,flood,500.0,0.0
-Iceland,flood,1000.0,0.0
-Iceland,flood,1500.0,0.0
-Iceland,flood,2000.0,0.0
 Iceland,surge,1.0,0.0
 Iceland,surge,20.0,0.0
 Iceland,surge,50.0,0.0
@@ -4273,15 +4095,6 @@ Kiribati,earthquake,500.0,0.0
 Kiribati,earthquake,1000.0,0.0
 Kiribati,earthquake,1500.0,0.0
 Kiribati,earthquake,2000.0,0.0
-Kiribati,flood,1.0,0.0
-Kiribati,flood,20.0,0.0
-Kiribati,flood,50.0,0.0
-Kiribati,flood,100.0,0.0
-Kiribati,flood,250.0,0.0
-Kiribati,flood,500.0,0.0
-Kiribati,flood,1000.0,0.0
-Kiribati,flood,1500.0,0.0
-Kiribati,flood,2000.0,0.0
 Kiribati,surge,1.0,0.0
 Kiribati,surge,20.0,0.0
 Kiribati,surge,50.0,0.0
@@ -4758,15 +4571,6 @@ Liechtenstein,earthquake,500.0,0.036943053867102685
 Liechtenstein,earthquake,1000.0,0.07457145738993795
 Liechtenstein,earthquake,1500.0,0.10411846834172989
 Liechtenstein,earthquake,2000.0,0.0
-Liechtenstein,flood,1.0,0.0
-Liechtenstein,flood,20.0,0.0
-Liechtenstein,flood,50.0,0.0
-Liechtenstein,flood,100.0,0.0
-Liechtenstein,flood,250.0,0.0
-Liechtenstein,flood,500.0,0.0
-Liechtenstein,flood,1000.0,0.0
-Liechtenstein,flood,1500.0,0.0
-Liechtenstein,flood,2000.0,0.0
 Liechtenstein,surge,1.0,0.0
 Liechtenstein,surge,20.0,0.0
 Liechtenstein,surge,50.0,0.0
@@ -4893,15 +4697,6 @@ Luxembourg,wind,2000.0,0.0
 "Macao SAR, China",earthquake,1000.0,0.0
 "Macao SAR, China",earthquake,1500.0,0.0
 "Macao SAR, China",earthquake,2000.0,0.0
-"Macao SAR, China",flood,1.0,0.0
-"Macao SAR, China",flood,20.0,0.0
-"Macao SAR, China",flood,50.0,0.0
-"Macao SAR, China",flood,100.0,0.0
-"Macao SAR, China",flood,250.0,0.0
-"Macao SAR, China",flood,500.0,0.0
-"Macao SAR, China",flood,1000.0,0.0
-"Macao SAR, China",flood,1500.0,0.0
-"Macao SAR, China",flood,2000.0,0.0
 "Macao SAR, China",surge,1.0,0.0
 "Macao SAR, China",surge,20.0,0.0
 "Macao SAR, China",surge,50.0,0.0
@@ -5118,15 +4913,6 @@ Maldives,earthquake,500.0,0.0
 Maldives,earthquake,1000.0,0.0
 Maldives,earthquake,1500.0,0.0
 Maldives,earthquake,2000.0,0.0
-Maldives,flood,1.0,0.0
-Maldives,flood,20.0,0.0
-Maldives,flood,50.0,0.0
-Maldives,flood,100.0,0.0
-Maldives,flood,250.0,0.0
-Maldives,flood,500.0,0.0
-Maldives,flood,1000.0,0.0
-Maldives,flood,1500.0,0.0
-Maldives,flood,2000.0,0.0
 Maldives,surge,1.0,0.0
 Maldives,surge,20.0,0.0
 Maldives,surge,50.0,0.0
@@ -5208,15 +4994,6 @@ Malta,earthquake,500.0,0.019506247600715867
 Malta,earthquake,1000.0,0.038772161275148556
 Malta,earthquake,1500.0,0.056417645754821555
 Malta,earthquake,2000.0,0.0
-Malta,flood,1.0,0.0
-Malta,flood,20.0,0.0
-Malta,flood,50.0,0.0
-Malta,flood,100.0,0.0
-Malta,flood,250.0,0.0
-Malta,flood,500.0,0.0
-Malta,flood,1000.0,0.0
-Malta,flood,1500.0,0.0
-Malta,flood,2000.0,0.0
 Malta,surge,1.0,0.0
 Malta,surge,20.0,0.0
 Malta,surge,50.0,0.0
@@ -5253,15 +5030,6 @@ Marshall Islands,earthquake,500.0,0.0
 Marshall Islands,earthquake,1000.0,0.0
 Marshall Islands,earthquake,1500.0,0.0
 Marshall Islands,earthquake,2000.0,0.0
-Marshall Islands,flood,1.0,0.0
-Marshall Islands,flood,20.0,0.0
-Marshall Islands,flood,50.0,0.0
-Marshall Islands,flood,100.0,0.0
-Marshall Islands,flood,250.0,0.0
-Marshall Islands,flood,500.0,0.0
-Marshall Islands,flood,1000.0,0.0
-Marshall Islands,flood,1500.0,0.0
-Marshall Islands,flood,2000.0,0.0
 Marshall Islands,surge,1.0,0.0
 Marshall Islands,surge,20.0,0.0
 Marshall Islands,surge,50.0,0.0
@@ -5343,15 +5111,6 @@ Mauritius,earthquake,500.0,0.0
 Mauritius,earthquake,1000.0,0.0
 Mauritius,earthquake,1500.0,0.0
 Mauritius,earthquake,2000.0,0.0
-Mauritius,flood,1.0,0.0
-Mauritius,flood,20.0,0.0
-Mauritius,flood,50.0,0.0
-Mauritius,flood,100.0,0.0
-Mauritius,flood,250.0,0.0
-Mauritius,flood,500.0,0.0
-Mauritius,flood,1000.0,0.0
-Mauritius,flood,1500.0,0.0
-Mauritius,flood,2000.0,0.0
 Mauritius,surge,1.0,0.0005491635660925282
 Mauritius,surge,20.0,0.004445937052641577
 Mauritius,surge,50.0,0.006665400211226675
@@ -5433,15 +5192,6 @@ Mexico,wind,2000.0,0.0
 "Micronesia, Fed. Sts.",earthquake,1000.0,0.0044664717840661216
 "Micronesia, Fed. Sts.",earthquake,1500.0,0.005712929026131086
 "Micronesia, Fed. Sts.",earthquake,2000.0,1.3552527156068805e-17
-"Micronesia, Fed. Sts.",flood,1.0,0.0
-"Micronesia, Fed. Sts.",flood,20.0,0.0
-"Micronesia, Fed. Sts.",flood,50.0,0.0
-"Micronesia, Fed. Sts.",flood,100.0,0.0
-"Micronesia, Fed. Sts.",flood,250.0,0.0
-"Micronesia, Fed. Sts.",flood,500.0,0.0
-"Micronesia, Fed. Sts.",flood,1000.0,0.0
-"Micronesia, Fed. Sts.",flood,1500.0,0.0
-"Micronesia, Fed. Sts.",flood,2000.0,0.0
 "Micronesia, Fed. Sts.",surge,1.0,0.0005881310092164423
 "Micronesia, Fed. Sts.",surge,20.0,0.0013725868439405857
 "Micronesia, Fed. Sts.",surge,50.0,0.036696294757460196
@@ -5523,15 +5273,6 @@ Monaco,earthquake,500.0,0.045228418064914754
 Monaco,earthquake,1000.0,0.09668475217701916
 Monaco,earthquake,1500.0,0.13804715104941012
 Monaco,earthquake,2000.0,0.0
-Monaco,flood,1.0,0.0
-Monaco,flood,20.0,0.0
-Monaco,flood,50.0,0.0
-Monaco,flood,100.0,0.0
-Monaco,flood,250.0,0.0
-Monaco,flood,500.0,0.0
-Monaco,flood,1000.0,0.0
-Monaco,flood,1500.0,0.0
-Monaco,flood,2000.0,0.0
 Monaco,surge,1.0,0.0
 Monaco,surge,20.0,0.0
 Monaco,surge,50.0,0.0
@@ -5928,15 +5669,6 @@ New Caledonia,earthquake,500.0,0.009110457947911859
 New Caledonia,earthquake,1000.0,0.01506430670881712
 New Caledonia,earthquake,1500.0,0.020315193446033206
 New Caledonia,earthquake,2000.0,-5.421010862427522e-17
-New Caledonia,flood,1.0,0.0
-New Caledonia,flood,20.0,0.0
-New Caledonia,flood,50.0,0.0
-New Caledonia,flood,100.0,0.0
-New Caledonia,flood,250.0,0.0
-New Caledonia,flood,500.0,0.0
-New Caledonia,flood,1000.0,0.0
-New Caledonia,flood,1500.0,0.0
-New Caledonia,flood,2000.0,0.0
 New Caledonia,surge,1.0,0.01264935069994293
 New Caledonia,surge,20.0,0.05371903724004137
 New Caledonia,surge,50.0,0.0682965880338684
@@ -6153,15 +5885,6 @@ Norway,earthquake,500.0,0.0
 Norway,earthquake,1000.0,0.0
 Norway,earthquake,1500.0,0.0
 Norway,earthquake,2000.0,0.01071532001158413
-Norway,flood,1.0,0.0
-Norway,flood,20.0,0.0
-Norway,flood,50.0,0.0
-Norway,flood,100.0,0.0
-Norway,flood,250.0,0.0
-Norway,flood,500.0,0.0
-Norway,flood,1000.0,0.0
-Norway,flood,1500.0,0.0
-Norway,flood,2000.0,0.0
 Norway,surge,1.0,0.0
 Norway,surge,20.0,0.0
 Norway,surge,50.0,0.0
@@ -6288,15 +6011,6 @@ Palau,earthquake,500.0,0.01288350872425061
 Palau,earthquake,1000.0,0.025728559213503456
 Palau,earthquake,1500.0,0.036112282662899474
 Palau,earthquake,2000.0,5.421010862427522e-17
-Palau,flood,1.0,0.0
-Palau,flood,20.0,0.0
-Palau,flood,50.0,0.0
-Palau,flood,100.0,0.0
-Palau,flood,250.0,0.0
-Palau,flood,500.0,0.0
-Palau,flood,1000.0,0.0
-Palau,flood,1500.0,0.0
-Palau,flood,2000.0,0.0
 Palau,surge,1.0,0.0004960617530401516
 Palau,surge,20.0,0.003948378793103669
 Palau,surge,50.0,0.01316553578090087
@@ -6873,15 +6587,6 @@ San Marino,earthquake,500.0,0.08955264425154655
 San Marino,earthquake,1000.0,0.1397582328027955
 San Marino,earthquake,1500.0,0.1720448960944349
 San Marino,earthquake,2000.0,0.0
-San Marino,flood,1.0,0.0
-San Marino,flood,20.0,0.0
-San Marino,flood,50.0,0.0
-San Marino,flood,100.0,0.0
-San Marino,flood,250.0,0.0
-San Marino,flood,500.0,0.0
-San Marino,flood,1000.0,0.0
-San Marino,flood,1500.0,0.0
-San Marino,flood,2000.0,0.0
 San Marino,surge,1.0,0.0
 San Marino,surge,20.0,0.0
 San Marino,surge,50.0,0.0
@@ -6918,15 +6623,6 @@ Sao Tome and Principe,earthquake,500.0,0.0013756065388420408
 Sao Tome and Principe,earthquake,1000.0,0.002845432703632167
 Sao Tome and Principe,earthquake,1500.0,0.004527253026805483
 Sao Tome and Principe,earthquake,2000.0,6.776263578034403e-18
-Sao Tome and Principe,flood,1.0,0.0
-Sao Tome and Principe,flood,20.0,0.0
-Sao Tome and Principe,flood,50.0,0.0
-Sao Tome and Principe,flood,100.0,0.0
-Sao Tome and Principe,flood,250.0,0.0
-Sao Tome and Principe,flood,500.0,0.0
-Sao Tome and Principe,flood,1000.0,0.0
-Sao Tome and Principe,flood,1500.0,0.0
-Sao Tome and Principe,flood,2000.0,0.0
 Sao Tome and Principe,surge,1.0,0.0
 Sao Tome and Principe,surge,20.0,0.0
 Sao Tome and Principe,surge,50.0,0.0
@@ -7098,15 +6794,6 @@ Seychelles,earthquake,500.0,0.0
 Seychelles,earthquake,1000.0,0.0
 Seychelles,earthquake,1500.0,0.0
 Seychelles,earthquake,2000.0,0.0
-Seychelles,flood,1.0,0.0
-Seychelles,flood,20.0,0.0
-Seychelles,flood,50.0,0.0
-Seychelles,flood,100.0,0.0
-Seychelles,flood,250.0,0.0
-Seychelles,flood,500.0,0.0
-Seychelles,flood,1000.0,0.0
-Seychelles,flood,1500.0,0.0
-Seychelles,flood,2000.0,0.0
 Seychelles,surge,1.0,0.0
 Seychelles,surge,20.0,0.0
 Seychelles,surge,50.0,0.0
@@ -7188,15 +6875,6 @@ Singapore,earthquake,500.0,0.0
 Singapore,earthquake,1000.0,0.0
 Singapore,earthquake,1500.0,0.0
 Singapore,earthquake,2000.0,0.0
-Singapore,flood,1.0,0.0
-Singapore,flood,20.0,0.0
-Singapore,flood,50.0,0.0
-Singapore,flood,100.0,0.0
-Singapore,flood,250.0,0.0
-Singapore,flood,500.0,0.0
-Singapore,flood,1000.0,0.0
-Singapore,flood,1500.0,0.0
-Singapore,flood,2000.0,0.0
 Singapore,surge,1.0,0.0
 Singapore,surge,20.0,0.0
 Singapore,surge,50.0,0.0
@@ -7323,15 +7001,6 @@ Solomon Islands,earthquake,500.0,0.03583621905687606
 Solomon Islands,earthquake,1000.0,0.04885108042030936
 Solomon Islands,earthquake,1500.0,0.05694103377041103
 Solomon Islands,earthquake,2000.0,0.0
-Solomon Islands,flood,1.0,0.0
-Solomon Islands,flood,20.0,0.0
-Solomon Islands,flood,50.0,0.0
-Solomon Islands,flood,100.0,0.0
-Solomon Islands,flood,250.0,0.0
-Solomon Islands,flood,500.0,0.0
-Solomon Islands,flood,1000.0,0.0
-Solomon Islands,flood,1500.0,0.0
-Solomon Islands,flood,2000.0,0.0
 Solomon Islands,surge,1.0,0.0027247946696253265
 Solomon Islands,surge,20.0,0.03450955334685269
 Solomon Islands,surge,50.0,0.06224498912946363
@@ -7593,15 +7262,6 @@ St. Kitts and Nevis,earthquake,500.0,0.27488655321177213
 St. Kitts and Nevis,earthquake,1000.0,0.34457668419235127
 St. Kitts and Nevis,earthquake,1500.0,0.3819788621761355
 St. Kitts and Nevis,earthquake,2000.0,0.0
-St. Kitts and Nevis,flood,1.0,0.0
-St. Kitts and Nevis,flood,20.0,0.0
-St. Kitts and Nevis,flood,50.0,0.0
-St. Kitts and Nevis,flood,100.0,0.0
-St. Kitts and Nevis,flood,250.0,0.0
-St. Kitts and Nevis,flood,500.0,0.0
-St. Kitts and Nevis,flood,1000.0,0.0
-St. Kitts and Nevis,flood,1500.0,0.0
-St. Kitts and Nevis,flood,2000.0,0.0
 St. Kitts and Nevis,surge,1.0,0.0020873475206135204
 St. Kitts and Nevis,surge,20.0,0.029270000924111028
 St. Kitts and Nevis,surge,50.0,0.04885385913629664
@@ -7638,15 +7298,6 @@ St. Lucia,earthquake,500.0,0.11298243526629682
 St. Lucia,earthquake,1000.0,0.15520026176063775
 St. Lucia,earthquake,1500.0,0.18364590924639707
 St. Lucia,earthquake,2000.0,0.0
-St. Lucia,flood,1.0,0.0
-St. Lucia,flood,20.0,0.0
-St. Lucia,flood,50.0,0.0
-St. Lucia,flood,100.0,0.0
-St. Lucia,flood,250.0,0.0
-St. Lucia,flood,500.0,0.0
-St. Lucia,flood,1000.0,0.0
-St. Lucia,flood,1500.0,0.0
-St. Lucia,flood,2000.0,0.0
 St. Lucia,surge,1.0,0.0025311189093098017
 St. Lucia,surge,20.0,0.03814268929309755
 St. Lucia,surge,50.0,0.09688118149233309
@@ -7683,15 +7334,6 @@ St. Vincent and the Grenadines,earthquake,500.0,0.08734751891011223
 St. Vincent and the Grenadines,earthquake,1000.0,0.14294192582624243
 St. Vincent and the Grenadines,earthquake,1500.0,0.17802911457959258
 St. Vincent and the Grenadines,earthquake,2000.0,0.0
-St. Vincent and the Grenadines,flood,1.0,0.0
-St. Vincent and the Grenadines,flood,20.0,0.0
-St. Vincent and the Grenadines,flood,50.0,0.0
-St. Vincent and the Grenadines,flood,100.0,0.0
-St. Vincent and the Grenadines,flood,250.0,0.0
-St. Vincent and the Grenadines,flood,500.0,0.0
-St. Vincent and the Grenadines,flood,1000.0,0.0
-St. Vincent and the Grenadines,flood,1500.0,0.0
-St. Vincent and the Grenadines,flood,2000.0,0.0
 St. Vincent and the Grenadines,surge,1.0,0.0024765411284703195
 St. Vincent and the Grenadines,surge,20.0,0.02210621415961987
 St. Vincent and the Grenadines,surge,50.0,0.0703444834638109
@@ -8268,15 +7910,6 @@ Tonga,earthquake,500.0,0.10731823343461315
 Tonga,earthquake,1000.0,0.1469094312985299
 Tonga,earthquake,1500.0,0.17040327778289294
 Tonga,earthquake,2000.0,-8.673617379884035e-16
-Tonga,flood,1.0,0.0
-Tonga,flood,20.0,0.0
-Tonga,flood,50.0,0.0
-Tonga,flood,100.0,0.0
-Tonga,flood,250.0,0.0
-Tonga,flood,500.0,0.0
-Tonga,flood,1000.0,0.0
-Tonga,flood,1500.0,0.0
-Tonga,flood,2000.0,0.0
 Tonga,surge,1.0,0.0
 Tonga,surge,20.0,0.0
 Tonga,surge,50.0,0.0
@@ -8493,15 +8126,6 @@ Turks and Caicos Islands,earthquake,500.0,0.002544602012808783
 Turks and Caicos Islands,earthquake,1000.0,0.005032021957913998
 Turks and Caicos Islands,earthquake,1500.0,0.007405077767612077
 Turks and Caicos Islands,earthquake,2000.0,-2.710505431213761e-17
-Turks and Caicos Islands,flood,1.0,0.0
-Turks and Caicos Islands,flood,20.0,0.0
-Turks and Caicos Islands,flood,50.0,0.0
-Turks and Caicos Islands,flood,100.0,0.0
-Turks and Caicos Islands,flood,250.0,0.0
-Turks and Caicos Islands,flood,500.0,0.0
-Turks and Caicos Islands,flood,1000.0,0.0
-Turks and Caicos Islands,flood,1500.0,0.0
-Turks and Caicos Islands,flood,2000.0,0.0
 Turks and Caicos Islands,surge,1.0,0.0
 Turks and Caicos Islands,surge,20.0,0.0
 Turks and Caicos Islands,surge,50.0,0.0
@@ -8538,15 +8162,6 @@ Tuvalu,earthquake,500.0,0.0
 Tuvalu,earthquake,1000.0,0.0
 Tuvalu,earthquake,1500.0,0.0
 Tuvalu,earthquake,2000.0,0.0
-Tuvalu,flood,1.0,0.0
-Tuvalu,flood,20.0,0.0
-Tuvalu,flood,50.0,0.0
-Tuvalu,flood,100.0,0.0
-Tuvalu,flood,250.0,0.0
-Tuvalu,flood,500.0,0.0
-Tuvalu,flood,1000.0,0.0
-Tuvalu,flood,1500.0,0.0
-Tuvalu,flood,2000.0,0.0
 Tuvalu,surge,1.0,0.0
 Tuvalu,surge,20.0,0.0
 Tuvalu,surge,50.0,0.0
@@ -8898,15 +8513,6 @@ Vanuatu,earthquake,500.0,0.06726200433512124
 Vanuatu,earthquake,1000.0,0.07999330867985235
 Vanuatu,earthquake,1500.0,0.08785205064048035
 Vanuatu,earthquake,2000.0,0.0
-Vanuatu,flood,1.0,0.0
-Vanuatu,flood,20.0,0.0
-Vanuatu,flood,50.0,0.0
-Vanuatu,flood,100.0,0.0
-Vanuatu,flood,250.0,0.0
-Vanuatu,flood,500.0,0.0
-Vanuatu,flood,1000.0,0.0
-Vanuatu,flood,1500.0,0.0
-Vanuatu,flood,2000.0,0.0
 Vanuatu,surge,1.0,0.007559315999217471
 Vanuatu,surge,20.0,0.022106270977110702
 Vanuatu,surge,50.0,0.028477261968742992
@@ -9033,15 +8639,6 @@ Virgin Islands (U.S.),earthquake,500.0,0.10443002447403284
 Virgin Islands (U.S.),earthquake,1000.0,0.1366859764540345
 Virgin Islands (U.S.),earthquake,1500.0,0.15512382962480634
 Virgin Islands (U.S.),earthquake,2000.0,-8.673617379884035e-16
-Virgin Islands (U.S.),flood,1.0,0.0
-Virgin Islands (U.S.),flood,20.0,0.0
-Virgin Islands (U.S.),flood,50.0,0.0
-Virgin Islands (U.S.),flood,100.0,0.0
-Virgin Islands (U.S.),flood,250.0,0.0
-Virgin Islands (U.S.),flood,500.0,0.0
-Virgin Islands (U.S.),flood,1000.0,0.0
-Virgin Islands (U.S.),flood,1500.0,0.0
-Virgin Islands (U.S.),flood,2000.0,0.0
 Virgin Islands (U.S.),surge,1.0,0.006989877133501066
 Virgin Islands (U.S.),surge,20.0,0.09383957907657305
 Virgin Islands (U.S.),surge,50.0,0.14320115858724208
@@ -9078,15 +8675,6 @@ Virgin Islands (U.S.),wind,2000.0,6.938893903907228e-15
 "Virgin Islands, British",earthquake,1000.0,0.269954539550591
 "Virgin Islands, British",earthquake,1500.0,0.29975581244317445
 "Virgin Islands, British",earthquake,2000.0,-1.734723475976807e-15
-"Virgin Islands, British",flood,1.0,0.0
-"Virgin Islands, British",flood,20.0,0.0
-"Virgin Islands, British",flood,50.0,0.0
-"Virgin Islands, British",flood,100.0,0.0
-"Virgin Islands, British",flood,250.0,0.0
-"Virgin Islands, British",flood,500.0,0.0
-"Virgin Islands, British",flood,1000.0,0.0
-"Virgin Islands, British",flood,1500.0,0.0
-"Virgin Islands, British",flood,2000.0,0.0
 "Virgin Islands, British",surge,1.0,0.0
 "Virgin Islands, British",surge,20.0,0.0
 "Virgin Islands, British",surge,50.0,0.0
