@@ -1,5 +1,4 @@
 from pandas_helper import *
-import numpy as np
 #from res_ind_lib import *
 import os, time
 
@@ -15,6 +14,10 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
 
     if policy_name is None:
         desc = "Baseline"
+
+    elif policy_name == 'borrow_abi':
+        m.borrow_abi = 2
+        desc = 'Increase borrow_abi to 2 for all countries'
 
     # Pov reduction
     elif policy_name=="kp":
@@ -68,16 +71,16 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
         dv = .3 #reduction in v
         f =.05 #fractionof nat pop would get the reduction
         c.v = c.v.unstack().assign(poor=lambda df:(df.poor*(1-dv*f/n))).stack().clip(lower=0)
-
         desc = "Reduce asset\nvulnerability\n(by 30%) of\npoor people\n(5% of the population)"
 
-        #Borrow abi
+    #Borrow abi
     elif policy_name=="bbb_incl":
-            m.borrow_abi = policy_opt
+        m.borrow_abi = policy_opt
 
-        #reconstruction to X years
+    #reconstruction to X years
     elif policy_name=="bbb_fast":
-            m.T_rebuild_K = policy_opt
+        m.T_rebuild_K = policy_opt
+
 
     #previously affected people see their v reduced 30%
     elif 'bbb' in policy_name:
@@ -104,9 +107,8 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
                 h.loc[h.rp==1,'v'] *= (1-dv)
                 h.loc[h.rp!=1,'v'] *= 1-(1/h.rp.astype('int'))*(1-dv)
 
-        elif policy_name=="bbb_standard":
-            disaster_years = 50
-
+        elif policy_name=="bb_standard":
+            disaster_years = 20
             h.fa *= (1-h.fa)**disaster_years
 
         elif policy_name=='bbb_50yrstand':
@@ -118,7 +120,6 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
             #h['fa_scale_fac'] = (1.-h['fa'])**h['exp_val']
             #h['cum_fa_scale_fac'] = h.groupby(['country','hazard','income_cat'])['fa_scale_fac'].transform('prod')
             # These 2 approaches (above and below) produce near-identical (within 0.1%) results.
-
             #h['dfa_1yr'] = (1.-h.fa/h.rp)
             # scale_fac on fa, including probability that the event occurs in a single year
             # --> but this doesn't include the fact that fa is going down each year...
@@ -138,6 +139,21 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
             h = h.drop(['dfa','tmp_fa','cum_dfa'],axis=1)
             #print(h.head())
 
+        elif policy_name=='bbb_complete':
+            m.borrow_abi = 1
+            m.T_rebuild_K = policy_opt
+            n_years = 20
+            h = h.reset_index()
+
+            h['tmp_fa'] = h['fa'].copy()
+            for iyr in range(n_years): h['tmp_fa'] *= (1.-h['tmp_fa']/h['rp'])
+
+            h['dfa'] = h['tmp_fa']/h['fa']
+            h['cum_dfa'] = h.groupby(['country','hazard','income_cat'])['dfa'].transform('prod')
+            h.loc[h.rp<=50,'fa'] *= h.loc[h.rp<=50,'cum_dfa']
+
+            h = h.drop(['dfa','tmp_fa','cum_dfa'],axis=1)
+            #print(h.head())
         #build back better & faster - previously affected people see their v reduced 50%, T_rebuild is reduced too
         elif policy_name=="bbbf":
             m.T_rebuild_K = 3-(policy_opt*5)
@@ -186,7 +202,7 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
         c.v = c.v.unstack().assign(nonpoor=lambda x:(x.nonpoor*(1-dv*f/n))).stack().clip(lower=0)
         desc = "Reduce asset\nvulnerability\n(by 30%) of\nnonpoor people\n(5% of the population)"
 
-    #10% of poor people see their fA reduced 10%
+    #10% or poor people see their fA reduced 10%
     elif policy_name=="fap":
         n = 0.2
         dfa = .05 #reduction in fa
@@ -201,7 +217,7 @@ def apply_policy(m_,c_,h_, policy_name=None, policy_opt=None, a_=None,verbose=Tr
 
 
 
-    #10% of NONpoor people see their fA reduced 10%
+    #10% or NONpoor people see their fA reduced 10%
     elif policy_name=="far":
         n = 0.8
         dfa =.05 #fractionof nat pop would get the reduction

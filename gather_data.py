@@ -13,11 +13,13 @@ from lib_gar_preprocess import *
 
 #define directory
 use_2016_inputs = False
+use_2016_ratings = False
+constant_fa =True
+
 year_str = ''
 if use_2016_inputs: year_str = 'orig_'
 
-#model        = os.getcwd() #get current directory
-model        = os.path.abspath('C:/Users/wb433125/OneDrive - WBG/gRIMM/gRIMM')
+model        = os.getcwd() #get current directory
 inputs       = model+'/'+year_str+'inputs/' #get inputs data directory
 intermediate = model+'/'+year_str+'intermediate/' #get outputs data directory
 
@@ -54,7 +56,16 @@ max_support=0.05
 fa_threshold =  0.9
 
 #Country dictionaries
-any_to_wb=pd.read_csv(inputs+"any_name_to_wb_name.csv",index_col="any",squeeze=True)	#Names to WB names
+any_to_wb=pd.read_csv(inputs+"any_name_to_wb_name.csv",index_col="any") #Names to WB names
+
+for _c in any_to_wb.index:
+    __c = _c.replace(' ','')
+    if __c != _c:
+        try: any_to_wb.loc[__c] = any_to_wb.loc[_c,'wb_name']
+        except: pass
+
+any_to_wb = any_to_wb.squeeze()
+
 iso3_to_wb=pd.read_csv(inputs+"iso3_to_wb_name.csv").set_index("iso3").squeeze()	#iso3 to wb country name table
 iso2_iso3=pd.read_csv(inputs+"names_to_iso.csv", usecols=["iso2","iso3"]).drop_duplicates().set_index("iso2").squeeze() #iso2 to iso3 table
 
@@ -117,14 +128,19 @@ df[["shew","prepare_scaleup","finance_pre"]]=df[["shew","prepare_scaleup","finan
 #df["income_group"]=pd.read_csv(inputs+"income_groups.csv",header=4,index_col=2)["Income group"].dropna()
 
 ###Country Ratings
-the_credit_rating_file=inputs+"cred_rat.csv"
+the_credit_rating_file=inputs+"credit_ratings_scrapy.csv"
+if use_2016_inputs or use_2016_ratings: the_credit_rating_file=inputs+"cred_rat.csv"
+
 nb_weeks=(time.time()-os.stat(the_credit_rating_file).st_mtime )/(3600*24*7)
 if nb_weeks>3:
     warnings.warn("Credit ratings are "+str(int(nb_weeks))+" weeks old. Get new ones at http://www.tradingeconomics.com/country-list/rating")
+    #assert(False)
+
 ratings_raw=pd.read_csv(the_credit_rating_file,dtype="str", encoding="utf8").dropna(how="all") #drop rows where only all columns are NaN.
 ratings_raw=ratings_raw.rename(columns={"Unnamed: 0": "country_in_ratings"})[["country_in_ratings","S&P","Moody's","Fitch"]]	#Rename "Unnamed: 0" to "country_in_ratings" and pick only columns with country_in_ratings, S&P, Moody's and Fitch.
 ratings_raw.country_in_ratings= ratings_raw.country_in_ratings.str.strip().replace(["Congo"],["Congo, Dem. Rep."])	#The creidt rating sources calls DR Congo just Congo. Here str.strip() is needed to remove any space in the raw data. In the raw data, Congo has some spaces after "o". If not used str.strip(), nothing is replaced.
 ratings_raw["country"]= replace_with_warning(ratings_raw.country_in_ratings.apply(str.strip),any_to_wb)	#change country name to wb's name
+
 ratings_raw=ratings_raw.set_index("country")
 ratings_raw=ratings_raw.applymap(mystriper)	#mystriper is a function in lib_gather_data. To lower case and strips blanks.
 
@@ -136,7 +152,7 @@ ratings["Moody's"].replace(rat_disc["moodys"].values,rat_disc["moodys_score"].va
 ratings["Fitch"].replace(rat_disc["fitch"].values,rat_disc["fitch_score"].values,inplace=True)
 ratings["rating"]=ratings.mean(axis=1)/100 #axis=1 is the average across columns, axis=0 is to average across rows. .mean ignores NaN
 df["rating"] = ratings["rating"]
-if debug:
+if True:
     print("some bad rating occurs for" + "; ".join(df.loc[isnull(df.rating)].index))
 df["rating"].fillna(0,inplace=True)  #assumes no rating is bad rating
 
@@ -150,6 +166,8 @@ which_countries["catDDO"]=1
 df = pd.merge ( df.reset_index() , which_countries.reset_index() , on = "country" , how="outer").set_index("country")
 df.loc[df.catDDO==1,"borrow_abi"]=1
 #df.loc[df.catDDO==1,"prepare_scaleup"]=1
+
+#if True: df['borrow_abi'] = 2
 df = df.drop(["catDDO"],axis =1 )
 
 print(df)
@@ -214,6 +232,7 @@ fa_guessed_gar = ((frac_value_destroyed_gar/broadcast_simple(v_unshaved,frac_val
 # Now we will change this to event-specific vulnerabilities...
 fa_guessed_gar.columns = ['fa']
 
+
 # merge v with hazard_ratios
 fa_guessed_gar = pd.merge(fa_guessed_gar.reset_index(),vr.reset_index(),on=economy)
 fa_guessed_gar = pd.merge(fa_guessed_gar.reset_index(),vp.reset_index(),on=economy).drop('index',axis=1)
@@ -264,6 +283,10 @@ fa_with_pe = fa_with_pe.reset_index().set_index(event_level+['income_cat'])
 fa_guessed_gar = fa_guessed_gar.reset_index().set_index(event_level+['income_cat'])
 
 fa_guessed_gar['fa'].update(fa_with_pe['fa'])
+if constant_fa:
+    if use_2016_inputs: fa_guessed_gar.to_csv(inputs+'constant_fa.csv',header=True)
+    else:
+        fa_guessed_gar['fa'].update(pd.read_csv('orig_inputs/constant_fa.csv',index_col=['country','hazard','rp','income_cat'])['fa'])
 
 ###gathers hazard ratios
 hazard_ratios = pd.DataFrame(fa_guessed_gar)
@@ -321,7 +344,8 @@ _hazard_ratios = hazard_ratios.copy('deep')
 #print "OK up to here"
 
 # Create loop over policies
-for apol in [None, ['bbb_incl',1], ['bbb_fast',1], ['bbb_fast',2], ['bbb_fast',4], ['bbb_fast',5], ['bbb_50yrstand',1]]:
+#for apol in [None]:
+for apol in [None, ['bbb_complete',1],['borrow_abi',2], 'unif_poor', ['bbb_incl',1], ['bbb_fast',1], ['bbb_fast',2], ['bbb_fast',4], ['bbb_fast',5], ['bbb_50yrstand',1]]:
 
     pol_opt = None
     try:
@@ -354,4 +378,3 @@ for apol in [None, ['bbb_incl',1], ['bbb_fast',1], ['bbb_fast',2], ['bbb_fast',4
     df_in.to_csv(intermediate+"/macro"+pol_str+".csv",encoding="utf-8", header=True)
     cat_info.to_csv(intermediate+"/cat_info"+pol_str+".csv",encoding="utf-8", header=True)
     hazard_ratios.to_csv(intermediate+"/hazard_ratios"+pol_str+".csv",encoding="utf-8", header=True)
-print (model)
