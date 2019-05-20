@@ -6,6 +6,7 @@ tmp/
 __pycache__/
 *.py[cod]
 *$py.class
+.ipynb_checkpoints/
 
 # Boilerplate gitignores
 # from https://gist.github.com/octocat/9257657
