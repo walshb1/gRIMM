@@ -32,8 +32,8 @@ gar_preprocessing(inputs,intermediate)
 debug = False
 
 #Options and parameters
-arcope = True # Replaces GAR flooding data with GLOFRIS data for the LATAM Water Security Assessments
-ssbn_test =True
+arcope = False # Replaces GAR flooding data with GLOFRIS data for the LATAM Water Security Assessments
+ssbn_test =False
 protection_from_flopros=True #FLOPROS is an evolving global database of flood potection standards. It will be used in Protection.
 no_protection=True #Used in Protection.
 use_GLOFRIS_flood=False  #else uses GAR (True does not work i think)
@@ -45,7 +45,7 @@ economy="country" #province, deparmtent
 event_level = [economy, "hazard", "rp"]	#levels of index at which one event happens
 default_rp = "default_rp" #return period to use when no rp is provided (mind that this works with protection)
 income_cats   = pd.Index(["poor","nonpoor"],name="income_cat")	#categories of households
-affected_cats = pd.Index(["a", "na"]            ,name="affected_cat")	#categories for social protection
+affected_cats = pd.Index(["a", "na"],name="affected_cat")	#categories for social protection
 helped_cats   = pd.Index(["helped","not_helped"],name="helped_cat")
 
 poverty_head=0.2
@@ -409,3 +409,5 @@ for apol in [None, ['bbb_complete',1],['borrow_abi',2], 'unif_poor', ['bbb_incl'
     df_in.to_csv(intermediate+"/macro"+pol_str+".csv",encoding="utf-8", header=True)
     cat_info.to_csv(intermediate+"/cat_info"+pol_str+".csv",encoding="utf-8", header=True)
     hazard_ratios.to_csv(intermediate+"/hazard_ratios"+pol_str+".csv",encoding="utf-8", header=True)
+
+df_in

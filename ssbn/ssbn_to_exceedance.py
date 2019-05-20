@@ -26,7 +26,7 @@ def gtiff_to_array(fname, get_global = False):
         lati = np.array([i for i in range(a.shape[0])])
         xx,yy = np.meshgrid(lons, lats)
         xi,yi = np.meshgrid(loni,lati)
-    return a
+    return
 
 if False:
     # Make an area weighted fa
