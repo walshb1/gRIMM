@@ -10,6 +10,11 @@ __pycache__/
 # Boilerplate gitignores
 # from https://gist.github.com/octocat/9257657
 
+# Geospatial files #
+####################
+*.tif
+
+
 # Compiled source #
 ###################
 *.com
