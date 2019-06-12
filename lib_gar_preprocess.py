@@ -25,19 +25,20 @@ def str_to_float(s):
     except ValueError: return s
 
 def gar_preprocessing(inputs,intermediates):
+
     global iso3_to_wb
-	
+
     iso3_to_wb = pd.read_csv('inputs/iso3_to_wb_name.csv', index_col='iso3', squeeze=True)
-	
+
     #Names to WB names
     any_to_wb = pd.read_csv('inputs/any_name_to_wb_name.csv',index_col='any',squeeze=True)
 
     #######
-    # AAL
+    # AAL - Annual Average Loss
     #
     #agg data
-    gar_aal_data = pd.read_csv('inputs/GAR15 results feb 2016_AALmundo.csv') 
-			
+    gar_aal_data = pd.read_csv('inputs/GAR15 results feb 2016_AALmundo.csv')
+
 	# These are part of France and the UKxs
     gar_aal_data.ISO.replace(['GUF', 'GLP', 'MTQ', 'MYT', 'REU'],'FRA', inplace=True)
     gar_aal_data.ISO.replace(['FLK', 'GIB', 'MSR'],'GBR', inplace=True)
@@ -58,7 +59,6 @@ def gar_preprocessing(inputs,intermediates):
 
     #gar_aal_data
     AAL = (gar_aal_data.T/gar_exposed_value).T
-	
 
     # wind and surge
     aal_surge = get_dk_over_k_from_file('inputs/GAR_data_surge.csv')
@@ -76,6 +76,7 @@ def gar_preprocessing(inputs,intermediates):
     AAL_splitted.index.names=['country', 'hazard']
 
     # PMLs and Exposed value
+    # PMLs = Probable Maximum Loss
     gardata =pd.read_csv('inputs/GAR15 results feb 2016_PML mundo.csv', encoding='latin-1', header=[0,1,2], index_col=0)#.sort_index(axis=1)
     gardata.index.name = 'country'
 
@@ -126,7 +127,7 @@ def gar_preprocessing(inputs,intermediates):
     #capital_losses_from_GAR_events = pd.read_csv("intermediate/capital_losses_from_GAR_events.csv", index_col=["country","hazard","rp"], squeeze=True)
     #frac_cap_distroyed_from_events = capital_losses_from_GAR_events/ev_gar.median(level="country")
     #frac_cap_distroyed_from_events.to_csv("intermediate/frac_cap_distroyed_from_events.csv", header=True)
-    
+
 	#print((average_over_rp(frac_cap_distroyed_from_events).squeeze()/ AAL_splitted ).replace(np.inf,np.nan).dropna().sort_values())
 
     # adds event to PML to complete AAL (old bad method)

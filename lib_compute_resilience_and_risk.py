@@ -76,7 +76,7 @@ def process_input(pol_str,macro,cat_info,hazard_ratios,economy,event_level,defau
     cats_event = broadcast_simple(cat_info,event_level_index)
     cats_event['v'] = hazard_ratios['v']
     print("pulling 'v' into cats_event from hazard_ratios")
-        
+
     #updates columns in cats with columns in hazard_ratios_event
     # applies mh ratios to relevant columns
     cols_c = [c for c in cats_event if c in hazard_ratios_event] #columns that are both in cats_event and hazard_ratios_event
@@ -289,17 +289,23 @@ def compute_response(macro_event, cats_event_iah, event_level, optionT="data", o
 
 
 
-def compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_iah=True):
+def compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_iah=True, arcope = False):
+
     cats_event_iah["dc_npv_post"] = cats_event_iah["dc_npv_pre"] -  cats_event_iah["help_received"]  + cats_event_iah["help_fee"]
     cats_event_iah["dw"] = calc_delta_welfare(cats_event_iah, macro_event)
-
-    #aggregates dK and delta_W at df level
-    dK      = agg_to_event_level(cats_event_iah,"dk",event_level)
-    delta_W = agg_to_event_level(cats_event_iah,"dw",event_level)
-
-    ###########
-    #OUTPUT
-    df_out = pd.DataFrame(index=macro_event.index)
+    # Fixes some bugs for running by country, hazard, rp, AND income_cat
+    if arcope:
+        macro_event = broadcast_simple(macro_event, cats_event_iah.index)
+        dK      = agg_to_event_level(cats_event_iah,"dk",event_level)
+        delta_W = agg_to_event_level(cats_event_iah,"dw",event_level)
+        df_out = pd.DataFrame(index=cats_event_iah.index)
+    else:
+        #aggregates dK and delta_W at df level
+        dK      = agg_to_event_level(cats_event_iah,"dk",event_level)
+        delta_W = agg_to_event_level(cats_event_iah,"dw",event_level)
+        ###########
+        #OUTPUT
+        df_out = pd.DataFrame(index=macro_event.index)
 
     df_out["dK"] = dK
     df_out["dKtot"]=dK*macro_event["pop"]
@@ -309,6 +315,7 @@ def compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_i
 
     if return_stats:
         if not "has_received_help_from_PDS_cat" in cats_event_iah.columns:
+            # setdiff1d: Find the set difference of two arrays.
             stats = np.setdiff1d(cats_event_iah.columns,event_level+['helped_cat',  'affected_cat',     'income_cat'])
         else:
             stats = np.setdiff1d(cats_event_iah.columns,event_level+['helped_cat',  'affected_cat',     'income_cat','has_received_help_from_PDS_cat'])
@@ -421,8 +428,13 @@ def agg_to_economy_level (df, seriesname,economy):
 
 def agg_to_event_level (df, seriesname,event_level):
     """ aggregates seriesname in df (string of list of string) to event level (country, hazard, rp) across income_cat and affected_cat using n in df as weight
-    does NOT normalize weights to 1."""
-    return (df[seriesname].T*df["n"]).T.sum(level=event_level)
+    does NOT normalize weights to 1. If the series name is n, then return n directly instead of n^2"""
+    a = (df[seriesname].T*df["n"]).T.sum(level=event_level)
+
+    if 'n' in seriesname:
+        a['n'] = df['n'].sum(level=event_level)
+    return a
+
 
 def calc_delta_welfare(micro, macro):
     """welfare cost from consumption before (c)
@@ -437,10 +449,13 @@ def welf(c,elast):
     y=(c**(1-elast)-1)/(1-elast)
     return y
 
-def average_over_rp(df,default_rp,protection=None):
+def average_over_rp(df,default_rp,protection=None,arcope = False):
     """Aggregation of the outputs over return periods"""
     if protection is None:
-        protection=pd.Series(0,index=df.index)
+        if arcope:
+            protection=pd.Series(1,index=df.index)
+        else:
+            protection=pd.Series(0,index=df.index)
 
     #just drops rp index if df contains default_rp
     if default_rp in df.index.get_level_values("rp"):
@@ -468,10 +483,12 @@ def average_over_rp(df,default_rp,protection=None):
 
     #average weighted by proba
     averaged = df.mul(proba_serie,axis=0).sum(level=idxlevels) # frequency times each variables in the columns including rp.
+    # Bug check - rps should add up to one when multiplied by the probability series.
+    averaged['rp'] = proba_serie.groupby(level = proba_serie.index.names).sum()
 
     return averaged.drop("rp",axis=1) #here drop rp.
 
-def calc_risk_and_resilience_from_k_w(df, is_local_welfare=True):
+def calc_risk_and_resilience_from_k_w(df, is_local_welfare=True,arcope = False):
     """Computes risk and resilience from dk, dw and protection. Line by line: multiple return periods or hazard is transparent to this function"""
     df=df.copy()
 
@@ -480,6 +497,10 @@ def calc_risk_and_resilience_from_k_w(df, is_local_welfare=True):
     #discount rate
     rho = df["rho"]
     h=1e-4
+    if arcope:
+        # print('changed gdp to consumption')
+        pass # df["gdp_pc_pp"] = df['c']
+
 
     if is_local_welfare:
         wprime =(welf(df["gdp_pc_pp"]/rho+h,df["income_elast"])-welf(df["gdp_pc_pp"]/rho-h,df["income_elast"]))/(2*h)
@@ -489,7 +510,10 @@ def calc_risk_and_resilience_from_k_w(df, is_local_welfare=True):
     dWref   = wprime*df["dK"]
 
     #expected welfare loss (per family and total)
+
     df["dWpc_currency"] = df["delta_W"]/wprime
+    df['wprime'] = wprime
+    df['dWref'] = dWref
     df["dWtot_currency"]=df["dWpc_currency"]*df["pop"]
 
     #Risk to welfare as percentage of local GDP

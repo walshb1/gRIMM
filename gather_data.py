@@ -10,6 +10,9 @@ import os, time
 import warnings
 warnings.filterwarnings("always",category=UserWarning)
 from lib_gar_preprocess import *
+# %matplotlib inline
+import matplotlib.pyplot as plt
+
 
 #define directory
 use_2016_inputs = False
@@ -19,16 +22,17 @@ constant_fa =False
 year_str = ''
 if use_2016_inputs: year_str = 'orig_'
 
+# Store directory names in variables
 model        = os.getcwd() #get current directory
 inputs       = model+'/'+year_str+'inputs/' #get inputs data directory
 intermediate = model+'/'+year_str+'intermediate/' #get outputs data directory
 
+# Make an intermediate folder
 if not os.path.exists(intermediate): os.makedirs(intermediate)
 # ^ if the depository directory doesn't exist, create one
 
 # Run GAR preprocessing
 gar_preprocessing(inputs,intermediate)
-
 debug = False
 
 #Options and parameters
@@ -256,6 +260,26 @@ if arcope:
         # ar_ssbn = ar_ssbn.astype(float)
 frac_value_destroyed_gar.index.levels[1]
 
+if False:
+    glb =  frac_value_destroyed_gar.unstack(-2)['flood'].mean(level = 1)
+    glb = frac_value_destroyed_gar.unstack(-2)['flood'].mean(level = 1).to_frame().set_index(pd.MultiIndex.from_product((['Global average'], glb.index)))
+    la = ['Argentina', 'Bolivia','Brazil','Chile','Colombia','Costa Rica','Ecuador','El Salvador','Guatemala','Guyana','Honduras','Mexico','Nicaragua',
+         'Panama','Paraguay','Peru','Uruguay']
+    glb = glb.append(frac_value_destroyed_gar.unstack(-2).loc[la]['flood'].mean(level = 1).to_frame().set_index(pd.MultiIndex.from_product((['Latin America Average'], glb.index.levels[1]))))
+    glb = glb.append(frac_value_destroyed_gar.unstack(-2).loc[['Argentina','Colombia','Peru']]['flood'].to_frame())
+    glb = glb.drop(2000, level = 1)
+    glb.squeeze().unstack().T.plot(figsize = (12,9))
+    plt.xlabel('Return Period')
+    plt.ylabel('Fraction Affected')
+    plt.tight_layout()
+    plt.savefig('fa_arcope.png')
+
+    glb = glb.reset_index().set_index('level_0')
+    glb['level_1'] = 1/glb['level_1']
+    glb.reset_index().set_index("level_0").plot(kind= 'scatter', x = 'level_1', y = 'flood')
+
+
+
 
 fa_guessed_gar = ((frac_value_destroyed_gar/broadcast_simple(v_unshaved,frac_value_destroyed_gar.index)).dropna()).to_frame()
 #fa is the fraction of asset affected. broadcast_simple, substitute the value in frac_value_destroyed_gar by values in v_unshaved.
@@ -409,5 +433,3 @@ for apol in [None, ['bbb_complete',1],['borrow_abi',2], 'unif_poor', ['bbb_incl'
     df_in.to_csv(intermediate+"/macro"+pol_str+".csv",encoding="utf-8", header=True)
     cat_info.to_csv(intermediate+"/cat_info"+pol_str+".csv",encoding="utf-8", header=True)
     hazard_ratios.to_csv(intermediate+"/hazard_ratios"+pol_str+".csv",encoding="utf-8", header=True)
-
-df_in
