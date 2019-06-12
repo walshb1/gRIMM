@@ -82,46 +82,54 @@ dkdw_event = dkdw_event.loc[~dkdw_event.index.duplicated(keep='first')]
 dkdw_poor = dkdw_event.loc[idx[:,:,:,'poor'],].reset_index(-1).drop('income_cat',axis = 1)
 dkdw_nonpoor = dkdw_event.loc[idx[:,:,:,'nonpoor'],].reset_index(-1).drop('income_cat',axis = 1)
 
-
 dkdw_h_poor = average_over_rp(dkdw_poor,default_rp,arcope = True)
 dkdw_h_poor['income_cat'] = 'poor'
 dkdw_h_nonpoor = average_over_rp(dkdw_nonpoor,default_rp,arcope = True)
 dkdw_h_nonpoor['income_cat'] = 'nonpoor'
 dkdw_h['income_cat'] = 'total'
 
-
-
 dkdw_income_cat = pd.concat((dkdw_h_poor,dkdw_h_nonpoor,dkdw_h)).reset_index().set_index([economy,'hazard','income_cat']).sort_index()
-
 dkdw_income_cat = (dkdw_income_cat.T/dkdw_income_cat['n']).T
 dkdw_income_cat_flood = dkdw_income_cat.loc[idx[:,'flood'],].reset_index().set_index([economy,'income_cat']).drop('hazard',axis = 1)
 
-
-
 def get_dkdw(df_income_cat, ic= 'total'):
-    dkdw_ic = df_income_cat.loc[idx[:,:,ic],].droplevel(level = -1)
+    try:
+        dkdw_ic = df_income_cat.loc[idx[:,:,ic],].droplevel(level = -1)
+    except:
+        dkdw_ic = df_income_cat.loc[idx[:,ic],].droplevel(level = -1)
     dkdw2 = dkdw_ic.sum(level=economy) # There's a bug in how these are aggregated in the main script
     for i in av_lis:
         dkdw2[i] = dkdw_ic[i].mean(level=economy)
-
+    print(ic)
     dkdw2['income_cat'] = ic
     return dkdw2
 
+
 dfs = []
+dfs_flood = []
 for i in ['total','nonpoor','poor']:
     _dkdw = get_dkdw(dkdw_income_cat,i)
     macro[_dkdw.columns]=get_dkdw(dkdw_income_cat,i)
     _macro = calc_risk_and_resilience_from_k_w(macro, is_local_welfare, arcope = True)
     dfs.append(_macro)
-
-
+    _dkdw = get_dkdw(dkdw_income_cat_flood,i)
+    macro[_dkdw.columns]=get_dkdw(dkdw_income_cat_flood,i)
+    _macro = calc_risk_and_resilience_from_k_w(macro, is_local_welfare, arcope = True)
+    dfs_flood.append(_macro)
 
 
 df = pd.concat(dfs).reset_index().set_index(['country','income_cat']).sort_index()
 df['income_losses_pre'] = df['dc_npv_pre']-df['dK']
 df['income_losses_post'] = df['dc_npv_post']-df['dK']
-
-
 df2 = df[['income_losses_pre','income_losses_post','dc_npv_pre','dc_npv_post','dWpc_currency','risk','risk_to_assets','resilience']]
 df2.loc[['Argentina','Colombia','Peru']].T
 df.to_csv('results_arcope.csv')
+
+
+
+df = pd.concat(dfs_flood).reset_index().set_index(['country','income_cat']).sort_index()
+df['income_losses_pre'] = df['dc_npv_pre']-df['dK']
+df['income_losses_post'] = df['dc_npv_post']-df['dK']
+df2 = df[['income_losses_pre','income_losses_post','dc_npv_pre','dc_npv_post','dWpc_currency','risk','risk_to_assets','resilience']]
+df2.loc[['Argentina','Colombia','Peru']].T
+df.to_csv('results_arcope_flood.csv')
