@@ -26,7 +26,7 @@ if use_published_inputs:
 results_policy_summary = pd.DataFrame(index=pd.read_csv(intermediate+"macro.csv", index_col='country').dropna().index)
 #for pol_str in ['']:
 for pol_str in ['','_bbb_complete1','_bbb_incl1','_bbb_fast1','_bbb_fast2','_bbb_fast4','_bbb_fast5','_bbb_50yrstand1']:
-
+    pol_str = ''
     print(pol_str)
     optionFee="tax"
     optionPDS="unif_poor"
@@ -41,24 +41,54 @@ for pol_str in ['','_bbb_complete1','_bbb_incl1','_bbb_fast1','_bbb_fast2','_bbb
     print('optionFee =',optionFee, 'optionPDS =', optionPDS, 'optionB =', optionB, 'optionT =', optionT)
 
     #Options and parameters
-    economy="country" #province, deparmtent
-    event_level = [economy, "hazard", "rp"]	#levels of index at which one event happens
+    economy= "country" #province, deparmtent
+    event_level = [economy,"hazard", "rp"]	#levels of index at which one event happens
     default_rp = "default_rp" #return period to use when no rp is provided (mind that this works with protection)
     income_cats   = pd.Index(["poor","nonpoor"],name="income_cat")	#categories of households
     affected_cats = pd.Index(["a", "na"]            ,name="affected_cat")	#categories for social protection
     helped_cats   = pd.Index(["helped","not_helped"],name="helped_cat")
 
-    #read data
-    macro = pd.read_csv(intermediate+'macro'+pol_str+".csv", index_col=economy).dropna()
-    cat_info = pd.read_csv(intermediate+'cat_info'+pol_str+".csv",  index_col=[economy, "income_cat"]).dropna()
-    hazard_ratios = pd.read_csv(intermediate+'hazard_ratios'+pol_str+".csv", index_col=event_level+["income_cat"]).dropna()
-    groups =  pd.read_csv(inputs+"income_groups.csv",header =4,index_col=2)
-    country_per_gp = groups["Income group"].reset_index().dropna().set_index("Income group").squeeze()
-    country_per_rg = groups["Region"].reset_index().dropna().set_index("Region").squeeze()
+    # Toggle to make country a country, source tuple
+    if True:
+        # Check and make unique countries for each data source
+        hazard_ratios = pd.read_csv(intermediate+'hazard_ratios'+pol_str+".csv").dropna()
+        results_index = hazard_ratios.set_index(['country', 'source']).index # pd.MultiIndex.from_tuples(hazard_ratios.apply(lambda x: (x.country, x.source), axis =1))
+
+        hazard_ratios[economy] = hazard_ratios.apply(lambda x: (x.country+'_'+x.source), axis =1)
+        hazard_ratios = hazard_ratios.set_index(event_level+["income_cat"]).drop('source', axis =1)
+
+        tuple_filter = hazard_ratios.index.levels[0]
+
+
+        def reindex(df, tuple_filter=tuple_filter, results_index=results_index):
+            names = df.index.names
+            df = broadcast_simple(df, results_index)
+            df = df.reset_index()
+            df[economy] = df.reset_index().apply(lambda x: (x.country+'_'+x.source), axis =1)
+            df = df.set_index(economy)
+            df = df.loc[tuple_filter]
+            df = df.reset_index().set_index(names).sort_index()
+            return df.dropna().drop('source', axis =1)
+        macro = pd.read_csv(intermediate+'macro'+pol_str+".csv", index_col=economy).dropna()
+        macro = reindex(macro)
+        cat_info = reindex(pd.read_csv(intermediate+'cat_info'+pol_str+".csv",  index_col=[economy, "income_cat"]).dropna())
+        groups =  pd.read_csv(inputs+"income_groups.csv",header =4,index_col=2)
+        country_per_gp = groups["Income group"].reset_index().dropna().set_index("Income group").squeeze()
+        country_per_rg = groups["Region"].reset_index().dropna().set_index("Region").squeeze()
+
+    else:
+        #read data
+        hazard_ratios = pd.read_csv(intermediate+'hazard_ratios'+pol_str+".csv", index_col=event_level+["income_cat"]).dropna()
+        macro = pd.read_csv(intermediate+'macro'+pol_str+".csv", index_col=economy).dropna()
+        # broadcast_simple(macro,hazard_ratios.reset_index().set_index(['country','source']).index.loc[hazard_ratios.index.codes]
+        cat_info = pd.read_csv(intermediate+'cat_info'+pol_str+".csv",  index_col=[economy, "income_cat"]).dropna()
+        groups =  pd.read_csv(inputs+"income_groups.csv",header =4,index_col=2)
+        country_per_gp = groups["Income group"].reset_index().dropna().set_index("Income group").squeeze()
+        country_per_rg = groups["Region"].reset_index().dropna().set_index("Region").squeeze()
 
     #compute
     macro_event, cats_event, hazard_ratios_event, macro = process_input(pol_str,macro,cat_info,hazard_ratios,economy,event_level,default_rp,verbose_replace=True) #verbose_replace=True by default, replace common columns in macro_event and cats_event with those in hazard_ratios_event
-
+    # cats_event = cats_event.fillna(0)
     macro_event, cats_event_ia = compute_dK(macro_event, cats_event,event_level,affected_cats) #calculate the actual vulnerability, the potential damange to capital, and consumption
 
     macro_event, cats_event_iah = calculate_response(macro_event,cats_event_ia,event_level,helped_cats,optionFee=optionFee,optionT=optionT, optionPDS=optionPDS, optionB=optionB,loss_measure="dk",fraction_inside=1, share_insured=.25)
@@ -69,6 +99,8 @@ for pol_str in ['','_bbb_complete1','_bbb_incl1','_bbb_fast1','_bbb_fast2','_bbb
 
     macro_event.to_csv('output/macro_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
     cats_event_iah.to_csv('output/cats_event_iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
+
+
 
     out = compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_iah=True)
 

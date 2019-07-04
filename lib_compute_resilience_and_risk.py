@@ -263,23 +263,22 @@ def compute_response(macro_event, cats_event_iah, event_level, optionT="data", o
     elif optionB=='no':
         pass
 
-
     if optionPDS=="unif_poor":
-        macro_event["unif_aid"] = macro_event["aid"]/(cats_event_iah.ix[(cats_event_iah.helped_cat=="helped"),"n"].sum(level=event_level))
+        macro_event["unif_aid"] = macro_event["aid"].values/((cats_event_iah.ix[(cats_event_iah.helped_cat=="helped"),"n"].sum(level=event_level))+1e-9)
         cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_received"] = macro_event["unif_aid"]
         cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped'),"help_received"]=0
         # Step 4: help_received = unif_aid = aid/(N hh helped)
 
     elif optionPDS=="unif_poor_only":
-        macro_event["unif_aid"] = macro_event["aid"]/(cats_event_iah.ix[(cats_event_iah.helped_cat=="helped")&(cats_event_iah.income_cat=='poor'),"n"].sum(level=event_level))
+        macro_event["unif_aid"] = macro_event["aid"]/(cats_event_iah.ix[(cats_event_iah.helped_cat=="helped")&(cats_event_iah.income_cat=='poor'),"n"].sum(level=event_level)+1e-9)
         cats_event_iah.ix[(cats_event_iah.helped_cat=='helped'),"help_received"] = macro_event["unif_aid"]
         cats_event_iah.ix[(cats_event_iah.helped_cat=='not_helped')|(cats_event_iah.income_cat=='nonpoor'),"help_received"]=0
     elif optionPDS=="prop":
-        cats_event_iah["help_received"] = macro_event["aid"]/macro_event["need"]*cats_event_iah["help_received"]
+        cats_event_iah["help_received"] = macro_event["aid"]/(macro_event["need"]*cats_event_iah["help_received"]+1e-9)
 
 
     if optionFee=="tax":
-        cats_event_iah["help_fee"] = fraction_inside*macro_event["aid"]*cats_event_iah["k"]/agg_to_event_level(cats_event_iah,"k",event_level)
+        cats_event_iah["help_fee"] = fraction_inside*macro_event["aid"]*cats_event_iah["k"]/(agg_to_event_level(cats_event_iah,"k",event_level)+1e-9)
     elif optionFee=="insurance_premium":
         cats_event_iah.ix[(cats_event_iah.income_cat=='poor'),"help_fee"] = fraction_inside*agg_to_event_level(cats_event_iah.query("income_cat=='poor'"),'help_received',event_level)/(cats_event_iah.query("income_cat=='poor'").n.sum())
         cats_event_iah.ix[(cats_event_iah.income_cat=='nonpoor'),"help_fee"] = fraction_inside*agg_to_event_level(cats_event_iah.query("income_cat=='nonpoor'"),'help_received',event_level)/(cats_event_iah.query("income_cat=='nonpoor'").n.sum())
@@ -287,7 +286,7 @@ def compute_response(macro_event, cats_event_iah, event_level, optionT="data", o
     return macro_event, cats_event_iah
 
 
-
+# pd.Series([1,2,3])/pd.Series([1,2,3])
 
 def compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_iah=True, arcope = False):
 
@@ -469,10 +468,10 @@ def average_over_rp(df,default_rp,protection=None,arcope = False):
     return_periods=np.unique(df["rp"].dropna())
 
     proba = pd.Series(np.diff(np.append(1/return_periods,0)[::-1])[::-1],index=return_periods) #removes 0 from the rps
-
+    print(proba)
     #matches return periods and their frequency
     proba_serie=df["rp"].replace(proba)
-
+    print(proba_serie)
     #removes events below the protection level
     proba_serie[protection>df.rp] =0
 
@@ -486,7 +485,7 @@ def average_over_rp(df,default_rp,protection=None,arcope = False):
     # Bug check - rps should add up to one when multiplied by the probability series.
     averaged['rp'] = proba_serie.groupby(level = proba_serie.index.names).sum()
 
-    return averaged.drop("rp",axis=1) #here drop rp.
+    return averaged#.drop("rp",axis=1) #here drop rp.
 
 def calc_risk_and_resilience_from_k_w(df, is_local_welfare=True,arcope = False):
     """Computes risk and resilience from dk, dw and protection. Line by line: multiple return periods or hazard is transparent to this function"""
@@ -512,8 +511,7 @@ def calc_risk_and_resilience_from_k_w(df, is_local_welfare=True,arcope = False):
     #expected welfare loss (per family and total)
 
     df["dWpc_currency"] = df["delta_W"]/wprime
-    df['wprime'] = wprime
-    df['dWref'] = dWref
+
     df["dWtot_currency"]=df["dWpc_currency"]*df["pop"]
 
     #Risk to welfare as percentage of local GDP
