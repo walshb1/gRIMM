@@ -60,15 +60,17 @@ for pol_str in ['','_bbb_complete1','_bbb_incl1','_bbb_fast1','_bbb_fast2','_bbb
         tuple_filter = hazard_ratios.index.levels[0]
 
 
-        def reindex(df, tuple_filter=tuple_filter, results_index=results_index):
+        def reindex(df, tuple_filter=tuple_filter, results_index=results_index, broadcast = True):
             names = df.index.names
-            df = broadcast_simple(df, results_index)
+            if broadcast:
+                df = broadcast_simple(df, results_index)
             df = df.reset_index()
             df[economy] = df.reset_index().apply(lambda x: (x.country+'_'+x.source), axis =1)
             df = df.set_index(economy)
             df = df.loc[tuple_filter]
             df = df.reset_index().set_index(names).sort_index()
             return df.dropna().drop('source', axis =1)
+
         macro = pd.read_csv(intermediate+'macro'+pol_str+".csv", index_col=economy).dropna()
         macro = reindex(macro)
         cat_info = reindex(pd.read_csv(intermediate+'cat_info'+pol_str+".csv",  index_col=[economy, "income_cat"]).dropna())
@@ -97,11 +99,15 @@ for pol_str in ['','_bbb_complete1','_bbb_incl1','_bbb_fast1','_bbb_fast2','_bbb
     #optionB:one_per_affected, one_per_helped, one, unlimited, data, unif_poor, max01, max05
     #optionPDS: unif_poor, no, "prop", "prop_nonpoor"
 
-    macro_event.to_csv('output/macro_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
-    cats_event_iah.to_csv('output/cats_event_iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
+    def clean_index(df):
+        df = df.reset_index()
+        df['source'] = df[economy].apply(lambda x: (x[x.index('_')+1:]))
+        df['country'] = df[economy].apply(lambda x: x[:x.index('_')])
+        return df.set_index(['country','source'])
 
-
-
+    clean_index(macro_event).to_csv('output/macro_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
+    clean_index(cats_event_iah).to_csv('output/cats_event_iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
+    
     out = compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_iah=True)
 
     #Computes
@@ -110,8 +116,8 @@ for pol_str in ['','_bbb_complete1','_bbb_incl1','_bbb_fast1','_bbb_fast2','_bbb
     results,iah = process_output(macro,out,macro_event,economy,default_rp,return_iah=True,is_local_welfare=True)
 
     #Saves
-    results.to_csv('output/results_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
-    iah.to_csv('output/iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
+    clean_index(results).to_csv('output/results_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
+    clean_index(iah).to_csv('output/iah_'+optionFee+'_'+optionPDS+'_'+pol_str+'.csv',encoding="utf-8", header=True)
 
     results_policy_summary[pol_str+'_dw_tot_curr'] = results['dWtot_currency']
 results_policy_summary.to_csv('output/results_policy_summary.csv')

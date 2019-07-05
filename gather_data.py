@@ -10,7 +10,7 @@ import os, time
 import warnings
 warnings.filterwarnings("always",category=UserWarning)
 from lib_gar_preprocess import *
-%matplotlib inline
+# %matplotlib inline
 import matplotlib.pyplot as plt
 
 #define directory

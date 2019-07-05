@@ -291,7 +291,9 @@ def compute_response(macro_event, cats_event_iah, event_level, optionT="data", o
 def compute_dW(macro_event,cats_event_iah,event_level,return_stats=True,return_iah=True, arcope = False):
 
     cats_event_iah["dc_npv_post"] = cats_event_iah["dc_npv_pre"] -  cats_event_iah["help_received"]  + cats_event_iah["help_fee"]
-    cats_event_iah["dw"] = calc_delta_welfare(cats_event_iah, macro_event)
+    micro =cats_event_iah.copy()
+    macro = macro_event.copy()
+    cats_event_iah["dw"] = calc_delta_welfare(micro,macro)
     # Fixes some bugs for running by country, hazard, rp, AND income_cat
     if arcope:
         macro_event = broadcast_simple(macro_event, cats_event_iah.index)
@@ -440,7 +442,6 @@ def calc_delta_welfare(micro, macro):
     an after (dc_npv_post) event. Line by line"""
     #computes welfare losses per category
     dw = welf(micro["c"]/macro["rho"], macro["income_elast"]) - welf(micro["c"]/macro["rho"]-(micro["dc_npv_post"]), macro["income_elast"])
-
     return dw
 
 def welf(c,elast):
@@ -468,10 +469,10 @@ def average_over_rp(df,default_rp,protection=None,arcope = False):
     return_periods=np.unique(df["rp"].dropna())
 
     proba = pd.Series(np.diff(np.append(1/return_periods,0)[::-1])[::-1],index=return_periods) #removes 0 from the rps
-    print(proba)
+    # print(proba)
     #matches return periods and their frequency
     proba_serie=df["rp"].replace(proba)
-    print(proba_serie)
+    # print(proba_serie)
     #removes events below the protection level
     proba_serie[protection>df.rp] =0
 
